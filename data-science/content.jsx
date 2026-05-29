@@ -849,6 +849,7 @@ function Section82({ progress, setProgress }) {
         <p className="lead">Scientists build simplified representations of complex phenomena to understand, predict, and communicate how the world works.</p>
       </div>
 
+      <Figure src="img/model.png" caption="A trend line models the pattern in scattered data and predicts what comes next." />
       <DotPoint id="8.2.1" title="Scientific inquiry compared with non-scientific approaches" progress={progress} setProgress={setProgress}>
         <p>
           <Term def="A systematic process for investigating natural phenomena that relies on evidence, reproducibility, and the willingness to revise conclusions when new data emerge.">Scientific inquiry</Term> depends on evidence. A scientific claim must be <Term def="Capable of being confirmed or refuted by gathering evidence through experiment or observation.">testable</Term>: it must be possible to design an investigation that could support or disprove it. Scientists conduct controlled experiments, measure variables carefully, and subject their findings to <Term def="The process by which other qualified scientists examine a study's methods, data, and conclusions before results are published.">peer review</Term>.
@@ -1065,6 +1066,7 @@ function Section84({ progress, setProgress }) {
         <p className="lead">Good data collection is the foundation of reliable science. Learn to ask testable questions, calculate key statistics, and find patterns.</p>
       </div>
 
+      <Figure src="img/analysing.png" caption="Repeated trials are collected, charted and examined for patterns." />
       <DotPoint id="8.4.1" title="Formulating and investigating scientific questions" progress={progress} setProgress={setProgress}>
         <p>
           A <Term def="A question that can be investigated by collecting and analysing measurable data, with identifiable variables and a testable prediction.">scientific question</Term> is specific, measurable, and testable. Compare "Does exercise affect pulse?" with "Does 10 minutes of jogging change the resting pulse rate (beats per minute) of Year 8 students measured 2 minutes after stopping?" The second version identifies the <Term def="The variable a researcher deliberately changes in an experiment.">independent variable</Term> (jogging time), the <Term def="The variable measured as a result of changing the independent variable.">dependent variable</Term> (pulse rate), the subjects, and the measurement method.
@@ -1231,6 +1233,7 @@ function Section85({ progress, setProgress }) {
 mountTopicApp({
   year: 8,
   topicTitle: "Data Science 1",
+  heroImage: "img/hero.png",
   strand: "Stage 4 · NSW Science",
   accent: "teal",
   storageKey: "y8.datascience",

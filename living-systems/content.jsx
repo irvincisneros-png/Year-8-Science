@@ -338,6 +338,7 @@ function Section51({ progress, setProgress }) {
         <p className="lead">Your body is organised in layers, from the tiniest cell all the way up to the whole you.</p>
       </div>
 
+      <Figure src="img/body-systems.png" caption="Major body systems — circulatory, respiratory and digestive — working together." />
       <DotPoint id="5.1.1" title="Explain the interrelationship among cells, tissues and organs" progress={progress} setProgress={setProgress}>
         <p>
           Every living thing is built in levels. The <Term def="The smallest structural and functional unit of all life.">cell</Term> is the basic building block. Similar cells team up to form <Term def="A group of similar cells working together to do one job.">tissue</Term>, tissues combine into <Term def="A discrete structure made from several tissue types that carries out a complex task.">organs</Term>, and organs that share a goal form an <Term def="A group of organs cooperating to carry out a broad role for the body.">organ system</Term>. Finally, all systems together make up the <Term def="A complete living thing: all systems working as one.">organism</Term>.
@@ -679,6 +680,7 @@ function Section52({ progress, setProgress }) {
         <p className="lead">Plants have their own transport system built from two tissue types, carrying water up and sugar in all directions.</p>
       </div>
 
+      <Figure src="img/plant-transport.png" caption="Xylem carries water up; phloem moves sugars — a plant's transport tissues." />
       <DotPoint id="5.2.1" title="Determine the role, structure and function of the components of a plant, including the xylem and phloem, in maintaining plants as multicellular organisms" progress={progress} setProgress={setProgress}>
         <p>
           Like animals, plants are organised into cells, tissues, and organs. The three main plant organs are <Term def="The underground organ that anchors the plant, absorbs water and minerals, and stores food.">roots</Term>, <Term def="The organ that provides structural support, holds leaves up to the light, and contains the vascular tissue.">stems</Term>, and <Term def="The main photosynthetic organ of the plant, also responsible for gas exchange and transpiration.">leaves</Term>.
@@ -945,6 +947,7 @@ function Section53({ progress, setProgress }) {
         <p className="lead">An ecosystem is every living thing in an area, plus the non-living environment, all interacting as one system.</p>
       </div>
 
+      <Figure src="img/ecosystem.png" caption="Energy flows from the Sun through producers and consumers in a food web." />
       <DotPoint id="5.3.1" title="Identify the components that make up an ecosystem" progress={progress} setProgress={setProgress}>
         <p>
           An <Term def="A community of living organisms interacting with each other and with the non-living physical environment in a defined area.">ecosystem</Term> has two types of components. <Term def="The living parts of an ecosystem: producers, consumers, and decomposers.">Biotic</Term> components are all the living things: <Term def="Organisms that produce their own food from inorganic matter using light or chemical energy (e.g. plants, algae).">producers</Term> (autotrophs), <Term def="Organisms that must eat other organisms to obtain energy (e.g. animals).">consumers</Term> (heterotrophs), and <Term def="Organisms such as bacteria and fungi that break down dead organic matter into simpler inorganic substances.">decomposers</Term>. <Term def="The non-living physical and chemical parts of an ecosystem: sunlight, water, temperature, soil, gases.">Abiotic</Term> components are the non-living parts: sunlight, water, temperature, soil, and atmospheric gases.

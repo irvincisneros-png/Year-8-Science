@@ -229,6 +229,7 @@ function Section71({ progress, setProgress }) {
         <p className="lead">Energy never stays still. It moves, transforms, and passes between objects in predictable ways.</p>
       </div>
 
+      <Figure src="img/heat-transfer.png" caption="Heat moves by conduction, convection and radiation." />
       <DotPoint id="7.1.1" title="Conduction, convection and radiation" progress={progress} setProgress={setProgress}>
         <p>Heat energy always flows from warmer objects to cooler ones until temperatures equalise. Scientists recognise three distinct ways this happens. <Term def="Transfer of heat through a solid by particle-to-particle vibration, with no bulk movement of matter.">Conduction</Term> works through direct contact in solids. <Term def="Transfer of heat through fluids as warm, less-dense regions rise and cool, denser regions sink.">Convection</Term> moves energy through liquids and gases via circulating currents. <Term def="Transfer of energy as electromagnetic (infrared) waves; requires no medium.">Radiation</Term> is the only mode that works through a vacuum.</p>
         <p>A campfire shows all three at once. Heat conducts into the ground beneath it, convection currents carry warm air upward, and infrared radiation warms your face from a distance. Understanding which mode dominates in a situation helps engineers design better heaters, insulators, and cooling systems.</p>
@@ -472,6 +473,7 @@ function Section72({ progress, setProgress }) {
         <p className="lead">Chemical changes create brand new substances with entirely different properties from the starting materials.</p>
       </div>
 
+      <Figure src="img/chemical-change.png" caption="Signs of a chemical change — bubbles, a colour change and heat." />
       <DotPoint id="7.2.1" title="Indicators of physical and chemical change" progress={progress} setProgress={setProgress}>
         <p>A <Term def="A change that alters the form or appearance of a substance without producing any new substance.">physical change</Term> is reversible and creates no new substance. Melting ice, dissolving sugar, and cutting paper are all physical changes. A <Term def="A change that produces one or more new substances with different chemical properties.">chemical change</Term> produces new substances that are difficult or impossible to reverse.</p>
         <p>Scientists watch for five key indicators of chemical change: a permanent <Term def="A new colour that appears and cannot be reversed by simple physical means.">colour change</Term>, <Term def="Bubbles or fizzing showing a new gas has been produced.">gas production</Term>, formation of a <Term def="A solid that appears in a clear liquid mixture.">precipitate</Term>, a significant <Term def="The mixture becomes noticeably hotter (exothermic) or colder (endothermic) without external heating.">temperature change</Term>, and the change being difficult to reverse. Any single indicator is strong evidence that a new substance has formed.</p>
@@ -794,6 +796,7 @@ function Section73({ progress, setProgress }) {
         <p className="lead">Rocks form, break down, and transform over millions of years. Plates drift, mountains rise, and the fossil record preserves life's long story.</p>
       </div>
 
+      <Figure src="img/rock-cycle.png" caption="The rock cycle: rocks transform through heat, pressure and weathering." />
       <DotPoint id="7.3.1" title="Movement of tectonic plates" progress={progress} setProgress={setProgress}>
         <p>Earth's outer shell is broken into roughly 15 large rigid slabs called <Term def="Large, rigid slabs of rock that make up Earth's outer shell and move slowly across the mantle.">tectonic plates</Term>. They sit on the <Term def="The thick layer of hot, solid rock beneath Earth's crust that flows very slowly over millions of years.">mantle</Term> and drift at 2 to 10 centimetres per year, about the same rate your fingernails grow. The driving force is <Term def="Circular flow in the mantle where hot rock rises, spreads, cools, and sinks, dragging plates along.">convection in the mantle</Term>: rock heated by the core rises, spreads under the crust, cools, and sinks again.</p>
         <p>Where two plates meet, a <Term def="The edge where two tectonic plates meet, associated with earthquakes and volcanic activity.">plate boundary</Term> forms. At <Term def="A boundary where two plates move toward each other; may form trenches and volcanoes.">convergent boundaries</Term>, plates push together and denser oceanic crust subducts beneath lighter continental crust, forming trenches and volcanic mountain ranges. At <Term def="A boundary where two plates move apart; new crust is created at mid-ocean ridges.">divergent boundaries</Term>, plates pull apart and magma fills the gap to create new crust. At <Term def="A boundary where two plates slide horizontally past each other; frequent earthquakes but no crust created or destroyed.">transform boundaries</Term>, plates grind past each other, generating powerful earthquakes.</p>
@@ -984,6 +987,7 @@ function Section74({ progress, setProgress }) {
 mountTopicApp({
   year: 8,
   topicTitle: "Change",
+  heroImage: "img/hero.png",
   strand: "Stage 4 · NSW Science",
   accent: "amber",
   storageKey: "y8.change",
