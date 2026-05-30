@@ -987,6 +987,7 @@ function Section74({ progress, setProgress }) {
 mountTopicApp({
   year: 8,
   topicTitle: "Change",
+  branch: "change",
   heroImage: "img/hero.png",
   strand: "Stage 4 · NSW Science",
   accent: "amber",

@@ -1340,6 +1340,7 @@ function Section54({ progress, setProgress }) {
 mountTopicApp({
   year: 8,
   topicTitle: "Living Systems",
+  branch: "biology",
   heroImage: "img/hero.png",
   strand: "Stage 4 · NSW Science",
   accent: "emerald",
