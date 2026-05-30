@@ -107,7 +107,7 @@ function HeatTransferSim() {
   }
 
   return (
-    <Interactive title="Heat Transfer Explorer" subtitle="Tap a mode to see how it works.">
+    <Interactive title="Heat Transfer Explorer" subtitle="Tap a mode to see how it works." takeaway="Heat moves in three distinct ways: conduction through solids by particle vibration, convection through fluids by circulating currents, and radiation as electromagnetic waves that need no medium at all.">
       <div className="ctrl-row" style={{ justifyContent: "center", gap: "0.5rem" }}>
         {Object.keys(configs).map(k => (
           <button key={k}
@@ -137,7 +137,7 @@ function EnergyStoreSim() {
   const ke = pe;
   const ballY = 20 + (1 - height / 10) * 100;
   return (
-    <Interactive title="Gravitational PE to KE" subtitle="A ball dropped from rest. Adjust height and mass to see energy change.">
+    <Interactive title="Gravitational PE to KE" subtitle="A ball dropped from rest. Adjust height and mass to see energy change." takeaway="As a falling object loses height, its gravitational potential energy converts into kinetic energy, and the total energy stays the same throughout the fall.">
       <div className="ctrl-row">
         <Slider label="Height" min={1} max={10} step={0.5} value={height} onChange={setHeight} unit=" m" />
         <Slider label="Mass" min={0.5} max={5} step={0.5} value={mass} onChange={setMass} unit=" kg" />
@@ -173,7 +173,7 @@ function EnergyChainSim() {
   const [selected, setSelected] = useState("solar");
   const dev = devices.find(d => d.id === selected);
   return (
-    <Interactive title="Energy Transformation Spotter" subtitle="Pick a device and trace the energy change.">
+    <Interactive title="Energy Transformation Spotter" subtitle="Pick a device and trace the energy change." takeaway="Every device converts energy from one form to another, and some energy is always lost as heat during every transformation.">
       <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "1rem" }}>
         {devices.map(d => (
           <button key={d.id}
@@ -211,7 +211,7 @@ function SystemClassifier() {
     { id: "f", label: "Sealed pressure cooker", bucket: "closed" },
   ];
   return (
-    <Interactive title="Open or Closed System?" subtitle="Drag or click each item into the correct bucket.">
+    <Interactive title="Open or Closed System?" subtitle="Drag or click each item into the correct bucket." takeaway="Open systems exchange both energy and matter with their surroundings, while closed systems exchange only energy - understanding this distinction helps you predict how energy behaves in any situation.">
       <MatchBuckets
         items={items}
         buckets={[{ id: "open", label: "Open System" }, { id: "closed", label: "Closed System" }]}
@@ -325,7 +325,7 @@ function ChangeClassifier() {
     { id: "h", label: "Cooking an egg", bucket: "chemical" },
   ];
   return (
-    <Interactive title="Physical or Chemical Change?" subtitle="Sort each observation into the correct category.">
+    <Interactive title="Physical or Chemical Change?" subtitle="Sort each observation into the correct category." takeaway="Physical changes alter the form of a substance without producing anything new, while chemical changes create entirely new substances that are difficult to reverse.">
       <MatchBuckets
         items={items}
         buckets={[{ id: "physical", label: "Physical Change" }, { id: "chemical", label: "Chemical Change" }]}
@@ -349,7 +349,7 @@ function ExoEndoSim() {
   const barColor = rx.dt > 0 ? "#f97316" : "#3b82f6";
   const barY = rx.dt > 0 ? 60 - barH : 60;
   return (
-    <Interactive title="Exothermic vs Endothermic Reactions" subtitle="Select a reaction and observe the temperature change.">
+    <Interactive title="Exothermic vs Endothermic Reactions" subtitle="Select a reaction and observe the temperature change." takeaway="Exothermic reactions release energy and warm their surroundings, while endothermic reactions absorb energy and cool their surroundings - the direction of heat flow tells you which type of reaction is occurring.">
       <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "1rem" }}>
         {Object.keys(reactions).map(k => (
           <button key={k}
@@ -418,7 +418,7 @@ function WordEquationBuilder() {
   const [selected, setSelected] = useState("mg");
   const rx = reactions.find(r => r.id === selected);
   return (
-    <Interactive title="Word Equation Builder" subtitle="Select a reaction to see its word equation and initial/final observations.">
+    <Interactive title="Word Equation Builder" subtitle="Select a reaction to see its word equation and initial/final observations." takeaway="A word equation summarises a chemical reaction by naming the reactants on the left and the products on the right, with an arrow meaning 'produces' in between.">
       <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "1rem" }}>
         {reactions.map(r => (
           <button key={r.id}
@@ -590,7 +590,7 @@ function PlateBoundarySim() {
   }
 
   return (
-    <Interactive title="Plate Boundary Explorer" subtitle="Select a boundary type to see what happens.">
+    <Interactive title="Plate Boundary Explorer" subtitle="Select a boundary type to see what happens." takeaway="The three types of plate boundary - convergent, divergent, and transform - each produce different geological features such as volcanoes, ocean ridges, and earthquake zones.">
       <div className="ctrl-row" style={{ justifyContent: "center", gap: "0.5rem" }}>
         {Object.keys(configs).map(k => (
           <button key={k}
@@ -637,7 +637,7 @@ function RockCycleSim() {
     { x1: 45, y1: 78, x2: 128, y2: 45 },
   ];
   return (
-    <Interactive title="Rock Cycle Navigator" subtitle="Tap each stage to learn how it transforms into the next.">
+    <Interactive title="Rock Cycle Navigator" subtitle="Tap each stage to learn how it transforms into the next." takeaway="Rocks are not permanent - they continuously transform between igneous, sedimentary, and metamorphic types through a cycle driven by heat, pressure, weathering, and erosion over millions of years.">
       <div style={{ display: "flex", gap: "1rem", alignItems: "flex-start", flexWrap: "wrap" }}>
         <svg viewBox="0 0 300 220" width="300" style={{ flexShrink: 0 }}>
           {arrows.map((a, i) => (
@@ -704,7 +704,7 @@ function StratigraphySim() {
     prev.includes(i) ? prev.filter(x => x !== i) : [...prev, i]
   );
   return (
-    <Interactive title="Rock Strata Explorer" subtitle="Tap any layer to reveal its fossils and relative age.">
+    <Interactive title="Rock Strata Explorer" subtitle="Tap any layer to reveal its fossils and relative age." takeaway="By the law of superposition, lower rock layers in an undisturbed sequence are older, allowing scientists to determine the relative age of fossils without needing exact dates.">
       <p className="muted" style={{ marginTop: 0 }}>Law of superposition: lower layers are older in undisturbed rock sequences.</p>
       {layers.map((l, i) => (
         <div key={i}
@@ -749,7 +749,7 @@ function MineralTester() {
     { name: "Steel nail", hardness: 5.5 },
   ];
   return (
-    <Interactive title="Mineral Property Tester" subtitle="Select a mineral to test its hardness with common tools.">
+    <Interactive title="Mineral Property Tester" subtitle="Select a mineral to test its hardness with common tools." takeaway="Minerals can be identified by measurable physical properties such as hardness, streak, and lustre, because a harder mineral scratches a softer one but not the other way around.">
       <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "1rem" }}>
         {minerals.map(mn => (
           <button key={mn.name}
@@ -917,7 +917,7 @@ function ChainReactionPlanner() {
     "Thermal (heat)": "#ef4444",
   };
   return (
-    <Interactive title="Chain-Reaction Machine Planner" subtitle="Design your own chain-reaction machine. Edit the stages and see the energy flow.">
+    <Interactive title="Chain-Reaction Machine Planner" subtitle="Design your own chain-reaction machine. Edit the stages and see the energy flow." takeaway="In a chain-reaction machine, energy is transferred and transformed at each stage, but some is always lost as heat and sound, so the more stages there are, the lower the overall efficiency.">
       <div>
         {stages.map((st, i) => (
           <div key={i} style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.4rem" }}>
