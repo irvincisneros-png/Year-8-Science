@@ -25,7 +25,7 @@ function LevelsBuilder() {
     organism: ["A human being"],
   };
   return (
-    <Interactive title="Levels of Organisation" subtitle="Tap a level to see examples. Each level is built from the one below it.">
+    <Interactive title="Levels of Organisation" subtitle="Tap a level to see examples. Each level is built from the one below it." takeaway="Living things are organised from the simplest unit (the cell) up through tissues and organs to complete organ systems, and each level depends on the one below it.">
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center", marginBottom: 16 }}>
         {levels.map((lv) => (
           <button
@@ -108,7 +108,7 @@ function DigestionJourney() {
   ];
   const [step, setStep] = useState(0);
   return (
-    <Interactive title="Digestion Journey" subtitle="Follow food from mouth to exit. Tap Next to advance.">
+    <Interactive title="Digestion Journey" subtitle="Follow food from mouth to exit. Tap Next to advance." takeaway="Food is broken down step by step as it moves through the digestive system, with most nutrient absorption happening in the small intestine.">
       <div style={{ display: "flex", gap: 6, marginBottom: 16, flexWrap: "wrap" }}>
         {stages.map((s, i) => (
           <button
@@ -146,7 +146,7 @@ function DigestionJourney() {
 /* --- Body System Sorter --- */
 function SystemSorter() {
   return (
-    <Interactive title="Sort the Organs" subtitle="Drag or tap each organ into the correct body system bucket.">
+    <Interactive title="Sort the Organs" subtitle="Drag or tap each organ into the correct body system bucket." takeaway="Each organ belongs to a specific body system, and knowing which organ does which job is the foundation for understanding how the body works.">
       <MatchBuckets
         items={[
           { id: "heart", label: "Heart", bucket: "circ" },
@@ -252,7 +252,7 @@ function CellExplorer() {
   const [active, setActive] = useState("rbc");
   const cell = cells.find((c) => c.id === active);
   return (
-    <Interactive title="Cell Structure and Function Explorer" subtitle="Select a cell type to see how its structure matches its job.">
+    <Interactive title="Cell Structure and Function Explorer" subtitle="Select a cell type to see how its structure matches its job." takeaway="A cell's shape and features are directly linked to what it does - structure always matches function in biology.">
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 14 }}>
         {cells.map((c) => (
           <button
@@ -294,7 +294,7 @@ function ExerciseSim() {
   const active = { hr: 150, rr: 30, sweat: 100 };
   const vals = exercising ? active : base;
   return (
-    <Interactive title="Body Systems During Exercise" subtitle="Toggle exercise to see how systems respond together.">
+    <Interactive title="Body Systems During Exercise" subtitle="Toggle exercise to see how systems respond together." takeaway="Body systems don't work in isolation - during exercise the circulatory, respiratory, and excretory systems all change at the same time to meet the body's increased demands.">
       <div style={{ display: "flex", justifyContent: "center", marginBottom: 18 }}>
         <button
           className={exercising ? "btn btn-accent" : "btn btn-ghost"}
@@ -576,7 +576,7 @@ function TranspirationSim() {
   }, [temp, humidity, wind]);
   const rateLabel = rate < 20 ? "Very low" : rate < 40 ? "Low" : rate < 60 ? "Moderate" : rate < 80 ? "High" : "Very high";
   return (
-    <Interactive title="Transpiration Rate Simulator" subtitle="Adjust conditions and see how transpiration rate changes. High temperature and low humidity drive faster water loss.">
+    <Interactive title="Transpiration Rate Simulator" subtitle="Adjust conditions and see how transpiration rate changes. High temperature and low humidity drive faster water loss." takeaway="Transpiration rate increases with higher temperature, lower humidity, and greater wind speed because these conditions steepen the concentration gradient for water vapour leaving the leaf.">
       <div className="ctrl-row">
         <Slider label="Temperature" min={5} max={40} value={temp} onChange={setTemp} unit=" C" />
         <Slider label="Humidity" min={10} max={95} value={humidity} onChange={setHumidity} unit="%" />
@@ -626,7 +626,7 @@ function VascularComparison() {
   };
   const chosen = data[view];
   return (
-    <Interactive title="Xylem vs Phloem" subtitle="Compare the two vascular tissues that transport water and sugar through a plant.">
+    <Interactive title="Xylem vs Phloem" subtitle="Compare the two vascular tissues that transport water and sugar through a plant." takeaway="Xylem (dead cells, water upward) and phloem (living cells, sugars in both directions) are two distinct transport tissues that together supply all parts of the plant.">
       <SegToggle
         options={[{ value: "xylem", label: "Xylem" }, { value: "phloem", label: "Phloem" }]}
         value={view}
@@ -647,7 +647,7 @@ function VascularComparison() {
 /* --- Plant cell microscopy identifier --- */
 function PlantCellIdentifier() {
   return (
-    <Interactive title="Identify Plant Cells" subtitle="Match each cell description to the correct cell type.">
+    <Interactive title="Identify Plant Cells" subtitle="Match each cell description to the correct cell type." takeaway="Each plant cell type has a distinctive shape or feature that reveals its function, and you can identify it under a microscope from those structural clues.">
       <MatchBuckets
         items={[
           { id: "gc", label: "Kidney-shaped; controls stoma opening", bucket: "guard" },
@@ -794,7 +794,7 @@ function Section52({ progress, setProgress }) {
 /* --- Ecosystem components sorter --- */
 function EcosystemSorter() {
   return (
-    <Interactive title="Sort: Biotic or Abiotic?" subtitle="Place each item into the correct category.">
+    <Interactive title="Sort: Biotic or Abiotic?" subtitle="Place each item into the correct category." takeaway="An ecosystem is made up of both living (biotic) and non-living (abiotic) components that interact with each other.">
       <MatchBuckets
         items={[
           { id: "oak", label: "Oak tree", bucket: "biotic" },
@@ -840,7 +840,7 @@ function FoodWebSim() {
   const getOrg = (id) => organisms.find((o) => o.id === id);
 
   return (
-    <Interactive title="Australian Grassland Food Web" subtitle="Tap any organism to see what happens if it is removed. Arrows show energy flow (prey to predator).">
+    <Interactive title="Australian Grassland Food Web" subtitle="Tap any organism to see what happens if it is removed. Arrows show energy flow (prey to predator)." takeaway="Removing any species from a food web disrupts other species that depend on it, showing how interconnected organisms in an ecosystem really are.">
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 10 }}>
         {levelLabels.map((ll, i) => (
           <span key={ll} style={{ background: levelColours[i], borderRadius: 8, padding: "4px 10px", fontSize: 12, fontWeight: 600 }}>{ll}</span>
@@ -911,7 +911,7 @@ function EnergyPyramid() {
   const maxW = 360;
 
   return (
-    <Interactive title="Energy Pyramid" subtitle="Adjust the starting energy and see how little reaches the top predator (10% rule).">
+    <Interactive title="Energy Pyramid" subtitle="Adjust the starting energy and see how little reaches the top predator (10% rule)." takeaway="Only about 10% of energy passes from one trophic level to the next, so top predators receive a tiny fraction of the energy that producers originally captured from the Sun.">
       <Slider label="Producer energy" min={1000} max={100000} step={1000} value={baseEnergy} onChange={setBaseEnergy} unit=" kJ" />
       <svg viewBox="0 0 440 220" width="100%" style={{ maxWidth: 440, marginTop: 12 }}>
         {levels.map((lv, i) => {
@@ -1132,7 +1132,7 @@ function Section53({ progress, setProgress }) {
 /* --- Threat factor sorter --- */
 function ThreatSorter() {
   return (
-    <Interactive title="Match Each Threat to Its Category" subtitle="Place each threatening factor into the correct group.">
+    <Interactive title="Match Each Threat to Its Category" subtitle="Place each threatening factor into the correct group." takeaway="Australia's threatened species face four main types of threat - invasive species, habitat loss, disease, and climate change - and most threatened species are affected by more than one.">
       <MatchBuckets
         items={[
           { id: "cats", label: "Feral cats hunting bilbies", bucket: "invasive" },
@@ -1197,7 +1197,7 @@ function ConservationSim() {
   const [active, setActive] = useState("fence");
   const s = strategies.find((st) => st.id === active);
   return (
-    <Interactive title="Conservation Strategies Explorer" subtitle="Select a strategy to learn how it works and what threat it targets.">
+    <Interactive title="Conservation Strategies Explorer" subtitle="Select a strategy to learn how it works and what threat it targets." takeaway="Different conservation strategies target different threats, and the most effective approach for a species depends on identifying the main cause of its decline.">
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 14 }}>
         {strategies.map((st) => (
           <button
@@ -1244,7 +1244,7 @@ function IUCNCards() {
     { front: "Extinct", back: "Last individual known to have died. Example: thylacine (Tasmanian tiger, 1936)." },
   ];
   return (
-    <Interactive title="IUCN Conservation Categories" subtitle="Tap each card to reveal the meaning and an Australian example.">
+    <Interactive title="IUCN Conservation Categories" subtitle="Tap each card to reveal the meaning and an Australian example." takeaway="The IUCN system ranks how close a species is to extinction, from Least Concern all the way to Extinct, giving scientists and governments a shared language for conservation priority.">
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10 }}>
         {cards.map((c) => (
           <FlipCard key={c.front} front={c.front} back={c.back} />
@@ -1340,6 +1340,7 @@ function Section54({ progress, setProgress }) {
 mountTopicApp({
   year: 8,
   topicTitle: "Living Systems",
+  branch: "biology",
   heroImage: "img/hero.png",
   strand: "Stage 4 · NSW Science",
   accent: "emerald",

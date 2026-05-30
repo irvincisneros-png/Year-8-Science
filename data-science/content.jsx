@@ -8,7 +8,7 @@ const { useState, useEffect, useRef, useMemo } = React;
 
 function DataTypeSorter() {
   return (
-    <Interactive title="Sort the data types" subtitle="Click each item to place it in the correct bucket.">
+    <Interactive title="Sort the data types" subtitle="Click each item to place it in the correct bucket." takeaway="Data can be classified by its nature (quantitative or qualitative), by how it is counted (discrete or continuous), and by who collected it (primary or secondary).">
       <MatchBuckets
         items={[
           { id: "a", label: "Temperature in degrees Celsius", bucket: "quant" },
@@ -35,7 +35,7 @@ function DataTypeSorter() {
 
 function DigitalFootprintSorter() {
   return (
-    <Interactive title="Active or passive footprint?" subtitle="Sort each activity into the correct category.">
+    <Interactive title="Active or passive footprint?" subtitle="Sort each activity into the correct category." takeaway="Your digital footprint is created both by things you deliberately post (active) and by data collected about you without your direct action (passive), and both types persist online.">
       <MatchBuckets
         items={[
           { id: "a", label: "Posting a photo on social media", bucket: "active" },
@@ -60,7 +60,7 @@ function DigitalFootprintSorter() {
 
 function ModelTypeSorter() {
   return (
-    <Interactive title="Match the model to its type" subtitle="Classify each example by the type of scientific model it represents.">
+    <Interactive title="Match the model to its type" subtitle="Classify each example by the type of scientific model it represents." takeaway="Scientists use different types of models - physical, conceptual, mathematical, graphical, and computational - and the best choice depends on what aspect of a phenomenon you need to represent.">
       <MatchBuckets
         items={[
           { id: "a", label: "A 3D globe of Earth", bucket: "physical" },
@@ -97,7 +97,7 @@ function RainfallBarChart() {
   const [highlighted, setHighlighted] = useState(null);
 
   return (
-    <Interactive title="Sydney monthly rainfall (2023)" subtitle="Hover over a bar to read its value. Spot which months are wettest and driest.">
+    <Interactive title="Sydney monthly rainfall (2023)" subtitle="Hover over a bar to read its value. Spot which months are wettest and driest." takeaway="A bar chart is a graphical model that makes patterns in data visible - in this case showing that Sydney's rainfall is highest in autumn and winter months and lowest in late winter and spring.">
       <svg viewBox={`0 0 ${w} ${h}`} width="100%" style={{ maxWidth: w, display: "block", margin: "0 auto" }}>
         {/* y-axis gridlines and labels */}
         {[0, 50, 100, 150].map(v => {
@@ -184,7 +184,7 @@ function PopulationModel() {
   const melPred = isInterp ? interpolate(years, melbourne, targetYear) : null;
 
   return (
-    <Interactive title="Population growth model: Sydney vs Melbourne" subtitle="Toggle extrapolation and use the slider to read off interpolated values.">
+    <Interactive title="Population growth model: Sydney vs Melbourne" subtitle="Toggle extrapolation and use the slider to read off interpolated values." takeaway="Interpolation estimates values within measured data and is fairly reliable, while extrapolation predicts beyond the data range and carries more uncertainty because conditions may change.">
       <div className="ctrl-row" style={{ marginBottom: "0.75rem" }}>
         <SegToggle
           options={[{ value: "off", label: "Measured data only" }, { value: "on", label: "Show extrapolation to 2041" }]}
@@ -293,7 +293,7 @@ function ScientificInquiryQuiz() {
 
   if (done) {
     return (
-      <Interactive title="Scientific or not? Quiz complete!" subtitle="">
+      <Interactive title="Scientific or not? Quiz complete!" subtitle="" takeaway="A scientific claim must be testable - it must be possible to design an investigation that could support or disprove it - while non-scientific claims operate by different rules that science cannot address.">
         <div className="stat-readout">
           <Stat value={`${score}/${claims.length}`} label="Correct" />
         </div>
@@ -306,7 +306,7 @@ function ScientificInquiryQuiz() {
   }
 
   return (
-    <Interactive title="Scientific or not?" subtitle="Read each claim and decide: is it a scientific claim or a non-scientific claim?">
+    <Interactive title="Scientific or not?" subtitle="Read each claim and decide: is it a scientific claim or a non-scientific claim?" takeaway="A scientific claim must be testable - it must be possible to design an investigation that could support or disprove it - while non-scientific claims operate by different rules that science cannot address.">
       <p style={{ fontWeight: "600", marginBottom: "0.75rem" }}>Claim {idx + 1} of {claims.length}:</p>
       <p style={{ marginBottom: "1rem", lineHeight: "1.5" }}>{c.text}</p>
       <div className="row" style={{ gap: "0.75rem", marginBottom: "1rem" }}>
@@ -368,7 +368,7 @@ function MeanMedianModeCalc() {
   const sorted = useMemo(() => [...nums].sort((a, b) => a - b), [nums]);
 
   return (
-    <Interactive title="Mean, median, mode and range calculator" subtitle="Type your own numbers separated by commas. Watch the statistics update instantly.">
+    <Interactive title="Mean, median, mode and range calculator" subtitle="Type your own numbers separated by commas. Watch the statistics update instantly." takeaway="The mean, median, and mode each describe the centre of a dataset in a different way, while the range shows how spread out the data is.">
       <div className="ctrl-row" style={{ marginBottom: "0.75rem" }}>
         <label style={{ fontWeight: "600", marginRight: "0.5rem", whiteSpace: "nowrap" }}>Your numbers:</label>
         <input
@@ -471,7 +471,7 @@ function ScatterExplorer() {
   const lobfY2 = slope * maxX + intercept;
 
   return (
-    <Interactive title="Spot the trend" subtitle="Switch between datasets and observe how the scatter pattern changes.">
+    <Interactive title="Spot the trend" subtitle="Switch between datasets and observe how the scatter pattern changes." takeaway="Scatter plots reveal whether two variables share a positive trend, a negative trend, or no trend at all, and a line of best fit makes that pattern easy to see and use for predictions.">
       <SegToggle
         options={[
           { value: "positive", label: "Positive" },
@@ -544,7 +544,7 @@ function AccuracyReliabilitySim() {
   const size = 180;
 
   return (
-    <Interactive title="Accuracy vs reliability simulator" subtitle="Switch between the four combinations and observe how the dot patterns differ.">
+    <Interactive title="Accuracy vs reliability simulator" subtitle="Switch between the four combinations and observe how the dot patterns differ." takeaway="Accuracy means being close to the true value, while reliability means getting consistent results each time - and it's possible to be one without being the other.">
       <SegToggle
         options={[
           { value: "accurate-reliable", label: "Both" },
@@ -631,7 +631,7 @@ function ModelBuilderWalkthrough() {
   ];
 
   return (
-    <Interactive title="Model-building walkthrough" subtitle="Step through the full data science process for a hand span vs height investigation.">
+    <Interactive title="Model-building walkthrough" subtitle="Step through the full data science process for a hand span vs height investigation." takeaway="Building a scientific model follows a complete cycle: from forming a question through collecting data, calculating statistics, graphing, identifying patterns, and finally evaluating the model's limitations.">
       <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "1rem" }}>
         {steps.map((s, i) => (
           <button
@@ -700,7 +700,7 @@ function HandSpanScatter() {
   const isExtrap = targetSpan < Math.min(...allX) || targetSpan > Math.max(...allX);
 
   return (
-    <Interactive title="Hand span vs height: live predictions" subtitle="Drag the slider to predict height from hand span using the line of best fit.">
+    <Interactive title="Hand span vs height: live predictions" subtitle="Drag the slider to predict height from hand span using the line of best fit." takeaway="A line of best fit lets you make predictions from a graphical model, but predictions become increasingly uncertain when you extrapolate beyond the range of your original measurements.">
       <svg viewBox={`0 0 ${w} ${h}`} width="100%" style={{ maxWidth: w, display: "block", margin: "0 auto" }}>
         {/* gridlines */}
         {[155, 165, 175, 185, 195].map(v => {
@@ -1233,6 +1233,7 @@ function Section85({ progress, setProgress }) {
 mountTopicApp({
   year: 8,
   topicTitle: "Data Science 1",
+  branch: "general",
   heroImage: "img/hero.png",
   strand: "Stage 4 · NSW Science",
   accent: "teal",
