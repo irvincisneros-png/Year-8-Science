@@ -48,7 +48,7 @@ function MaterialsChooser() {
             {/* label band */}
             <rect x="30" y="48" width="60" height="42" fill="url(#canLabel)" />
             <text x="60" y="74" textAnchor="middle" style={{ fontSize: 11, fontFamily: "var(--font-display)", fill: "white", fontWeight: 600 }}>FIZZ</text>
-            <text x="60" y="84" textAnchor="middle" style={{ fontSize: 4, fontFamily: "var(--font-mono)", fill: "white", opacity: 0.85, letterSpacing: 1 }}>375ml</text>
+            <text x="60" y="84" textAnchor="middle" style={{ fontSize: 4, fontFamily: "var(--font-mono)", fill: "white", opacity: 0.85, letterSpacing: 1 }}>375 mL</text>
             {/* highlight strip */}
             <rect x="34" y="22" width="3" height="100" fill="oklch(0.98 0.01 240 / 0.5)" />
           </svg>

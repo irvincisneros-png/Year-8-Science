@@ -283,7 +283,7 @@ function HomeView({ navigate, progress, udl }) {
       <section className="hero">
         <div className="eyebrow">Year 8 · Term 2 · Chemistry</div>
         <h1>The world is made of just <em style={{ fontStyle: "normal", color: "var(--c-orange-deep)" }}>118 things</em>.</h1>
-        <p className="lead">Welcome to atomic structure and the periodic table. Eighteen lessons, eight simulations, a memory game, scientist trading cards, and a daily element — covering syllabus points <strong>6.1.1 to 6.4.1</strong>.</p>
+        <p className="lead">Welcome to atomic structure and the periodic table. Sixteen lessons, eight simulations, a memory game, scientist trading cards, and a daily element — covering syllabus points <strong>6.1.1 to 6.4.1</strong>.</p>
         <div className="hero-cta">
           <Button variant="accent" iconRight="right" onClick={() => navigate({ kind: "lesson", id: firstIncomplete.id })}>
             {totalDone === 0 ? "Start lesson 6.1.1" : totalDone === LESSONS.length ? "All done — review" : `Continue: ${firstIncomplete.title}`}

@@ -23,7 +23,7 @@ const RAW_ELEMENTS = [
   [13, "Al", "Aluminium", "post", 26.98, 13, 3, [2,8,3], "solid", "Cans, foil, aircraft bodies, window frames", "3rd most abundant element in Earth's crust."],
   [14, "Si", "Silicon", "metalloid", 28.09, 14, 3, [2,8,4], "solid", "Computer chips, glass, sand", "Beach sand is mostly silicon dioxide."],
   [15, "P", "Phosphorus", "nonmetal", 30.97, 15, 3, [2,8,5], "solid", "Match heads, fertilisers, DNA", "White phosphorus glows in the dark and ignites in air."],
-  [16, "S", "Sulfur", "nonmetal", 32.07, 16, 3, [2,8,6], "solid", "Gunpowder, vulcanised rubber, fertilisers", "Smells like rotten eggs when burned."],
+  [16, "S", "Sulfur", "nonmetal", 32.07, 16, 3, [2,8,6], "solid", "Gunpowder, vulcanised rubber, fertilisers", "Burns with a blue flame and a sharp, choking smell. (Rotten-egg smell comes from its compound hydrogen sulfide.)"],
   [17, "Cl", "Chlorine", "halogen", 35.45, 17, 3, [2,8,7], "gas", "Pool sanitiser, table salt (with Na), PVC", "Green-yellow gas. Highly toxic on its own."],
   [18, "Ar", "Argon", "noble", 39.95, 18, 3, [2,8,8], "gas", "Inside light bulbs, welding shield", "1% of the air — more than CO₂!"],
   [19, "K", "Potassium", "alkali", 39.10, 1, 4, [2,8,8,1], "solid", "Fertilisers, bananas, fireworks", "Symbol K from Latin 'kalium'."],
@@ -100,7 +100,7 @@ const RAW_ELEMENTS = [
   [90, "Th", "Thorium", "actin", 232.04, null, 7, null, "solid", "Some lantern mantles, nuclear research", null],
   [91, "Pa", "Protactinium", "actin", 231.04, null, 7, null, "solid", "Research only", null],
   [92, "U", "Uranium", "actin", 238.03, null, 7, null, "solid", "Nuclear fuel, reactors", null],
-  [93, "Np", "Neptunium", "actin", 237, null, 7, null, "solid", "Smoke detectors", null],
+  [93, "Np", "Neptunium", "actin", 237, null, 7, null, "solid", "Research; made in nuclear reactors", null],
   [94, "Pu", "Plutonium", "actin", 244, null, 7, null, "solid", "Nuclear reactors, weapons", null],
   [95, "Am", "Americium", "actin", 243, null, 7, null, "solid", "Smoke detectors", null],
   [96, "Cm", "Curium", "actin", 247, null, 7, null, "solid", "Power sources", null],
@@ -199,10 +199,10 @@ const FLAME_TESTS = [
   { sym: "Li", name: "Lithium", colour: "Crimson red", hex: "oklch(0.6 0.22 25)", note: "Deep red — flag-red." },
   { sym: "Na", name: "Sodium", colour: "Bright yellow", hex: "oklch(0.85 0.18 90)", note: "So bright it can drown out other flame colours." },
   { sym: "K",  name: "Potassium", colour: "Lilac", hex: "oklch(0.7 0.13 290)", note: "Pale purple — look through a blue filter to see it clearly." },
-  { sym: "Ca", name: "Calcium", colour: "Brick red", hex: "oklch(0.65 0.18 40)", note: "Brick-orange. Common in red fireworks." },
+  { sym: "Ca", name: "Calcium", colour: "Brick red", hex: "oklch(0.65 0.18 40)", note: "Brick-orange. Used in orange fireworks." },
   { sym: "Cu", name: "Copper", colour: "Blue-green", hex: "oklch(0.72 0.16 175)", note: "Stunning teal — used in green/blue fireworks." },
   { sym: "Ba", name: "Barium", colour: "Apple green", hex: "oklch(0.75 0.18 145)", note: "Bright lime. The green in big firework finales." },
-  { sym: "Sr", name: "Strontium", colour: "Crimson", hex: "oklch(0.6 0.2 20)", note: "Red — slightly more orange than lithium." },
+  { sym: "Sr", name: "Strontium", colour: "Scarlet red", hex: "oklch(0.6 0.2 20)", note: "Bright red — a little more orange than lithium's deep crimson. The main red in fireworks." },
 ];
 
 // ---------- MATERIALS / USES ----------
@@ -337,7 +337,7 @@ const SCIENTISTS = [
   { name: "Marie Curie", when: "1898", where: "France/Poland", photo: "Marie Curie c. 1920s.jpg", contrib: "Discovered radium and polonium. Pioneered radioactivity research.", fun: "Only person to win Nobel Prizes in TWO different sciences (Physics & Chemistry)." },
   { name: "Ernest Rutherford", when: "1911", where: "New Zealand → UK", photo: "Ernest Rutherford LOC.jpg", contrib: "Discovered the atomic nucleus with the gold-foil experiment.", fun: "Born and raised in NZ — sometimes called the 'father of nuclear physics'." },
   { name: "Henry Moseley", when: "1913", where: "England", photo: "BigMoseleyCard.jpg", contrib: "Showed elements should be ordered by atomic number, not mass.", fun: "Killed in WWI aged 27 — his loss reshaped science research policy." },
-  { name: "Niels Bohr", when: "1913", where: "Denmark", photo: "Prof. Bohr LCCN2014715454.jpg", contrib: "Proposed the planetary/shell model of the atom.", fun: "Smuggled out of Nazi-occupied Denmark in 1943, hidden in the bomb-bay of a plane." },
+  { name: "Niels Bohr", when: "1913", where: "Denmark", photo: "Prof. Bohr LCCN2014715454.jpg", contrib: "Proposed the planetary/shell model of the atom.", fun: "Escaped Nazi-occupied Denmark by boat in 1943, then flew to Britain in the bomb-bay of a plane." },
   { name: "Erwin Schrödinger", when: "1926", where: "Austria", photo: "Erwin Schrödinger - Narodowe Archiwum Cyfrowe (1-E-939).jpg", contrib: "Formulated the quantum mechanical (cloud) model.", fun: "Famous for his thought experiment about a cat that is simultaneously alive and dead." },
 ];
 

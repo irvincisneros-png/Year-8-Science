@@ -153,7 +153,7 @@ function Lesson632({ udl }) {
           question="Element X is in Group 2, Period 4. How many electron shells does it have, and how many outer electrons?"
           options={["2 shells, 4 outer electrons", "4 shells, 2 outer electrons", "2 shells, 2 outer electrons", "4 shells, 4 outer electrons"]}
           correctIndex={1}
-          explain="Period number = number of shells (4). Group number (for groups 1, 2, 13–18) tells you outer electrons (2)."
+          explain="Period number = number of shells (4). For Groups 1 and 2, the group number tells you the number of outer electrons (2)."
         />
         <QuizMC
           question="Two elements are both in Group 2 — one in Period 2, one in Period 5. Which is more reactive?"
@@ -184,6 +184,7 @@ function SymbolGame() {
   const [moves, setMoves] = u63_useState(0);
   const [pairs, setPairs] = u63_useState(0);
   const [done, setDone] = u63_useState(false);
+  const [busy, setBusy] = u63_useState(false);
 
   const newGame = (count = 8) => {
     const picks = [...POOL].sort(() => Math.random() - 0.5).slice(0, count);
@@ -194,13 +195,13 @@ function SymbolGame() {
       stack.push({ id: `n-${i}`, kind: "name", text: el.name, sym: s, flipped: false, matched: false });
     });
     setCards(stack.sort(() => Math.random() - 0.5));
-    setFirst(null); setMoves(0); setPairs(0); setDone(false);
+    setFirst(null); setBusy(false); setMoves(0); setPairs(0); setDone(false);
   };
 
   u63_useEffect(() => { newGame(); }, [round]);
 
   const flip = (idx) => {
-    if (cards[idx].flipped || cards[idx].matched) return;
+    if (busy || cards[idx].flipped || cards[idx].matched) return;
     const next = cards.map((c, i) => i === idx ? { ...c, flipped: true } : c);
     setCards(next);
 
@@ -209,6 +210,7 @@ function SymbolGame() {
     } else {
       const a = next[first], b = next[idx];
       setMoves(m => m + 1);
+      setBusy(true);
       if (a.sym === b.sym && a.kind !== b.kind) {
         // Match
         setTimeout(() => {
@@ -219,12 +221,14 @@ function SymbolGame() {
             return np;
           });
           setFirst(null);
+          setBusy(false);
         }, 400);
       } else {
         // No match
         setTimeout(() => {
           setCards(prev => prev.map((c, i) => (i === first || i === idx) ? { ...c, flipped: false } : c));
           setFirst(null);
+          setBusy(false);
         }, 800);
       }
     }
@@ -249,6 +253,7 @@ function SymbolGame() {
             key={c.id}
             onClick={() => flip(i)}
             disabled={c.matched}
+            aria-label={c.flipped || c.matched ? c.text : "Hidden card"}
             style={{
               aspectRatio: 1,
               borderRadius: 10,
@@ -359,7 +364,7 @@ function FormulaDecoder() {
     setChecked(false);
   };
 
-  const allRight = checked && cur.parts.every(([s, n]) => answer[s] === n);
+  const allRight = checked && Object.keys(answer).length === cur.parts.length && cur.parts.every(([s, n]) => answer[s] === n);
 
   // Distractor pool
   const distractors = ["Mg","Fe","Cu","Zn","P","B","Br","I","Ag","Au","Pb","Sn","Ba","Si","He","Ne","Ar"];
@@ -538,7 +543,7 @@ function FlameTestSim() {
     <div>
       <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
         <Button size="sm" variant={mode === "explore" ? "primary" : "default"} onClick={() => { setMode("explore"); setPicked(null); }}>Explore mode</Button>
-        <Button size="sm" variant={mode === "guess" ? "primary" : "default"} onClick={() => { setMode("guess"); setGuess(null); newGuess(); setScore(0); setShown(0); }}>Guess mode</Button>
+        <Button size="sm" variant={mode === "guess" ? "primary" : "default"} onClick={() => { setMode("guess"); setGuess(null); setScore(0); setShown(0); newGuess(); }}>Guess mode</Button>
         {mode === "guess" && <span className="spacer" />}
         {mode === "guess" && <Chip>{score} / {shown} correct</Chip>}
       </div>
@@ -671,7 +676,7 @@ function Lesson635({ udl }) {
       <ol style={{ paddingLeft: 22 }}>
         <li><strong>Conductivity:</strong> battery + bulb + sample. Metals light the bulb. (Watch out — graphite does too!)</li>
         <li><strong>Malleability:</strong> tap gently with a hammer. Metals flatten, non-metals shatter.</li>
-        <li><strong>Reaction with acid:</strong> most metals fizz in dilute hydrochloric acid (producing hydrogen gas). Non-metals don't.</li>
+        <li><strong>Reaction with acid:</strong> reactive metals (like magnesium, zinc and iron) fizz in dilute hydrochloric acid, producing hydrogen gas. Non-metals don't.</li>
         <li><strong>Appearance:</strong> metals shine when freshly polished. (Some non-metals like iodine are shiny too — not foolproof.)</li>
         <li><strong>Flame test:</strong> some metals colour a flame distinctively. This identifies <em>which</em> metal, not just whether it's a metal.</li>
       </ol>
@@ -793,7 +798,7 @@ function Lesson637({ udl }) {
       <ul>
         <li>He arranged elements by atomic mass <em>and</em> chemical properties — not just mass.</li>
         <li>He left <strong>gaps</strong> where no known element fitted, and <strong>predicted</strong> what would eventually fill them.</li>
-        <li>Within 15 years, three of those predicted elements (gallium, scandium, germanium) had been discovered — their properties matched his predictions almost exactly.</li>
+        <li>Within about 17 years, three of those predicted elements (gallium, scandium, germanium) had been discovered — their properties matched his predictions almost exactly.</li>
         <li>He sometimes swapped elements out of strict mass order if their behaviour demanded it — a bold call that later turned out to be right.</li>
       </ul>
 
@@ -801,7 +806,7 @@ function Lesson637({ udl }) {
         Henry Moseley showed the real ordering principle is <strong>atomic number</strong> (number of protons), not mass. Reorder by protons and every awkward swap Mendeleev made fixes itself. Moseley was killed at Gallipoli aged 27 — a huge loss to science.
       </Callout>
 
-      <p>The modern table is still being added to — elements 113–118 were officially named between 2003 and 2016, all made in atom-smashing labs.</p>
+      <p>The modern table is still being added to — elements 113–118 were officially named between 2012 and 2016, all made in atom-smashing labs.</p>
 
       <div className="activity">
         <div className="activity-head"><h4>Quick check</h4><span className="badge">Quiz</span></div>

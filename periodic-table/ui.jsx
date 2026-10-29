@@ -161,22 +161,25 @@ function BlurReveal({ children, label = "Tap to reveal" }) {
    UDL controls — TTS, plain language, text size, dyslexic font
    ============================================================ */
 
+const lsGet = (k) => { try { return localStorage.getItem(k); } catch { return null; } };
+const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch {} };
+
 function useUDL() {
-  const [textSize, setTextSize] = useState(() => parseFloat(localStorage.getItem("udl.textSize") || "1"));
-  const [dyslexic, setDyslexic] = useState(() => localStorage.getItem("udl.dyslexic") === "1");
-  const [plain, setPlain] = useState(() => localStorage.getItem("udl.plain") === "1");
+  const [textSize, setTextSize] = useState(() => parseFloat(lsGet("udl.textSize") || "1") || 1);
+  const [dyslexic, setDyslexic] = useState(() => lsGet("udl.dyslexic") === "1");
+  const [plain, setPlain] = useState(() => lsGet("udl.plain") === "1");
   const [ttsOn, setTtsOn] = useState(false);
 
   useEffect(() => {
     document.documentElement.style.setProperty("--text-scale", textSize);
-    localStorage.setItem("udl.textSize", String(textSize));
+    lsSet("udl.textSize", String(textSize));
   }, [textSize]);
   useEffect(() => {
     document.documentElement.setAttribute("data-dyslexic", dyslexic ? "true" : "false");
-    localStorage.setItem("udl.dyslexic", dyslexic ? "1" : "0");
+    lsSet("udl.dyslexic", dyslexic ? "1" : "0");
   }, [dyslexic]);
   useEffect(() => {
-    localStorage.setItem("udl.plain", plain ? "1" : "0");
+    lsSet("udl.plain", plain ? "1" : "0");
   }, [plain]);
 
   return { textSize, setTextSize, dyslexic, setDyslexic, plain, setPlain, ttsOn, setTtsOn };

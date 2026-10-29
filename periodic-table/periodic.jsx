@@ -100,6 +100,7 @@ function AtomBuilder() {
   const [neutronsPlaced, setNeutronsPlaced] = pt_useState(0);
   const [electronsPlaced, setElectronsPlaced] = pt_useState(0);
   const [autoBuild, setAutoBuild] = pt_useState(false);
+  const [autoRun, setAutoRun] = pt_useState(0);
 
   const el = getElementByZ(z);
   const targetProtons = el.z;
@@ -130,7 +131,7 @@ function AtomBuilder() {
     };
     tick();
     return () => { cancelled = true; };
-  }, [autoBuild, z]);
+  }, [autoBuild, autoRun, z]);
 
   // Electron shell distribution given count
   const shells = pt_useMemo(() => {
@@ -236,21 +237,21 @@ function AtomBuilder() {
             <div className="card" style={{ padding: 12, borderColor: "var(--c-red)" }}>
               <div style={{ fontSize: "0.8rem", color: "var(--ink-muted)" }}>Protons <span style={{ float: "right", fontWeight: 600, color: "var(--ink)" }}>{protonsPlaced} / {targetProtons}</span></div>
               <div style={{ display: "flex", gap: 6, marginTop: 8 }}>
-                <Button size="sm" onClick={() => setProtonsPlaced(Math.max(0, protonsPlaced - 1))}>−</Button>
+                <Button size="sm" aria-label="Remove a proton" onClick={() => setProtonsPlaced(Math.max(0, protonsPlaced - 1))}>−</Button>
                 <Button size="sm" variant="accent" onClick={() => setProtonsPlaced(Math.min(targetProtons + 2, protonsPlaced + 1))}>+ proton</Button>
               </div>
             </div>
             <div className="card" style={{ padding: 12 }}>
               <div style={{ fontSize: "0.8rem", color: "var(--ink-muted)" }}>Neutrons <span style={{ float: "right", fontWeight: 600, color: "var(--ink)" }}>{neutronsPlaced} / {targetNeutrons}</span></div>
               <div style={{ display: "flex", gap: 6, marginTop: 8 }}>
-                <Button size="sm" onClick={() => setNeutronsPlaced(Math.max(0, neutronsPlaced - 1))}>−</Button>
+                <Button size="sm" aria-label="Remove a neutron" onClick={() => setNeutronsPlaced(Math.max(0, neutronsPlaced - 1))}>−</Button>
                 <Button size="sm" variant="primary" onClick={() => setNeutronsPlaced(Math.min(targetNeutrons + 2, neutronsPlaced + 1))}>+ neutron</Button>
               </div>
             </div>
             <div className="card" style={{ padding: 12, borderColor: "var(--c-teal-deep)" }}>
               <div style={{ fontSize: "0.8rem", color: "var(--ink-muted)" }}>Electrons <span style={{ float: "right", fontWeight: 600, color: "var(--ink)" }}>{electronsPlaced} / {targetElectrons}</span></div>
               <div style={{ display: "flex", gap: 6, marginTop: 8 }}>
-                <Button size="sm" onClick={() => setElectronsPlaced(Math.max(0, electronsPlaced - 1))}>−</Button>
+                <Button size="sm" aria-label="Remove an electron" onClick={() => setElectronsPlaced(Math.max(0, electronsPlaced - 1))}>−</Button>
                 <Button size="sm" style={{ background: "var(--c-teal-deep)", color: "white", borderColor: "var(--c-teal-deep)" }} onClick={() => setElectronsPlaced(Math.min(targetElectrons + 2, electronsPlaced + 1))}>+ electron</Button>
               </div>
             </div>
@@ -258,7 +259,7 @@ function AtomBuilder() {
 
           <div style={{ display: "flex", gap: 8, marginTop: 10, flexWrap: "wrap" }}>
             <Button size="sm" variant="ghost" icon="reset" onClick={() => { setProtonsPlaced(0); setNeutronsPlaced(0); setElectronsPlaced(0); setAutoBuild(false); }}>Empty</Button>
-            <Button size="sm" variant="ghost" icon="sparkle" onClick={() => { setProtonsPlaced(0); setNeutronsPlaced(0); setElectronsPlaced(0); setAutoBuild(true); }}>Auto-build</Button>
+            <Button size="sm" variant="ghost" icon="sparkle" onClick={() => { setProtonsPlaced(0); setNeutronsPlaced(0); setElectronsPlaced(0); setAutoRun(n => n + 1); setAutoBuild(true); }}>Auto-build</Button>
             <span className="spacer" />
             <Chip variant={isNeutral ? "ok" : "warn"}>
               Charge: {overallCharge === 0 ? "0 (neutral)" : (overallCharge > 0 ? `+${overallCharge}` : overallCharge)}

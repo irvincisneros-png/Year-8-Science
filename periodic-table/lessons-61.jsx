@@ -275,7 +275,7 @@ function Lesson613({ udl }) {
             "It's a better magnet"
           ]}
           correctIndex={2}
-          explain="The chromium and nickel form a protective oxide layer that stops rust — vital for tools that are washed and sterilised constantly."
+          explain="The chromium forms a thin, tough oxide layer on the surface that stops rust — vital for tools that are washed and sterilised constantly."
         />
       </div>
     </>

@@ -11,13 +11,13 @@ const { useState: u62_useState, useEffect: u62_useEffect, useMemo: u62_useMemo, 
 function Lesson621({ udl }) {
   return (
     <>
-      <p>An <Term>atom</Term> is the smallest particle of an element that <em>still has the properties of that element</em>. If you took a chunk of pure copper and kept cutting it in half — like nano-origami — the smallest piece that would still behave like copper is a single copper atom.</p>
+      <p>An <Term>atom</Term> is the smallest particle of an element that <em>still has the properties of that element</em>. If you took a chunk of pure copper and kept cutting it in half — the smallest piece that would still behave like copper is a single copper atom.</p>
       <p>Cut any further and you get <strong>subatomic particles</strong> (protons, neutrons, electrons). Those don't have the properties of copper on their own.</p>
 
       <h3>Atoms are absurdly small</h3>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
         <div className="card">
-          <div style={{ fontFamily: "var(--font-display)", fontSize: "2.4rem", color: "var(--c-orange-deep)", lineHeight: 1 }}>100,000</div>
+          <div style={{ fontFamily: "var(--font-display)", fontSize: "2.4rem", color: "var(--c-orange-deep)", lineHeight: 1 }}>1,000,000</div>
           <div style={{ fontSize: "0.92rem", color: "var(--ink-2)", marginTop: 6 }}>atoms thick — a single sheet of paper.</div>
         </div>
         <div className="card">
@@ -27,7 +27,7 @@ function Lesson621({ udl }) {
       </div>
 
       <h3>Every element has its own atoms</h3>
-      <p>Hydrogen atoms aren't the same as helium atoms. Helium isn't carbon. <strong>All atoms of the same element are identical.</strong> All atoms of <em>different</em> elements have different sizes, masses and behaviours — that's why elements behave differently.</p>
+      <p>Hydrogen atoms aren't the same as helium atoms. Helium isn't carbon. <strong>All atoms of the same element have the same number of protons</strong>, so they behave in the same way. Atoms of <em>different</em> elements have different numbers of protons, with different sizes, masses and behaviours — that's why elements behave differently.</p>
 
       <Callout kind="fact" title="A 2,400-year-old idea">
         Around 400 BCE, the Greek philosopher <Term k="democritus">Democritus</Term> suggested that if you kept cutting matter in half, you'd eventually reach a particle that couldn't be cut anymore. He called it <em>átomos</em> — "uncuttable". It took until 1803 for John Dalton to provide actual scientific evidence.
@@ -256,7 +256,7 @@ function HistoryViz({ model }) {
             <circle key={i} cx={cx} cy={cy} r={r} fill="none" stroke="oklch(0.6 0.03 250 / 0.55)" strokeDasharray="3 4" />
           ))}
           <circle cx={cx} cy={cy} r="9" fill="oklch(0.5 0.2 25)" />
-          {[[0,-30],[30,0],[0,30],[-30,0]].map(([dx,dy], i) => (
+          {[[0,-30],[0,30]].map(([dx,dy], i) => (
             <circle key={i} cx={cx+dx} cy={cy+dy} r="4" fill="oklch(0.45 0.16 230)" />
           ))}
           {[[55,0],[-55,0],[0,55],[0,-55],[38,38],[-38,38],[38,-38],[-38,-38]].map(([dx,dy], i) => (
@@ -296,7 +296,7 @@ function Lesson624({ udl }) {
         {HISTORY.map(h => (
           <button key={h.id} className={`tl-step ${active === h.id ? "active" : ""}`} onClick={() => setActive(h.id)}>
             <div className="yr">{h.year}</div>
-            <div className="who">{h.who.split(/[\s&]+/).slice(-1)[0]}</div>
+            <div className="who">{h.who.split(" & ")[0].split(/\s+/).slice(-1)[0]}</div>
             <div className="name">{h.name}</div>
           </button>
         ))}
@@ -425,7 +425,7 @@ function RutherfordSim() {
           // Classify
           const exitedRight = p.x > w + 20;
           const exitedBack = p.x < -20;
-          if (exitedRight && Math.abs(p.y - cy) < atomR * 0.2) {
+          if (exitedRight && Math.abs(p.vy) < 0.18 * Math.abs(p.vx)) {
             setShots(s => ({ ...s, through: s.through + 1 }));
           } else if (exitedBack) {
             setShots(s => ({ ...s, back: s.back + 1 }));
@@ -587,7 +587,7 @@ function Lesson625({ udl }) {
       </div>
 
       <Callout kind="fact" title="Rutherford's reaction">
-        On seeing particles bounce back, Rutherford famously said it was "as if you had fired a 15-inch shell at a piece of tissue paper and it came back and hit you". A few weeks of head-scratching later, he proposed the nucleus.
+        On seeing particles bounce back, Rutherford famously said it was "as if you had fired a 15-inch shell at a piece of tissue paper and it came back and hit you". After about two years of thinking it over, he proposed the nuclear model in 1911.
       </Callout>
     </>
   );

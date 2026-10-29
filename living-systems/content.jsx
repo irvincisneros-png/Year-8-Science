@@ -91,7 +91,7 @@ function DigestionJourney() {
       name: "Small Intestine",
       icon: "🌀",
       colour: "#86efac",
-      text: "Most digestion and ALL nutrient absorption happens here. Bile from the liver emulsifies fats. Pancreatic enzymes break down carbohydrates, proteins, and fats. Nutrients cross into the blood through villi.",
+      text: "Most digestion and almost all nutrient absorption happens here. Bile from the liver emulsifies fats. Pancreatic enzymes break down carbohydrates, proteins, and fats. Nutrients cross into the blood through villi.",
     },
     {
       name: "Large Intestine",
@@ -103,7 +103,7 @@ function DigestionJourney() {
       name: "Rectum / Anus",
       icon: "🚽",
       colour: "#a7f3d0",
-      text: "Faeces is stored in the rectum and expelled through the anus. The journey is complete.",
+      text: "Faeces are stored in the rectum and expelled through the anus. The journey is complete.",
     },
   ];
   const [step, setStep] = useState(0);
@@ -182,12 +182,12 @@ function CirculationSVG() {
         {/* Lungs */}
         <rect x="50" y="90" width="110" height="60" rx="12" fill="#bfdbfe" stroke="#3b82f6" strokeWidth="2" />
         <text x="105" y="122" textAnchor="middle" fontSize="13" fontWeight="700" fill="#1e3a8a">Lungs</text>
-        <text x="105" y="137" textAnchor="middle" fontSize="10" fill="#1e3a8a">O2 in, CO2 out</text>
+        <text x="105" y="137" textAnchor="middle" fontSize="10" fill="#1e3a8a">O₂ in, CO₂ out</text>
 
         {/* Body */}
         <rect x="400" y="90" width="110" height="60" rx="12" fill="#bbf7d0" stroke="#22c55e" strokeWidth="2" />
         <text x="455" y="122" textAnchor="middle" fontSize="13" fontWeight="700" fill="#14532d">Body Cells</text>
-        <text x="455" y="137" textAnchor="middle" fontSize="10" fill="#14532d">O2 used, CO2 made</text>
+        <text x="455" y="137" textAnchor="middle" fontSize="10" fill="#14532d">O₂ used, CO₂ made</text>
 
         {/* Pulmonary: heart to lungs */}
         <path d="M220 135 Q160 90 160 120" fill="none" stroke="#3b82f6" strokeWidth="2.5" markerEnd="url(#arr)" />
@@ -225,14 +225,14 @@ function CellExplorer() {
       name: "Red Blood Cell",
       colour: "#fca5a5",
       feature: "Biconcave disc shape, no nucleus, packed with haemoglobin",
-      function: "Maximum surface area for absorbing oxygen; flexible enough to squeeze through narrow capillaries; haemoglobin binds and carries O2",
+      function: "Maximum surface area for absorbing oxygen; flexible enough to squeeze through narrow capillaries; haemoglobin binds and carries O₂",
     },
     {
       id: "alveolar",
       name: "Alveolar Cell",
       colour: "#bfdbfe",
       feature: "Extremely thin wall (one cell thick), moist surface, surrounded by capillaries",
-      function: "Short diffusion distance means O2 and CO2 cross quickly between air and blood",
+      function: "Short diffusion distance means O₂ and CO₂ cross quickly between air and blood",
     },
     {
       id: "villus",
@@ -312,7 +312,7 @@ function ExerciseSim() {
       <div style={{ marginTop: 14, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
         {[
           { label: "Circulatory", text: exercising ? "Heart rate increases; more blood to muscles" : "Normal heart rate; even blood distribution" },
-          { label: "Respiratory", text: exercising ? "Breathing rate and depth increase; more O2 to alveoli" : "Normal breathing rate" },
+          { label: "Respiratory", text: exercising ? "Breathing rate and depth increase; more O₂ to alveoli" : "Normal breathing rate" },
           { label: "Digestive", text: exercising ? "Blood diverted away; digestion slows" : "Normal digestion activity" },
           { label: "Excretory (skin)", text: exercising ? "Sweating increases to remove heat" : "Low sweating" },
         ].map((s) => (
@@ -392,7 +392,7 @@ function Section51({ progress, setProgress }) {
           Your body relies on four major systems to keep every cell supplied and clean. The <Term def="The system that breaks food into small molecules that can be absorbed into the blood.">digestive system</Term> processes food. The <Term def="The system that uses the heart and blood vessels to move oxygen, nutrients, and waste around the body.">circulatory system</Term> delivers everything to cells. The <Term def="The system that extracts oxygen from air and removes carbon dioxide.">respiratory system</Term> handles gas exchange. The <Term def="The system that removes metabolic waste products from the body, mainly through the kidneys.">excretory system</Term> filters out waste.
         </p>
         <p>
-          The digestive system runs from mouth to anus. Food is chewed and mixed with saliva in the mouth, pushed down the oesophagus by <Term def="Wave-like muscular contractions that push food along the gut.">peristalsis</Term>, broken down in the stomach with acid and enzymes, and then most nutrients are absorbed in the small intestine. The liver produces bile to emulsify fats, and the pancreas secretes enzymes. Water is absorbed in the large intestine.
+          The digestive system runs from mouth to anus. Food is chewed and mixed with saliva in the mouth, pushed down the oesophagus by <Term def="Wave-like muscular contractions that push food along the gut.">peristalsis</Term>, broken down in the stomach with acid and enzymes, and then most nutrients are absorbed in the small intestine. The liver produces bile to emulsify fats, and the pancreas secretes enzymes. Water is absorbed all along the gut, and the large intestine reabsorbs most of what is left.
         </p>
         <p>
           The circulatory system runs two separate loops. The <Term def="The loop that carries blood from the heart to the lungs and back.">pulmonary circuit</Term> sends blood to the lungs to pick up oxygen. The <Term def="The loop that carries oxygenated blood from the heart to all body tissues and back.">systemic circuit</Term> delivers that oxygen to every tissue. Arteries carry blood away from the heart; veins return it; capillaries are where exchange actually happens.
@@ -401,7 +401,7 @@ function Section51({ progress, setProgress }) {
           The respiratory system brings air in through the nose and mouth, past the larynx and trachea, into bronchi and bronchioles, and finally into tiny air sacs called <Term def="Tiny air sacs in the lungs where gas exchange occurs by diffusion.">alveoli</Term>. The <Term def="A dome-shaped muscle beneath the lungs that drives breathing by flattening (inhale) and relaxing (exhale).">diaphragm</Term> drives breathing.
         </p>
         <p>
-          The kidneys are the main excretory organs. They filter all your blood roughly every five minutes, removing <Term def="A waste product made when proteins are broken down, removed from the blood by the kidneys.">urea</Term>, excess salts, and water to form urine. Urine drains through ureters to the bladder. The skin also excretes via sweat, and the lungs excrete carbon dioxide.
+          The kidneys are the main excretory organs. All of your blood passes through the kidneys roughly every five minutes, where they filter out <Term def="A waste product made when proteins are broken down, removed from the blood by the kidneys.">urea</Term>, excess salts, and water to form urine. Urine drains through ureters to the bladder. The skin also excretes via sweat, and the lungs excrete carbon dioxide.
         </p>
 
         <CirculationSVG />
@@ -440,10 +440,10 @@ function Section51({ progress, setProgress }) {
             {[
               { text: "Right atrium receives deoxygenated blood", x: 30, y: 20, c: "#bfdbfe" },
               { text: "Right ventricle pumps to lungs", x: 30, y: 80, c: "#bfdbfe" },
-              { text: "Lungs: O2 absorbed, CO2 released", x: 30, y: 140, c: "#c7d2fe" },
+              { text: "Lungs: O₂ absorbed, CO₂ released", x: 30, y: 140, c: "#c7d2fe" },
               { text: "Left atrium receives oxygenated blood", x: 290, y: 140, c: "#fca5a5" },
               { text: "Left ventricle pumps to body", x: 290, y: 80, c: "#fca5a5" },
-              { text: "O2 and nutrients delivered to all body tissues", x: 290, y: 20, c: "#fca5a5" },
+              { text: "O₂ and nutrients delivered to all body tissues", x: 290, y: 20, c: "#fca5a5" },
             ].map((box, i) => (
               <g key={i}>
                 <rect x={box.x} y={box.y} width="230" height="46" rx="10" fill={box.c} stroke="#94a3b8" strokeWidth="1.5" />
@@ -451,10 +451,10 @@ function Section51({ progress, setProgress }) {
               </g>
             ))}
             {/* Arrows */}
-            {[[20 + 115, 66, 20 + 115, 80], [20 + 115, 126, 20 + 115, 140], [260, 163, 290, 163]].map((a, i) => (
+            {[[30 + 115, 66, 30 + 115, 80], [30 + 115, 126, 30 + 115, 140], [260, 163, 290, 163]].map((a, i) => (
               <line key={i} x1={a[0]} y1={a[1]} x2={a[2]} y2={a[3]} stroke="#64748b" strokeWidth="2" markerEnd="url(#arrowSmall)" />
             ))}
-            {[[290 + 115, 80, 290 + 115, 66], [290 + 115, 140 - 14, 290 + 115, 126]].map((a, i) => (
+            {[[290 + 115, 80, 290 + 115, 66], [290 + 115, 140, 290 + 115, 126]].map((a, i) => (
               <line key={"r" + i} x1={a[0]} y1={a[1]} x2={a[2]} y2={a[3]} stroke="#64748b" strokeWidth="2" markerEnd="url(#arrowSmall)" />
             ))}
             <defs>
@@ -462,7 +462,7 @@ function Section51({ progress, setProgress }) {
                 <path d="M0,0 L0,5 L5,2.5 z" fill="#64748b" />
               </marker>
             </defs>
-            <text x="280" y="175" textAnchor="middle" fontSize="12" fill="var(--muted)">Follow arrows for blood flow direction</text>
+            <text x="280" y="215" textAnchor="middle" fontSize="12" fill="var(--muted)">Follow arrows for blood flow direction</text>
           </svg>
         </Figure>
 
@@ -487,10 +487,10 @@ function Section51({ progress, setProgress }) {
           A key principle of biology is that <strong>structure determines function</strong>. Every specialised cell has a shape, size, or surface feature that makes it uniquely suited to its job. The same principle applies at the organ level.
         </p>
         <p>
-          The small intestine is roughly six to seven metres long and its inner wall is folded into <Term def="Finger-like projections of the intestinal wall that greatly increase its surface area.">villi</Term> and <Term def="Tiny projections on the surface of individual intestinal cells, further increasing surface area.">microvilli</Term>. This gives an adult a total absorptive surface area of about 250 square metres. Larger surface area means more absorption per minute. Similarly, the <Term def="The tiny air sacs in the lungs where gas exchange occurs.">alveoli</Term> in the lungs have a combined surface area of about 70 square metres with walls just one cell thick, creating ideal conditions for rapid gas exchange.
+          The small intestine is roughly six to seven metres long and its inner wall is folded into <Term def="Finger-like projections of the intestinal wall that greatly increase its surface area.">villi</Term> and <Term def="Tiny projections on the surface of individual intestinal cells, further increasing surface area.">microvilli</Term>. This gives an adult a total absorptive surface area of roughly 30 square metres. Larger surface area means more absorption per minute. Similarly, the <Term def="The tiny air sacs in the lungs where gas exchange occurs.">alveoli</Term> in the lungs have a combined surface area of about 70 square metres with walls just one cell thick, creating ideal conditions for rapid gas exchange.
         </p>
         <Callout kind="fact" title="Did you know?">
-          If you unfolded and spread out the inner lining of your small intestine, it would cover an area about the size of a tennis court (250 m2)!
+          If you unfolded and spread out the inner lining of your small intestine, it would cover roughly the floor area of a large lounge room (about 30 m²)!
         </Callout>
 
         <CellExplorer />
@@ -499,7 +499,7 @@ function Section51({ progress, setProgress }) {
           <WrittenQ
             num={6}
             question="Explain why having a large surface area is important for the small intestine and the alveoli."
-            model="Absorption and gas exchange happen across surfaces by diffusion and active transport. A larger surface area means more molecules can cross at any one moment, increasing the total rate of absorption or gas exchange. This is why both the small intestine (villi and microvilli, about 250 m2) and the alveoli (about 70 m2) have structural features that maximise their surface area."
+            model="Absorption and gas exchange happen across surfaces by diffusion and active transport. A larger surface area means more molecules can cross at any one moment, increasing the total rate of absorption or gas exchange. This is why both the small intestine (villi and microvilli, about 30 m²) and the alveoli (about 70 m²) have structural features that maximise their surface area."
           />
         </QGroup>
       </DotPoint>
@@ -545,7 +545,7 @@ function Section51({ progress, setProgress }) {
         <ExerciseSim />
 
         <Callout kind="key" title="Key interactions to know">
-          Digestive plus circulatory: nutrients absorbed in gut enter blood. Respiratory plus circulatory: O2 loaded at alveoli; CO2 unloaded. Excretory plus circulatory: kidneys filter blood. All systems: coordinated by the nervous and endocrine systems.
+          Digestive plus circulatory: nutrients absorbed in gut enter blood. Respiratory plus circulatory: O₂ loaded at alveoli; CO₂ unloaded. Excretory plus circulatory: kidneys filter blood. All systems: coordinated by the nervous and endocrine systems.
         </Callout>
 
         <QGroup title="Check yourself">
@@ -578,7 +578,7 @@ function TranspirationSim() {
   return (
     <Interactive title="Transpiration Rate Simulator" subtitle="Adjust conditions and see how transpiration rate changes. High temperature and low humidity drive faster water loss." takeaway="Transpiration rate increases with higher temperature, lower humidity, and greater wind speed because these conditions steepen the concentration gradient for water vapour leaving the leaf.">
       <div className="ctrl-row">
-        <Slider label="Temperature" min={5} max={40} value={temp} onChange={setTemp} unit=" C" />
+        <Slider label="Temperature" min={5} max={40} value={temp} onChange={setTemp} unit=" °C" />
         <Slider label="Humidity" min={10} max={95} value={humidity} onChange={setHumidity} unit="%" />
         <Slider label="Wind speed" min={0} max={10} value={wind} onChange={setWind} unit=" m/s" />
       </div>
@@ -829,7 +829,7 @@ function FoodWebSim() {
   const links = [
     ["grass", "grasshopper"], ["grass", "rabbit"], ["grass", "mouse"],
     ["grasshopper", "lizard"], ["grasshopper", "kookaburra"],
-    ["rabbit", "kookaburra"], ["rabbit", "eagle"],
+    ["rabbit", "eagle"],
     ["mouse", "kookaburra"], ["mouse", "eagle"],
     ["lizard", "eagle"],
   ];
@@ -889,7 +889,7 @@ function FoodWebSim() {
             {removed === "grass"
               ? "All consumers lose their food source. The entire food web collapses."
               : removed === "eagle"
-              ? "Secondary consumers like rabbits and mice may increase in number with less predation."
+              ? "Prey such as rabbits, mice and lizards may increase in number with less predation."
               : "Predators that depended on this organism lose a food source and may decline."}
           </p>
         </div>
@@ -913,7 +913,7 @@ function EnergyPyramid() {
   return (
     <Interactive title="Energy Pyramid" subtitle="Adjust the starting energy and see how little reaches the top predator (10% rule)." takeaway="Only about 10% of energy passes from one trophic level to the next, so top predators receive a tiny fraction of the energy that producers originally captured from the Sun.">
       <Slider label="Producer energy" min={1000} max={100000} step={1000} value={baseEnergy} onChange={setBaseEnergy} unit=" kJ" />
-      <svg viewBox="0 0 440 220" width="100%" style={{ maxWidth: 440, marginTop: 12 }}>
+      <svg viewBox="0 0 480 220" width="100%" style={{ maxWidth: 480, marginTop: 12 }}>
         {levels.map((lv, i) => {
           const w = maxW * (values[i] / baseEnergy);
           const x = (440 - w) / 2;
@@ -922,7 +922,7 @@ function EnergyPyramid() {
             <g key={lv.name}>
               <rect x={x} y={y} width={w} height="40" rx="6" fill={lv.colour} stroke="#94a3b8" strokeWidth="1.5" />
               <text x="220" y={y + 24} textAnchor="middle" fontSize="12" fontWeight="700" fill="#1e293b">{lv.name}</text>
-              <text x="420" y={y + 24} textAnchor="start" fontSize="11" fill="var(--muted)">{values[i].toLocaleString()} kJ</text>
+              <text x="404" y={y + 24} textAnchor="start" fontSize="11" fill="var(--muted)">{values[i].toLocaleString()} kJ</text>
             </g>
           );
         })}
@@ -997,13 +997,13 @@ function Section53({ progress, setProgress }) {
 
       <DotPoint id="5.3.3" title="Identify how matter and energy are cycled through an ecosystem" progress={progress} setProgress={setProgress}>
         <p>
-          In an ecosystem, energy and matter behave very differently. <strong>Matter is cycled:</strong> the atoms that make up living things are continuously recycled. A carbon atom in a leaf may become part of a caterpillar, then a bird, then return to the air as CO2 when the bird decomposes, and then enter a new plant.
+          In an ecosystem, energy and matter behave very differently. <strong>Matter is cycled:</strong> the atoms that make up living things are continuously recycled. A carbon atom in a leaf may become part of a caterpillar, then a bird, then return to the air as CO₂ when the bird decomposes, and then enter a new plant.
         </p>
         <p>
           <strong>Energy flows in one direction only:</strong> it enters as sunlight, is captured by producers during photosynthesis, passes to consumers through feeding, and is eventually lost as waste heat at every step. Energy cannot be recycled; it must be continuously supplied by the Sun. This is why ecosystems need a constant supply of solar energy to function.
         </p>
         <p>
-          The <Term def="The continuous movement of carbon atoms between the atmosphere, living organisms, and the soil or ocean.">carbon cycle</Term> is one key matter cycle. Plants absorb CO2 by photosynthesis; consumers eat plants; all organisms release CO2 by respiration; decomposers release CO2 from dead matter. The <Term def="The continuous movement of nitrogen between the atmosphere, soil, and living organisms, involving several types of bacteria.">nitrogen cycle</Term> is another. Most organisms cannot use nitrogen gas directly. <Term def="Bacteria (some in soil, some in legume root nodules) that convert nitrogen gas into ammonia that plants can use.">Nitrogen-fixing bacteria</Term> convert N2 into ammonia, which other bacteria convert to nitrates that plants absorb.
+          The <Term def="The continuous movement of carbon atoms between the atmosphere, living organisms, and the soil or ocean.">carbon cycle</Term> is one key matter cycle. Plants absorb CO₂ by photosynthesis; consumers eat plants; all organisms release CO₂ by respiration; decomposers release CO₂ from dead matter. The <Term def="The continuous movement of nitrogen between the atmosphere, soil, and living organisms, involving several types of bacteria.">nitrogen cycle</Term> is another. Most organisms cannot use nitrogen gas directly. <Term def="Bacteria (some in soil, some in legume root nodules) that convert nitrogen gas into ammonia that plants can use.">Nitrogen-fixing bacteria</Term> convert N₂ into ammonia, which other bacteria convert to nitrates that plants absorb.
         </p>
         <Callout kind="key" title="Energy vs matter">
           Energy flows one way: in from the Sun, out as heat. Matter cycles: the same atoms are reused again and again. You are partly made of atoms that once belonged to ancient stars, dinosaurs, and long-dead trees.
@@ -1240,7 +1240,7 @@ function IUCNCards() {
     { front: "Vulnerable", back: "Population declining. Faces risk in the medium term. Example: koala (eastern populations)." },
     { front: "Endangered", back: "Population significantly reduced. High risk of extinction. Example: Tasmanian devil." },
     { front: "Critically Endangered", back: "Very small population. Extremely high extinction risk. Example: northern hairy-nosed wombat." },
-    { front: "Extinct in the Wild", back: "Survives only in captivity or cultivation. Example: Lord Howe Island stick insect." },
+    { front: "Extinct in the Wild", back: "Survives only in captivity or cultivation. Example: Christmas Island blue-tailed skink (Lister’s gecko is another)." },
     { front: "Extinct", back: "Last individual known to have died. Example: thylacine (Tasmanian tiger, 1936)." },
   ];
   return (

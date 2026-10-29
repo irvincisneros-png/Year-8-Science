@@ -71,6 +71,10 @@ function SideQuestScientists() {
             <div
               key={s.name}
               onClick={() => setFlipped({ ...flipped, [s.name]: !isFlipped })}
+              role="button"
+              tabIndex={0}
+              aria-label={`${s.name} card — ${isFlipped ? "showing fun fact" : "tap to flip"}`}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setFlipped({ ...flipped, [s.name]: !isFlipped }); } }}
               style={{ perspective: 1000, cursor: "pointer", aspectRatio: "5 / 7" }}
             >
               <div style={{
@@ -207,7 +211,7 @@ function SideQuestMystery() {
   const clues = [
     target.uses ? `It's used in: ${target.uses}` : null,
     target.fact ? `Fun fact: ${target.fact}` : null,
-    `It's a ${window.AppData.CATEGORY_LABELS[target.category].toLowerCase()}, atomic number ${target.z}.`,
+    `It's ${/^[aeiou]/i.test(window.AppData.CATEGORY_LABELS[target.category]) ? "an" : "a"} ${window.AppData.CATEGORY_LABELS[target.category].toLowerCase()}, atomic number ${target.z}.`,
     `Its symbol is ${target.sym} and its mass is about ${Math.round(target.mass)}.`,
   ].filter(Boolean);
 
@@ -290,7 +294,7 @@ function SideQuestPredict() {
     { q: "Which element has the highest melting point of any metal?", a: "Tungsten (W) — 3422 °C. Used in light bulb filaments." },
     { q: "Which two elements are liquid at room temperature?", a: "Mercury (Hg) and Bromine (Br)." },
     { q: "If a neutral atom has 11 protons, how many electrons does it have? What element is it?", a: "11 electrons. It's sodium (Na)." },
-    { q: "Approximately how thick (in atoms) is a sheet of paper?", a: "About 100,000 atoms thick." },
+    { q: "Approximately how thick (in atoms) is a sheet of paper?", a: "About a million atoms thick." },
   ];
   return (
     <>
@@ -313,10 +317,10 @@ function SideQuestPredict() {
 function SideQuestAussie() {
   const items = [
     { title: "Rutherford — kiwi-born", text: "Ernest Rutherford was born and raised in New Zealand before moving to the UK. He's often called the 'father of nuclear physics' and did his famous gold-foil experiment in Manchester." },
-    { title: "Australia → world's aluminium", text: "Australia is the world's largest producer of bauxite — the ore that aluminium is made from. Most of the aluminium in the cans, foil and aircraft frames near you started its journey in an Australian mine." },
-    { title: "Iron ore powerhouse", text: "Around half the world's iron ore comes from the Pilbara region of Western Australia. Without it, an enormous fraction of global steel production stops." },
+    { title: "Australia → world's aluminium", text: "Australia is one of the world's largest producers of bauxite — the ore that aluminium is made from. Some of the aluminium in the cans, foil and aircraft frames near you started its journey in an Australian mine." },
+    { title: "Iron ore powerhouse", text: "Australia produces more than a third of the world's iron ore, almost all of it from the Pilbara region of Western Australia. Without it, an enormous fraction of global steel production would stop." },
     { title: "Mark Oliphant", text: "Adelaide-born physicist whose work on hydrogen isotopes was crucial in the development of nuclear physics. Later instrumental in setting up the Australian National University." },
-    { title: "Lithium — the new gold rush", text: "Australia is the world's largest producer of lithium, mined mainly in WA. Lithium powers phones, laptops, and the EV revolution." },
+    { title: "Lithium — the new gold rush", text: "Australia is one of the world's largest producers of lithium, mined mainly in WA. Lithium powers phones, laptops, and the EV revolution." },
     { title: "Synchrotron in Melbourne", text: "The Australian Synchrotron in Clayton, Victoria, uses a 216-metre ring to accelerate electrons to almost light speed — used for atomic-scale imaging of everything from new drugs to ancient fossils." },
   ];
   return (

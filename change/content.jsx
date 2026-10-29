@@ -258,7 +258,7 @@ function Section71({ progress, setProgress }) {
       <DotPoint id="7.1.2" title="Kinetic and potential energy stores" progress={progress} setProgress={setProgress}>
         <p>All energy belongs to one of two broad categories. <Term def="Energy an object has because of its motion.">Kinetic energy (KE)</Term> depends on both mass and speed. <Term def="Stored energy due to an object's position, condition, or composition.">Potential energy (PE)</Term> is stored energy waiting to be released. Every type of energy you encounter can be described using these two ideas.</p>
         <p><Term def="PE stored due to height above a reference point.">Gravitational PE</Term> increases as you lift an object higher. <Term def="PE stored in stretched, compressed, or deformed materials.">Elastic PE</Term> is stored in a compressed spring or stretched rubber band. <Term def="PE stored in chemical bonds between atoms.">Chemical PE</Term> powers everything from batteries to the food you eat. <Term def="A combination of KE and PE from randomly moving particles.">Thermal energy</Term> is both: the moving particles have KE and the forces between them store PE.</p>
-        <Callout kind="fact" title="Did you know?">The food energy in a chocolate bar is chemical PE stored in the bonds between atoms. When you digest it, those bonds break and the energy is released to power your muscles.</Callout>
+        <Callout kind="fact" title="Did you know?">The food energy in a chocolate bar is chemical PE stored in the bonds between atoms. When your body digests it and your cells respire, that stored energy is released to power your muscles.</Callout>
         <EnergyStoreSim />
         <QGroup title="Check yourself">
           <MCQ num={3} question="A ball is held stationary at the top of a ramp. Which energy store is greatest at this moment?"
@@ -283,13 +283,13 @@ function Section71({ progress, setProgress }) {
 
       <DotPoint id="7.1.5" title="Open and closed systems" progress={progress} setProgress={setProgress}>
         <p>A <Term def="A defined collection of matter or components chosen for study.">system</Term> is any group of objects you decide to study together. <Term def="A system that exchanges both energy and matter with its surroundings.">Open systems</Term> exchange both energy and matter with their surroundings. A boiling saucepan without a lid is open because steam escapes and heat radiates away. <Term def="A system that exchanges energy but not matter with its surroundings.">Closed systems</Term> exchange energy but not matter. A sealed thermos flask keeps matter in but slowly loses thermal energy through its walls.</p>
-        <p>In a perfectly closed system, energy cycles between stores without being lost. A swinging pendulum repeatedly exchanges gravitational PE (highest point) for KE (lowest point). In reality, friction and air resistance bleed energy away as heat, so the pendulum slows. Earth itself is nearly closed for matter but open for energy: solar radiation pours in and infrared radiation flows out.</p>
+        <p>In an ideal system with no energy losses, energy cycles between stores without being lost. A swinging pendulum repeatedly exchanges gravitational PE (highest point) for KE (lowest point). In reality, friction and air resistance bleed energy away as heat, so the pendulum slows. Earth itself is nearly closed for matter but open for energy: solar radiation pours in and infrared radiation flows out.</p>
         <SystemClassifier />
       </DotPoint>
 
       <DotPoint id="7.1.6" title="Law of conservation of energy" progress={progress} setProgress={setProgress}>
-        <p>The <Term def="Energy cannot be created or destroyed; it can only transform or transfer. The total energy in a closed system is constant.">law of conservation of energy</Term> is one of the most powerful ideas in all of science. Whenever energy appears to vanish, it has simply transformed into a less useful form (almost always thermal energy) that spreads out into the surroundings.</p>
-        <p>A skateboarder at the top of a half-pipe with 500 J of gravitational PE will have at most 500 J of KE at the bottom. In practice they have less, because friction and air resistance convert some PE to heat and sound. The total never exceeds 500 J, and it never drops below it in the closed system. This principle lets engineers calculate efficiencies and predict outcomes.</p>
+        <p>The <Term def="Energy cannot be created or destroyed; it can only transform or transfer. The total amount of energy stays constant.">law of conservation of energy</Term> is one of the most powerful ideas in all of science. Whenever energy appears to vanish, it has simply transformed into a less useful form (almost always thermal energy) that spreads out into the surroundings.</p>
+        <p>A skateboarder at the top of a half-pipe with 500 J of gravitational PE will have at most 500 J of KE at the bottom. In practice they have less, because friction and air resistance convert some PE to heat and sound. The total never exceeds 500 J, and when you count the heat and sound produced it never drops below 500 J either. This principle lets engineers calculate efficiencies and predict outcomes.</p>
         <QGroup title="Check yourself">
           <MCQ num={4} question="A 100 W lamp converts 100 J of electrical energy per second. How much total energy (light plus heat) must it produce each second?"
             options={["Less than 100 J", "Exactly 100 J", "More than 100 J", "It depends on the bulb type"]}
@@ -300,9 +300,9 @@ function Section71({ progress, setProgress }) {
       </DotPoint>
 
       <DotPoint id="7.1.7" title="Solar energy transformations" progress={progress} setProgress={setProgress}>
-        <p>The Sun is Earth's primary energy source. It sends out radiant energy (infrared and visible light) that drives almost every energy system on Earth. Plants absorb sunlight and store it as chemical PE in glucose through photosynthesis. Animals eat plants and gain that stored energy. Over millions of years, compressed ancient biomass became <Term def="Coal, oil, and natural gas: stores of ancient solar energy locked in chemical bonds.">fossil fuels</Term>.</p>
+        <p>The Sun is Earth's primary energy source. It sends out radiant energy (infrared, visible light and ultraviolet) that drives almost every energy system on Earth. Plants absorb sunlight and store it as chemical PE in glucose through photosynthesis. Animals eat plants and gain that stored energy. Over millions of years, compressed ancient biomass became <Term def="Coal, oil, and natural gas: stores of ancient solar energy locked in chemical bonds.">fossil fuels</Term>.</p>
         <p>Modern technologies harness solar energy directly. <Term def="Photovoltaic cells that convert radiant energy directly into electrical energy.">Solar panels</Term> skip several transformation steps. Solar thermal systems concentrate sunlight to boil water and drive turbines. Wind energy is indirect solar energy: uneven heating of Earth's surface creates pressure differences that drive air movement, which turbines convert to electricity. Even hydroelectric dams trace their energy back to solar-driven evaporation that lifts water to altitude and stores gravitational PE.</p>
-        <Callout kind="fact" title="Australia and solar">Australia receives more solar radiation per square metre than almost any other country. Solar panels and wind farms are now among the cheapest sources of new electricity generation.</Callout>
+        <Callout kind="fact" title="Australia and solar">Australia receives more solar radiation per square metre than any other continent. Solar panels and wind farms are now among the cheapest sources of new electricity generation.</Callout>
       </DotPoint>
     </>
   );
@@ -369,8 +369,8 @@ function ExoEndoSim() {
         </svg>
         <div>
           <div className="stat-readout">
-            <Stat value={finalTemp} label={`Final temp (deg C)`} />
-            <Stat value={`${rx.dt > 0 ? "+" : ""}${rx.dt}`} label="Change (deg C)" />
+            <Stat value={finalTemp} label={`Final temp (°C)`} />
+            <Stat value={`${rx.dt > 0 ? "+" : ""}${rx.dt}`} label="Change (°C)" />
           </div>
           <p style={{ marginTop: "0.5rem", marginBottom: 0 }}>
             This reaction is <strong>{rx.type}</strong>.
@@ -475,8 +475,8 @@ function Section72({ progress, setProgress }) {
 
       <Figure src="img/chemical-change.png" caption="Signs of a chemical change — bubbles, a colour change and heat." />
       <DotPoint id="7.2.1" title="Indicators of physical and chemical change" progress={progress} setProgress={setProgress}>
-        <p>A <Term def="A change that alters the form or appearance of a substance without producing any new substance.">physical change</Term> is reversible and creates no new substance. Melting ice, dissolving sugar, and cutting paper are all physical changes. A <Term def="A change that produces one or more new substances with different chemical properties.">chemical change</Term> produces new substances that are difficult or impossible to reverse.</p>
-        <p>Scientists watch for five key indicators of chemical change: a permanent <Term def="A new colour that appears and cannot be reversed by simple physical means.">colour change</Term>, <Term def="Bubbles or fizzing showing a new gas has been produced.">gas production</Term>, formation of a <Term def="A solid that appears in a clear liquid mixture.">precipitate</Term>, a significant <Term def="The mixture becomes noticeably hotter (exothermic) or colder (endothermic) without external heating.">temperature change</Term>, and the change being difficult to reverse. Any single indicator is strong evidence that a new substance has formed.</p>
+        <p>A <Term def="A change that alters the form or appearance of a substance without producing any new substance.">physical change</Term> is usually reversible and creates no new substance. Melting ice, dissolving sugar, and cutting paper are all physical changes. A <Term def="A change that produces one or more new substances with different chemical properties.">chemical change</Term> produces new substances that are difficult or impossible to reverse.</p>
+        <p>Scientists watch for five key indicators of chemical change: a permanent <Term def="A new colour that appears and cannot be reversed by simple physical means.">colour change</Term>, <Term def="Bubbles or fizzing showing a new gas has been produced.">gas production</Term>, formation of a <Term def="A solid that appears in a clear liquid mixture.">precipitate</Term>, a significant <Term def="The mixture becomes noticeably hotter (exothermic) or colder (endothermic) without external heating.">temperature change</Term>, and the change being difficult to reverse. One indicator on its own is only a clue, so look for several together to be confident that a new substance has formed.</p>
         <Callout kind="warn" title="Watch out">Bubbles alone do not always mean a chemical change. Boiling water produces bubbles, but that is a physical change. Look for multiple indicators together.</Callout>
         <ChangeClassifier />
         <QGroup title="Check yourself">
@@ -504,12 +504,12 @@ function Section72({ progress, setProgress }) {
       </DotPoint>
 
       <DotPoint id="7.2.4" title="Photosynthesis, respiration, and scientific reports" progress={progress} setProgress={setProgress}>
-        <p><Term def="The process by which plants convert light energy into chemical PE (glucose) using CO2 and water.">Photosynthesis</Term> is endothermic: carbon dioxide plus water produces glucose plus oxygen (requires light and chlorophyll). This happens in the <Term def="The organelle in plant cells where photosynthesis occurs.">chloroplasts</Term> of plant cells. <Term def="The process by which cells break down glucose to release energy, producing CO2 and water.">Cellular respiration</Term> is exothermic: glucose plus oxygen produces carbon dioxide plus water plus energy (ATP). This happens in the <Term def="The organelle in cells where aerobic respiration occurs.">mitochondria</Term> of all living cells.</p>
-        <p>Together, these two processes form the backbone of the carbon and oxygen cycles. During daylight, plants photosynthesize faster than they respire, producing a net release of oxygen. At night, without light, plants only respire. When you document an investigation of these processes, you write a formal scientific report with sections in this order: Title, Aim, Hypothesis, Materials, Method, Results, Discussion, and Conclusion.</p>
+        <p><Term def="The process by which plants convert light energy into chemical PE (glucose) using CO2 and water.">Photosynthesis</Term> is endothermic: carbon dioxide plus water produces glucose plus oxygen (requires light and chlorophyll). This happens in the <Term def="The organelle in plant cells where photosynthesis occurs.">chloroplasts</Term> of plant cells. <Term def="The process by which cells break down glucose to release energy, producing CO2 and water.">Cellular respiration</Term> is exothermic: glucose plus oxygen produces carbon dioxide plus water plus energy (ATP). This happens in the <Term def="The organelle in cells where aerobic respiration occurs.">mitochondria</Term> of most plant and animal cells.</p>
+        <p>Together, these two processes form the backbone of the carbon and oxygen cycles. During daylight, plants photosynthesise faster than they respire, producing a net release of oxygen. At night, without light, plants only respire. When you document an investigation of these processes, you write a formal scientific report with sections in this order: Title, Aim, Hypothesis, Materials, Method, Results, Discussion, and Conclusion.</p>
         <Callout kind="key" title="Complementary reactions">Photosynthesis: CO2 + water produces glucose + O2 (endothermic). Respiration: glucose + O2 produces CO2 + water + energy (exothermic). They are linked in a cycle.</Callout>
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
           <FlipCard front="Photosynthesis" back="CO2 + water produces glucose + O2. Needs light. Chloroplasts. Endothermic." />
-          <FlipCard front="Respiration" back="Glucose + O2 produces CO2 + water + energy. All cells. Mitochondria. Exothermic." />
+          <FlipCard front="Respiration" back="Glucose + O2 produces CO2 + water + energy. Most cells. Mitochondria. Exothermic." />
         </div>
       </DotPoint>
     </>
@@ -823,7 +823,7 @@ function Section73({ progress, setProgress }) {
 
       <DotPoint id="7.3.4" title="Aboriginal and Torres Strait Islander cultural accounts of geological events" progress={progress} setProgress={setProgress}>
         <p>Aboriginal and Torres Strait Islander peoples hold the world's oldest continuous cultural traditions, stretching back more than 65,000 years. Their ancestors witnessed volcanic eruptions, rising seas, and coastal flooding. Oral traditions passed carefully from generation to generation preserved these observations with remarkable accuracy.</p>
-        <p>The <Term def="Traditional Custodians of country around Budj Bim (Mount Eccles) in south-western Victoria.">Gunditjmara people</Term> of south-western Victoria describe the volcanic creation of the Budj Bim landscape in their oral traditions. Geologists have dated the lava flows to approximately 30,000 years ago, making these among the oldest known accounts of a volcanic eruption anywhere in the world. Research by Nunn and Reid (2016) identified more than 20 Aboriginal oral traditions from coastal Australia that appear to preserve memories of sea-level rise at the end of the last Ice Age, roughly 7,000 to 12,000 years ago. These Cultural accounts represent long-lived empirical knowledge belonging to and held under the custodianship of the relevant peoples.</p>
+        <p>The <Term def="Traditional Custodians of country around Budj Bim (Mount Eccles) in south-western Victoria.">Gunditjmara people</Term> of south-western Victoria describe the volcanic creation of the Budj Bim landscape in their oral traditions. Geologists have dated the lava flows to between about 30,000 and 37,000 years ago, making these among the oldest known accounts of a volcanic eruption anywhere in the world. Research by Nunn and Reid (2016) identified more than 20 Aboriginal oral traditions from coastal Australia that appear to preserve memories of sea-level rise at the end of the last Ice Age, roughly 7,000 to 12,000 years ago. These cultural accounts represent long-lived empirical knowledge belonging to and held under the custodianship of the relevant peoples.</p>
         <Callout kind="key" title="Respectful research">Scientists work in genuine partnership with community Elders. Cultural knowledge is shared publicly only with community consent and is attributed correctly to the custodian community.</Callout>
       </DotPoint>
 
@@ -926,14 +926,14 @@ function ChainReactionPlanner() {
               background: storeColors[st.store] || "#9ca3af",
               flexShrink: 0,
             }} />
-            <select value={st.store} onChange={e => updateStore(i, e.target.value)}
+            <select aria-label={`Energy store for stage ${i + 1}`} value={st.store} onChange={e => updateStore(i, e.target.value)}
               style={{ fontSize: "0.82rem", padding: "0.2rem 0.3rem", borderRadius: 6, border: "1px solid #d1d5db" }}>
               {storeOptions.map(o => <option key={o} value={o}>{o}</option>)}
             </select>
-            <input value={st.desc} onChange={e => updateDesc(i, e.target.value)}
+            <input aria-label={`Description of stage ${i + 1}`} value={st.desc} onChange={e => updateDesc(i, e.target.value)}
               style={{ flex: 1, fontSize: "0.82rem", padding: "0.2rem 0.4rem", borderRadius: 6, border: "1px solid #d1d5db" }} />
             {stages.length > 2 && (
-              <button onClick={() => removeStage(i)}
+              <button onClick={() => removeStage(i)} aria-label={`Remove stage ${i + 1}`}
                 style={{ background: "none", border: "none", cursor: "pointer", fontSize: "1rem", color: "#9ca3af" }}>
                 x
               </button>
@@ -970,7 +970,7 @@ function Section74({ progress, setProgress }) {
         <Callout kind="key" title="Conservation reminder">No matter how many stages your machine has, the total energy output (useful work plus all the waste heat and sound) always equals the energy input. Energy is never created or destroyed.</Callout>
         <ChainReactionPlanner />
         <QGroup title="Check yourself">
-          <MCQ num={12} question="A marble of mass 0.02 kg is released from a height of 0.5 m (g = 10 m/s2). What is its maximum gravitational PE (in joules)?"
+          <MCQ num={12} question="A marble of mass 0.02 kg is released from a height of 0.5 m (g = 10 m/s²). What is its maximum gravitational PE (in joules)?"
             options={["0.01 J", "0.1 J", "1 J", "10 J"]}
             correct={1}
             explain="PE = mgh = 0.02 x 10 x 0.5 = 0.1 J. This is the maximum KE the marble can have at the bottom of the ramp (ignoring friction)." />
@@ -1000,7 +1000,7 @@ mountTopicApp({
     "radiation": "Transfer of energy as electromagnetic (infrared) waves through a vacuum or medium; requires no physical contact.",
     "kinetic energy": "Energy an object possesses because of its motion; increases with both mass and speed.",
     "potential energy": "Stored energy due to an object's position, condition, or composition; can be released as kinetic energy.",
-    "law of conservation of energy": "Energy cannot be created or destroyed; it can only transform from one form to another. Total energy in a closed system remains constant.",
+    "law of conservation of energy": "Energy cannot be created or destroyed; it can only transform from one form to another. Total energy stays constant.",
     "physical change": "A change that alters the form or appearance of a substance without producing a new substance; generally reversible.",
     "chemical change": "A change that produces one or more new substances with different properties from the original materials.",
     "exothermic reaction": "A chemical reaction that releases energy (heat) to the surroundings, causing a temperature rise.",

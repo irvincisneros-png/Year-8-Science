@@ -8,10 +8,10 @@ const { useState, useEffect, useRef, useMemo } = React;
 
 function DataTypeSorter() {
   return (
-    <Interactive title="Sort the data types" subtitle="Click each item to place it in the correct bucket." takeaway="Data can be classified by its nature (quantitative or qualitative), by how it is counted (discrete or continuous), and by who collected it (primary or secondary).">
+    <Interactive title="Sort the data types" subtitle="Click each item to place it in the correct bucket." takeaway="Data can be classified by its nature (quantitative or qualitative), by how numerical data is counted or measured (discrete or continuous), and by who collected it (primary or secondary).">
       <MatchBuckets
         items={[
-          { id: "a", label: "Temperature in degrees Celsius", bucket: "quant" },
+          { id: "a", label: "Temperature in degrees Celsius", bucket: "cont" },
           { id: "b", label: "Hair colour", bucket: "qual" },
           { id: "c", label: "Number of students absent", bucket: "discrete" },
           { id: "d", label: "Mass of a rock sample (g)", bucket: "cont" },
@@ -21,10 +21,9 @@ function DataTypeSorter() {
           { id: "h", label: "BOM rainfall records from 1990", bucket: "secondary" },
         ]}
         buckets={[
-          { id: "quant", label: "Quantitative" },
-          { id: "qual", label: "Qualitative" },
-          { id: "discrete", label: "Discrete" },
-          { id: "cont", label: "Continuous" },
+          { id: "qual", label: "Qualitative (descriptions)" },
+          { id: "discrete", label: "Quantitative: discrete (counted)" },
+          { id: "cont", label: "Quantitative: continuous (measured)" },
           { id: "primary", label: "Primary" },
           { id: "secondary", label: "Secondary" },
         ]}
@@ -97,8 +96,8 @@ function RainfallBarChart() {
   const [highlighted, setHighlighted] = useState(null);
 
   return (
-    <Interactive title="Sydney monthly rainfall (2023)" subtitle="Hover over a bar to read its value. Spot which months are wettest and driest." takeaway="A bar chart is a graphical model that makes patterns in data visible - in this case showing that Sydney's rainfall is highest in autumn and winter months and lowest in late winter and spring.">
-      <svg viewBox={`0 0 ${w} ${h}`} width="100%" style={{ maxWidth: w, display: "block", margin: "0 auto" }}>
+    <Interactive title="Sydney average monthly rainfall" subtitle="Hover over (or tap) a bar to read its value. Spot which months are wettest and driest." takeaway="A bar chart is a graphical model that makes patterns in data visible - in this case showing that Sydney's rainfall is highest in autumn and early winter and lowest in late winter and spring.">
+      <svg role="img" aria-label="Bar chart of Sydney average monthly rainfall in millimetres. March (131 mm) and June (130 mm) are wettest; September (66 mm) and August (68 mm) are driest." viewBox={`0 0 ${w} ${h}`} width="100%" style={{ maxWidth: w, display: "block", margin: "0 auto" }}>
         {/* y-axis gridlines and labels */}
         {[0, 50, 100, 150].map(v => {
           const y = pad.top + chartH - (v / 150) * chartH;
@@ -118,7 +117,7 @@ function RainfallBarChart() {
           const y = pad.top + chartH - bh;
           const isHigh = highlighted === i;
           return (
-            <g key={i} style={{ cursor: "pointer" }} onMouseEnter={() => setHighlighted(i)} onMouseLeave={() => setHighlighted(null)}>
+            <g key={i} style={{ cursor: "pointer" }} onMouseEnter={() => setHighlighted(i)} onMouseLeave={() => setHighlighted(null)} onClick={() => setHighlighted(i)}>
               <rect x={x} y={y} width={barW - 4} height={bh}
                 fill={isHigh ? "var(--accent-deep)" : "var(--accent-soft)"}
                 stroke={isHigh ? "var(--accent-deep)" : "none"}
@@ -264,7 +263,7 @@ function PopulationModel() {
 function ScientificInquiryQuiz() {
   const claims = [
     { text: "Adding fertiliser increases plant growth rate, measured over 4 weeks.", answer: "sci", explain: "This claim is testable: you can measure plant height with and without fertiliser and compare." },
-    { text: "This forest has a special spiritual energy that heals people.", answer: "nonsci", explain: "This claim cannot be measured or tested experimentally. It operates outside empirical science." },
+    { text: "This forest has a special spiritual energy that cannot be detected or measured in any way.", answer: "nonsci", explain: "This claim cannot be measured or tested experimentally. It operates outside empirical science." },
     { text: "Plants exposed to 12 hours of light per day grow taller than those getting 6 hours.", answer: "sci", explain: "Testable: light hours can be controlled, plant height measured, and results compared." },
     { text: "The universe was created for a purpose.", answer: "nonsci", explain: "This is a philosophical or spiritual claim. Science cannot test purpose or intent." },
     { text: "Drinking more water improves concentration test scores in Year 8 students.", answer: "sci", explain: "Testable: students can be split into groups with different water intake and scores measured." },
@@ -373,6 +372,7 @@ function MeanMedianModeCalc() {
         <label style={{ fontWeight: "600", marginRight: "0.5rem", whiteSpace: "nowrap" }}>Your numbers:</label>
         <input
           type="text"
+          aria-label="Your numbers, separated by commas"
           value={raw}
           onChange={e => setRaw(e.target.value)}
           style={{
@@ -426,9 +426,9 @@ function ScatterExplorer() {
     negative: {
       label: "Negative trend",
       pts: [
-        [0,100],[200,97],[400,93],[600,88],[800,84],[1000,79],[1200,74],
-        [1400,69],[1600,63],[1800,58],[2000,53],[2200,47],[2400,41],[2600,35],
-        [2800,28],[3000,21],
+        [0,100],[200,98],[400,95],[600,93],[800,91],[1000,89],[1200,87],
+        [1400,85],[1600,83],[1800,81],[2000,79],[2200,77],[2400,75],[2600,73],
+        [2800,72],[3000,70],
       ],
       xlabel: "Altitude (m)", ylabel: "Oxygen level (% of sea level)",
       desc: "As altitude increases, available oxygen decreases. This is a negative trend.",
@@ -605,7 +605,7 @@ function ModelBuilderWalkthrough() {
     },
     {
       label: "4. Calculate statistics",
-      content: "Mean hand span = 20.5 cm. Range = 9 cm. Mean height = 172 cm. Range = 38 cm.",
+      content: "Mean hand span = 21.3 cm. Range = 9.5 cm. Mean height = 173 cm. Range = 38 cm.",
       color: "#10b981",
     },
     {
@@ -620,7 +620,7 @@ function ModelBuilderWalkthrough() {
     },
     {
       label: "7. Build and communicate model",
-      content: "Our model: height increases by about 3.8 cm for each 1 cm increase in hand span. This is valid for hand spans between 16 cm and 26 cm.",
+      content: "Our model: height increases by about 3.8 cm for each 1 cm increase in hand span. This is valid for hand spans between 16.5 cm and 26 cm.",
       color: "#3b82f6",
     },
     {
@@ -796,7 +796,7 @@ function Section81({ progress, setProgress }) {
         <QGroup title="Check yourself">
           <MCQ num={3}
             question="Which of these creates a PASSIVE digital footprint?"
-            options={["Posting a comment on a video", "An app recording your location while you use it", "Filling in your name on a website form", "Sending an email to a friend"]}
+            options={["Posting a comment on a video", "An app recording your location in the background", "Filling in your name on a website form", "Sending an email to a friend"]}
             correct={1}
             explain="A passive footprint is created without your direct action. An app recording your location runs in the background without you explicitly sharing that data."
           />
@@ -884,18 +884,19 @@ function Section82({ progress, setProgress }) {
         <Figure caption="The model-building cycle: data feeds models, models generate predictions, predictions are tested against new data.">
           <svg viewBox="0 0 500 100" width="100%" style={{ maxWidth: 500 }}>
             {[
-              { label: "Collect data", x: 20, y: 30 },
-              { label: "Find patterns", x: 150, y: 30 },
-              { label: "Build model", x: 280, y: 30 },
-              { label: "Test predictions", x: 375, y: 30 },
+              { label: "Collect data", x: 10, y: 30 },
+              { label: "Find patterns", x: 135, y: 30 },
+              { label: "Build model", x: 260, y: 30 },
+              { label: "Test predictions", x: 385, y: 30 },
             ].map((s, i, arr) => (
               <g key={s.label}>
-                <rect x={s.x} y={s.y} width="110" height="38" rx="8" fill="var(--accent-soft)" stroke="var(--accent-deep)" />
-                <text x={s.x + 55} y={s.y + 23} textAnchor="middle" fontSize="11" fontWeight="700" fill="var(--ink)">{s.label}</text>
-                {i < arr.length - 1 && <text x={s.x + 118} y={s.y + 25} textAnchor="middle" fontSize="18" fill="var(--accent-deep)">›</text>}
+                <rect x={s.x} y={s.y} width="105" height="38" rx="8" fill="var(--accent-soft)" stroke="var(--accent-deep)" />
+                <text x={s.x + 52} y={s.y + 23} textAnchor="middle" fontSize="11" fontWeight="700" fill="var(--ink)">{s.label}</text>
+                {i < arr.length - 1 && <text x={s.x + 115} y={s.y + 25} textAnchor="middle" fontSize="18" fill="var(--accent-deep)">›</text>}
               </g>
             ))}
-            <path d="M 485 49 Q 490 85 250 85 Q 10 85 15 49" fill="none" stroke="var(--accent-deep)" strokeWidth="1.5" markerEnd="url(#arrow)" />
+            <defs><marker id="ds-cycle-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--accent-deep)" /></marker></defs>
+            <path d="M 437 70 Q 437 86 247 86 Q 62 86 62 72" fill="none" stroke="var(--accent-deep)" strokeWidth="1.5" markerEnd="url(#ds-cycle-arrow)" />
             <text x="250" y="97" textAnchor="middle" fontSize="10" fill="var(--ink-muted)">Revise if predictions fail</text>
           </svg>
         </Figure>
@@ -1017,7 +1018,7 @@ function Section83({ progress, setProgress }) {
         <p>
           The pathway from a model to a theory involves many stages. A scientist builds a preliminary model from data, publishes it for peer review, and other scientists test its predictions independently. If the model withstands repeated testing from many independent groups, and if it successfully predicts new observations, it gradually gains the broad scientific acceptance needed to be called a theory. A theory is never considered proven beyond all doubt: it remains open to revision if compelling new evidence demands it.
         </p>
-        <Callout kind="key" title="Theory does not mean guess">When scientists say something is a theory, they mean it has survived enormous amounts of testing. Germ theory has been confirmed by hundreds of thousands of experiments and directly guided the development of antibiotics that have saved hundreds of millions of lives.</Callout>
+        <Callout kind="key" title="Theory does not mean guess">When scientists say something is a theory, they mean it has survived enormous amounts of testing. Germ theory has been confirmed by countless experiments and has guided the development of antiseptics, vaccines and antibiotics that have saved many millions of lives.</Callout>
         <Figure caption="The pathway from initial observation to a workable scientific theory.">
           <svg viewBox="0 0 580 60" width="100%" style={{ maxWidth: 580 }}>
             {[
@@ -1069,7 +1070,7 @@ function Section84({ progress, setProgress }) {
       <Figure src="img/analysing.png" caption="Repeated trials are collected, charted and examined for patterns." />
       <DotPoint id="8.4.1" title="Formulating and investigating scientific questions" progress={progress} setProgress={setProgress}>
         <p>
-          A <Term def="A question that can be investigated by collecting and analysing measurable data, with identifiable variables and a testable prediction.">scientific question</Term> is specific, measurable, and testable. Compare "Does exercise affect pulse?" with "Does 10 minutes of jogging change the resting pulse rate (beats per minute) of Year 8 students measured 2 minutes after stopping?" The second version identifies the <Term def="The variable a researcher deliberately changes in an experiment.">independent variable</Term> (jogging time), the <Term def="The variable measured as a result of changing the independent variable.">dependent variable</Term> (pulse rate), the subjects, and the measurement method.
+          A <Term def="A question that can be investigated by collecting and analysing measurable data, with identifiable variables and a testable prediction.">scientific question</Term> is specific, measurable, and testable. Compare "Does exercise affect pulse?" with "Does the time spent jogging (0, 5 or 10 minutes) change the pulse rate (beats per minute) of Year 8 students measured 2 minutes after stopping?" The second version identifies the <Term def="The variable a researcher deliberately changes in an experiment.">independent variable</Term> (jogging time), the <Term def="The variable measured as a result of changing the independent variable.">dependent variable</Term> (pulse rate), the subjects, and the measurement method.
         </p>
         <p>
           A good scientific question leads to a <Term def="An educated prediction about the outcome of an investigation, written in the form: if (independent variable), then (dependent variable) will change because (scientific reasoning).">hypothesis</Term>: a prediction in the form "If [independent variable] changes, then [dependent variable] will [change in this way], because [reason]." The hypothesis guides the design of the data collection and gives you something to test your results against.
@@ -1119,7 +1120,6 @@ function Section84({ progress, setProgress }) {
           <Term def="How close a measurement or set of measurements is to the true or accepted value.">Accuracy</Term> and <Term def="How consistently a measurement can be reproduced. Reliable data gives similar results each time, regardless of whether it is close to the true value.">reliability</Term> are not the same thing. If a scale always reads 2 kg too high, every reading is reliable (consistent) but inaccurate. To improve accuracy, instruments must be calibrated. To improve reliability, repeat measurements and average them.
         </p>
         <AccuracyReliabilitySim />
-        <MeanMedianModeCalc />
         <QGroup title="Check yourself">
           <MCQ num={3}
             question="A student measures the boiling point of water 5 times and gets: 98, 99, 98, 99, 98 degrees Celsius. The true value is 100 degrees Celsius. How is this data best described?"
@@ -1162,7 +1162,7 @@ function Section84({ progress, setProgress }) {
           The word "average" can refer to three different statistics. The <Term def="The arithmetic average: sum divided by count. Sensitive to outliers.">mean</Term> is the most common: add all values and divide by how many there are. The <Term def="The middle value when all data are arranged in order. Resistant to outliers.">median</Term> is the middle value in an ordered list. The <Term def="The most frequently occurring value in a dataset. Most useful for discrete or categorical data.">mode</Term> is the most frequent value. The <Term def="The difference between the largest and smallest values. Describes the total spread of the data.">range</Term> describes spread.
         </p>
         <p>
-          The mean is sensitive to <Term def="A data point that is far from the general pattern of the rest of the dataset.">outliers</Term>: one very large or small value can pull it far from most of the data. The median is resistant to outliers because it only depends on order, not size. When data is skewed (has a long tail on one side), the median is often the better measure of centre. For example, the Australian Bureau of Statistics reports median household income, not mean, because a small number of very high earners would otherwise inflate the mean far above what most Australians actually earn.
+          The mean is sensitive to <Term def="A data point that is far from the general pattern of the rest of the dataset.">outliers</Term>: one very large or small value can pull it far from most of the data. The median is resistant to outliers because it only depends on order, not size. When data is skewed (has a long tail on one side), the median is often the better measure of centre. For example, household income is usually reported as a median rather than a mean, because a small number of very high earners would otherwise inflate the mean far above what most Australians actually earn.
         </p>
         <MeanMedianModeCalc />
         <QGroup title="Check yourself">
