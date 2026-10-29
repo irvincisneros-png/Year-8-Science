@@ -1083,22 +1083,21 @@ function Section53({ progress, setProgress }) {
           One of the most dramatic causes of population change is the introduction of an <Term def="A species brought (deliberately or accidentally) to a new area where it did not previously exist, often with severe impacts on native species.">introduced or invasive species</Term>. In its native range, a species is controlled by predators, competitors, and diseases. In a new environment these controls may be absent, so its population can grow explosively, harming native species through predation, competition, or disease.
         </p>
         <p>
-          Australia has one of the world's worst records of extinction caused by introduced species. Since European settlement in 1788, about 34 mammal species have gone extinct, more than any other comparable country. Key introduced species include the European rabbit (overgrazes vegetation), the cane toad (toxic to native predators), the European red fox (predates small native mammals), and the feral cat (kills an estimated one to two billion native animals per year).
+          Australia has one of the world's worst records of extinction caused by introduced species. Since European settlement in 1788, about 34 mammal species have gone extinct, more than any other comparable country. Key introduced species include the European rabbit (overgrazes vegetation), the cane toad (toxic to native predators), the European red fox (predates small native mammals), and the feral cat (cats kill an estimated two billion animals per year, mostly native species).
         </p>
         <Callout kind="warn" title="Australia and invasive species">
           Australia's wildlife evolved in isolation for about 45 million years with no placental predators. Native animals had no evolved defences against cats and foxes when they arrived. Combined with large-scale land clearing, this has made Australia's extinction crisis one of the most severe in the world.
         </Callout>
 
-        <Figure caption="Estimated annual kills of native Australian animals by feral cats, by animal group.">
-          <svg viewBox="0 0 500 220" width="100%" style={{ maxWidth: 500 }}>
+        <Figure caption="Estimated animals killed each year in Australia by feral and pet cats, by animal group (Woinarski, Murphy, Legge and colleagues, 2017–2020). These are estimates from diet studies, so treat them as approximate.">
+          <svg viewBox="0 0 500 190" width="100%" style={{ maxWidth: 500 }}>
             {[
-              { label: "Birds", value: 377, colour: "#86efac" },
+              { label: "Mammals", value: 1140, colour: "#34d399" },
               { label: "Reptiles", value: 649, colour: "#6ee7b7" },
-              { label: "Mammals", value: 272, colour: "#34d399" },
-              { label: "Frogs", value: 58, colour: "#10b981" },
-              { label: "Invertebrates", value: 377, colour: "#059669" },
+              { label: "Birds", value: 377, colour: "#86efac" },
+              { label: "Frogs", value: 93, colour: "#10b981" },
             ].map((d, i) => {
-              const barW = (d.value / 700) * 300;
+              const barW = (d.value / 1200) * 300;
               const y = 20 + i * 38;
               return (
                 <g key={d.label}>
@@ -1108,7 +1107,7 @@ function Section53({ progress, setProgress }) {
                 </g>
               );
             })}
-            <text x="250" y="215" textAnchor="middle" fontSize="11" fill="var(--muted)">Estimated kills per year (millions)</text>
+            <text x="250" y="182" textAnchor="middle" fontSize="11" fill="var(--muted)">Estimated kills per year (millions)</text>
           </svg>
         </Figure>
 
@@ -1222,7 +1221,7 @@ function ConservationSim() {
         <p style={{ fontWeight: 700, margin: "0 0 4px", color: "var(--accent-deep)" }}>Targets: {s.threat}</p>
         <p style={{ margin: "0 0 12px" }}>{s.desc}</p>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <span style={{ fontSize: 13, fontWeight: 600 }}>Relative effectiveness:</span>
+          <span style={{ fontSize: 13, fontWeight: 600 }}>Relative effectiveness (illustrative):</span>
           <div style={{ flex: 1, background: "#e2e8f0", borderRadius: 8, height: 14 }}>
             <div style={{ width: s.effectiveness + "%", background: "var(--accent-deep)", borderRadius: 8, height: 14, transition: "width 0.4s" }} />
           </div>
@@ -1280,35 +1279,13 @@ function Section54({ progress, setProgress }) {
           Recovery efforts combine predator control, <Term def="A fenced area from which cats and foxes are excluded, allowing native species to breed safely without predation.">predator-free sanctuaries</Term>, captive breeding, habitat restoration, and legal protections. Species such as the bilby and numbat have been successfully returned to parts of their former range using these approaches.
         </p>
         <Callout kind="warn" title="Australia's extinction crisis">
-          Since European settlement, Australia has lost approximately 34 mammal species to extinction. For comparison, the USA and Canada together have lost approximately 3. Combined threats of introduced predators, habitat loss, and climate change continue to push more species toward extinction today.
+          Since European settlement, Australia has lost approximately 34 mammal species to extinction. This is the highest rate of mammal extinction of any continent over that period. Combined threats of introduced predators, habitat loss, and climate change continue to push more species toward extinction today.
         </Callout>
 
         <IUCNCards />
         <ThreatSorter />
         <ConservationSim />
 
-        <Figure caption="Australia leads the world in mammal extinctions since European settlement in 1788.">
-          <svg viewBox="0 0 480 180" width="100%" style={{ maxWidth: 480 }}>
-            {[
-              { label: "Australia", value: 34, colour: "#fca5a5" },
-              { label: "USA/Canada", value: 3, colour: "#bbf7d0" },
-              { label: "South Africa", value: 4, colour: "#bfdbfe" },
-              { label: "Europe", value: 2, colour: "#fde68a" },
-              { label: "New Zealand", value: 3, colour: "#e9d5ff" },
-            ].map((d, i) => {
-              const barW = (d.value / 36) * 280;
-              const y = 20 + i * 30;
-              return (
-                <g key={d.label}>
-                  <text x="80" y={y + 18} textAnchor="end" fontSize="12" fontWeight="600" fill="var(--ink)">{d.label}</text>
-                  <rect x="90" y={y} width={barW} height="24" rx="5" fill={d.colour} stroke="#94a3b8" strokeWidth="1" />
-                  <text x={95 + barW} y={y + 16} fontSize="11" fill="var(--muted)">{d.value}</text>
-                </g>
-              );
-            })}
-            <text x="240" y="172" textAnchor="middle" fontSize="11" fill="var(--muted)">Mammal species extinct since 1788</text>
-          </svg>
-        </Figure>
 
         <QGroup title="Check yourself">
           <MCQ
