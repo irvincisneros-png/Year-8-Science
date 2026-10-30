@@ -9,7 +9,7 @@ const { useEffect: bn_useEffect, useRef: bn_useRef } = React;
    CC image helper — Wikimedia Commons via Special:FilePath
    Image data lives in data.js; this just renders with caption.
 ------------------------------------------------------------ */
-function CCImage({ file, src, width = 480, alt, caption, credit, license = "CC-BY-SA / public domain", style = {}, frame = true }) {
+function CCImage({ file, src, width = 480, alt, caption, credit, source, license = "CC-BY-SA / public domain", style = {}, frame = true }) {
   const [failed, setFailed] = React.useState(false);
   // Local asset path (e.g. src="assets/pdf-img-p5.jpg") takes precedence over Wikimedia file lookup.
   const isLocal = !!src;
@@ -57,7 +57,7 @@ function CCImage({ file, src, width = 480, alt, caption, credit, license = "CC-B
         <figcaption style={{ fontSize: "0.78rem", color: "var(--ink-muted)", marginTop: 6, lineHeight: 1.45 }}>
           {caption}
           {credit && <> <span style={{ opacity: 0.7 }}>· {credit}</span></>}
-          <span style={{ opacity: 0.5 }}> · {isLocal ? "from booklet" : "via Wikimedia Commons"}</span>
+          <span style={{ opacity: 0.5 }}> · {source || (isLocal ? "from booklet" : "via Wikimedia Commons")}</span>
         </figcaption>
       )}
     </figure>

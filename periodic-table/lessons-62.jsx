@@ -15,7 +15,7 @@ function Lesson621({ udl }) {
       <p>Cut any further and you get <strong>subatomic particles</strong> (protons, neutrons, electrons). Those don't have the properties of copper on their own.</p>
 
       <h3>Atoms are absurdly small</h3>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 14 }}>
         <div className="card">
           <div style={{ fontFamily: "var(--font-display)", fontSize: "2.4rem", color: "var(--c-orange-deep)", lineHeight: 1 }}>1,000,000</div>
           <div style={{ fontSize: "0.92rem", color: "var(--ink-2)", marginTop: 6 }}>atoms thick — a single sheet of paper.</div>
@@ -60,7 +60,7 @@ function Lesson622({ udl }) {
     <>
       <p>Atoms aren't really uncuttable after all. They're made of three kinds of <strong>subatomic particles</strong>:</p>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 14, margin: "10px 0 18px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 14, margin: "10px 0 18px" }}>
         <div className="card" style={{ borderColor: "var(--c-red)", background: "var(--c-red-soft)" }}>
           <div className="particle proton" style={{ width: 56, height: 56, position: "relative", marginBottom: 8 }}>p⁺</div>
           <h4><Term>Proton</Term></h4>
@@ -172,7 +172,7 @@ function Lesson623({ udl }) {
       <div className="card" style={{ background: "var(--bg-2)", padding: 18 }}>
         <PlanetaryDemo z={6} />
         <div style={{ textAlign: "center", color: "var(--ink-muted)", fontSize: "0.85rem", marginTop: 6 }}>
-          Carbon (Z=6) — 2 in the first shell, 4 in the second.
+          Carbon (Z = 6): 6 protons and 6 neutrons in the nucleus; 2 electrons in the first shell, 4 in the second.
         </div>
       </div>
 
@@ -180,7 +180,7 @@ function Lesson623({ udl }) {
       <ul>
         <li><strong>1st shell:</strong> up to <strong>2</strong> electrons.</li>
         <li><strong>2nd shell:</strong> up to <strong>8</strong> electrons.</li>
-        <li><strong>3rd shell:</strong> up to <strong>8</strong> electrons (for the first 20 elements).</li>
+        <li><strong>3rd shell:</strong> holds <strong>8</strong> electrons before the 4th shell starts filling (true for the first 20 elements).</li>
         <li>Electrons fill <em>inside out</em>. Inner shell first, then the next.</li>
       </ul>
 
@@ -207,7 +207,7 @@ function Lesson623({ udl }) {
             "Gravity holds the atoms together"
           ]}
           correctIndex={1}
-          explain="The electrons in your hand and in the metal repel each other (like-charges repel). You're not actually touching the metal — you're feeling electrons push back."
+          explain="The electrons in your hand and in the metal repel each other (like charges repel). What you feel as touching is that electrical push-back."
         />
       </div>
     </>
@@ -290,7 +290,7 @@ function Lesson624({ udl }) {
 
   return (
     <>
-      <p>Our picture of the atom has been redrawn five times in 200 years. Every time a scientist invented better tools, they saw something new — and had to update the model. <strong>This is how science actually works:</strong> ideas get tested, improved, and sometimes replaced.</p>
+      <p>Our picture of the atom has been redrawn four times since Dalton's first model in 1803. Every time a scientist invented better tools, they saw something new — and had to update the model. <strong>This is how science actually works:</strong> ideas get tested, improved, and sometimes replaced.</p>
 
       <div className="timeline">
         {HISTORY.map(h => (
@@ -303,7 +303,7 @@ function Lesson624({ udl }) {
       </div>
 
       <div className="card" style={{ borderColor: "var(--ink)", boxShadow: "var(--shadow-2)" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "auto 1fr 1.4fr", gap: 18, alignItems: "center" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 18, alignItems: "center", justifyItems: "center" }}>
           {cur.photo ? (
             <CCAvatar file={cur.photo} size={110} alt={cur.who} />
           ) : <div style={{ width: 110 }} />}
@@ -314,7 +314,7 @@ function Lesson624({ udl }) {
             <div style={{ color: "var(--ink-muted)", fontSize: "0.88rem" }}>{cur.who}</div>
             <p style={{ marginTop: 10, fontWeight: 600 }}>{cur.one_liner}</p>
             <p style={{ fontSize: "0.92rem", color: "var(--ink-2)" }}>{cur.description}</p>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 8, fontSize: "0.85rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10, marginTop: 8, fontSize: "0.85rem" }}>
               <div><strong>Evidence:</strong> {cur.evidence}</div>
               <div><strong>Limitation:</strong> {cur.why_wrong}</div>
             </div>

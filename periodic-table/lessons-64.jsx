@@ -238,7 +238,7 @@ function MaterialsChooser() {
         <Button size="sm" iconRight="right" onClick={next}>Next</Button>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: 16, marginBottom: 14 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 16, marginBottom: 14 }}>
         <div style={{
           background: "linear-gradient(135deg, oklch(0.96 0.02 60) 0%, oklch(0.94 0.03 200) 100%)",
           borderRadius: "var(--r)",
@@ -260,7 +260,7 @@ function MaterialsChooser() {
       </div>
 
       <h4 style={{ marginBottom: 10 }}>What would you make it from?</h4>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))", gap: 10 }}>
         {cur.options.map(opt => {
           const isElement = opt.length <= 2 && /^[A-Z]/.test(opt);
           const el = isElement ? getElementBySym(opt) : null;
@@ -316,7 +316,7 @@ function Lesson641({ udl }) {
       <p>Knowing what materials <em>can</em> do is half the picture. Real engineers also weigh: <strong>how much does it cost? How available is it? How easy is it to recycle?</strong> A perfect material that's too rare won't be used. A cheap-and-cheerful one that's "good enough" often wins.</p>
 
       <h3>What goes into the decision</h3>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 10 }}>
         {[
           { t: "Physical properties", d: "Strength, density, hardness, transparency, melting point." },
           { t: "Chemical properties", d: "Reactivity, resistance to rust, behaviour with acids and water." },

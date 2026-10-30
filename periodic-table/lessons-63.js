@@ -27,12 +27,171 @@ var _React = React,
   u63_useMemo = _React.useMemo,
   u63_useRef = _React.useRef;
 
+/* Accurate inline diagram of groups and periods for the first 18 elements.
+   Colours use the same --t-* category tokens as the interactive table below. */
+function GroupsPeriodsFigure() {
+  var cells = [
+  // [symbol, Z, group, period, category]
+  ["H", 1, 1, 1, "nonmetal"], ["He", 2, 18, 1, "noble"], ["Li", 3, 1, 2, "alkali"], ["Be", 4, 2, 2, "alkaline"], ["B", 5, 13, 2, "metalloid"], ["C", 6, 14, 2, "nonmetal"], ["N", 7, 15, 2, "nonmetal"], ["O", 8, 16, 2, "nonmetal"], ["F", 9, 17, 2, "halogen"], ["Ne", 10, 18, 2, "noble"], ["Na", 11, 1, 3, "alkali"], ["Mg", 12, 2, 3, "alkaline"], ["Al", 13, 13, 3, "post"], ["Si", 14, 14, 3, "metalloid"], ["P", 15, 15, 3, "nonmetal"], ["S", 16, 16, 3, "nonmetal"], ["Cl", 17, 17, 3, "halogen"], ["Ar", 18, 18, 3, "noble"]];
+  var S = 42,
+    G = 4;
+  var colX = function colX(g) {
+    return g <= 2 ? 78 + (g - 1) * (S + G) : 78 + 2 * (S + G) + 150 + (g - 13) * (S + G);
+  };
+  var rowY = function rowY(p) {
+    return 40 + (p - 1) * (S + G);
+  };
+  var legend = [["alkali", "Alkali metal"], ["alkaline", "Alkaline earth metal"], ["post", "Post-transition metal"], ["metalloid", "Metalloid"], ["nonmetal", "Reactive non-metal"], ["halogen", "Halogen"], ["noble", "Noble gas"]];
+  return /*#__PURE__*/React.createElement("figure", {
+    style: {
+      margin: "12px 0"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      borderRadius: "var(--r)",
+      border: "1px solid var(--border)",
+      background: "var(--paper)",
+      padding: "10px 6px"
+    }
+  }, /*#__PURE__*/React.createElement("svg", {
+    role: "img",
+    "aria-label": "The first three periods of the periodic table. Columns are groups 1, 2 and 13 to 18; rows are periods 1, 2 and 3. Period 1: H, He. Period 2: Li, Be, B, C, N, O, F, Ne. Period 3: Na, Mg, Al, Si, P, S, Cl, Ar. The gap between groups 2 and 13 is where the transition metals (groups 3 to 12) fit from period 4 onwards.",
+    viewBox: "0 0 640 250",
+    style: {
+      width: "100%",
+      display: "block"
+    }
+  }, [1, 2, 13, 14, 15, 16, 17, 18].map(function (g) {
+    return /*#__PURE__*/React.createElement("text", {
+      key: g,
+      x: colX(g) + S / 2,
+      y: "30",
+      textAnchor: "middle",
+      style: {
+        fontSize: 12,
+        fontWeight: 700,
+        fill: "var(--ink)",
+        fontFamily: "var(--font-mono)"
+      }
+    }, g);
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "4",
+    y: "30",
+    style: {
+      fontSize: 11,
+      fill: "var(--ink-muted)"
+    }
+  }, "Group \u2192"), [1, 2, 3].map(function (p) {
+    return /*#__PURE__*/React.createElement("text", {
+      key: p,
+      x: "4",
+      y: rowY(p) + S / 2 + 4,
+      style: {
+        fontSize: 11,
+        fill: "var(--ink-muted)"
+      }
+    }, "Period ", p);
+  }), /*#__PURE__*/React.createElement("line", {
+    x1: colX(2) + S + 10,
+    x2: colX(13) - 10,
+    y1: rowY(3) + S / 2,
+    y2: rowY(3) + S / 2,
+    stroke: "var(--ink-muted)",
+    strokeDasharray: "4 4"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: (colX(2) + S + colX(13)) / 2,
+    y: rowY(2) + S / 2 + 4,
+    textAnchor: "middle",
+    style: {
+      fontSize: 10.5,
+      fill: "var(--ink-muted)"
+    }
+  }, "Groups 3\u201312 (transition"), /*#__PURE__*/React.createElement("text", {
+    x: (colX(2) + S + colX(13)) / 2,
+    y: rowY(2) + S / 2 + 18,
+    textAnchor: "middle",
+    style: {
+      fontSize: 10.5,
+      fill: "var(--ink-muted)"
+    }
+  }, "metals) start in period 4"), cells.map(function (_ref) {
+    var _ref2 = _slicedToArray(_ref, 5),
+      sym = _ref2[0],
+      z = _ref2[1],
+      g = _ref2[2],
+      p = _ref2[3],
+      cat = _ref2[4];
+    return /*#__PURE__*/React.createElement("g", {
+      key: sym
+    }, /*#__PURE__*/React.createElement("rect", {
+      x: colX(g),
+      y: rowY(p),
+      width: S,
+      height: S,
+      rx: "5",
+      style: {
+        fill: "var(--t-".concat(cat, ")")
+      }
+    }), /*#__PURE__*/React.createElement("text", {
+      x: colX(g) + 4,
+      y: rowY(p) + 11,
+      style: {
+        fontSize: 9,
+        fill: "#1f2937",
+        fontFamily: "var(--font-mono)"
+      }
+    }, z), /*#__PURE__*/React.createElement("text", {
+      x: colX(g) + S / 2,
+      y: rowY(p) + 31,
+      textAnchor: "middle",
+      style: {
+        fontSize: 16,
+        fontWeight: 700,
+        fill: "#1f2937",
+        fontFamily: "var(--font-display)"
+      }
+    }, sym));
+  }), legend.map(function (_ref3, i) {
+    var _ref4 = _slicedToArray(_ref3, 2),
+      cat = _ref4[0],
+      label = _ref4[1];
+    var x = 20 + i % 4 * 155,
+      y = 196 + Math.floor(i / 4) * 24;
+    return /*#__PURE__*/React.createElement("g", {
+      key: cat
+    }, /*#__PURE__*/React.createElement("rect", {
+      x: x,
+      y: y - 11,
+      width: "14",
+      height: "14",
+      rx: "3",
+      style: {
+        fill: "var(--t-".concat(cat, ")")
+      }
+    }), /*#__PURE__*/React.createElement("text", {
+      x: x + 20,
+      y: y,
+      style: {
+        fontSize: 11.5,
+        fill: "var(--ink)"
+      }
+    }, label));
+  }))), /*#__PURE__*/React.createElement("figcaption", {
+    style: {
+      fontSize: "0.78rem",
+      color: "var(--ink-muted)",
+      marginTop: 6,
+      lineHeight: 1.45
+    }
+  }, "Groups (columns) and periods (rows) for the first 18 elements, colour-coded by category (same colours as the interactive table below)."));
+}
+
 /* ------------------------------------------------------------
    Lesson 6.3.1 — Patterns in the periodic table
 ------------------------------------------------------------ */
-function Lesson631(_ref) {
+function Lesson631(_ref5) {
   var _groups$find;
-  var udl = _ref.udl;
+  var udl = _ref5.udl;
   var _u63_useState = u63_useState(null),
     _u63_useState2 = _slicedToArray(_u63_useState, 2),
     filter = _u63_useState2[0],
@@ -60,23 +219,17 @@ function Lesson631(_ref) {
   }];
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", null, "The periodic table is the most useful chart in chemistry. Elements are arranged in ", /*#__PURE__*/React.createElement("strong", null, "order of atomic number"), " (number of protons), and lined up so that elements with similar properties stack into columns."), /*#__PURE__*/React.createElement("div", {
     style: {
-      display: "grid",
-      gridTemplateColumns: "1.4fr 1fr",
-      gap: 14,
       margin: "10px 0 18px"
     }
   }, /*#__PURE__*/React.createElement(CCImage, {
     src: "assets/pdf-img-p25.jpg",
-    caption: "The modern periodic table \u2014 118 elements arranged by atomic number.",
+    alt: "Black-and-white periodic table of all 118 elements showing each symbol, atomic number and atomic mass.",
+    caption: "The modern periodic table \u2014 118 elements arranged by atomic number (the NESA data-sheet version you will use in exams).",
     frame: true
-  }), /*#__PURE__*/React.createElement(CCImage, {
-    src: "assets/pdf-img-p26.jpg",
-    caption: "Groups (columns) and periods (rows) \u2014 the first 3 periods, with category colour-coding.",
-    frame: true
-  })), /*#__PURE__*/React.createElement("div", {
+  }), /*#__PURE__*/React.createElement(GroupsPeriodsFigure, null)), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
-      gridTemplateColumns: "1fr 1fr",
+      gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
       gap: 14
     }
   }, /*#__PURE__*/React.createElement("div", {
@@ -135,10 +288,10 @@ function Lesson631(_ref) {
     style: {
       marginTop: 22
     }
-  }, "Reactivity patterns"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "Going ", /*#__PURE__*/React.createElement("strong", null, "DOWN"), " Group 1, reactivity ", /*#__PURE__*/React.createElement("strong", null, "INCREASES"), ". Caesium is far more reactive than lithium."), /*#__PURE__*/React.createElement("li", null, "Going ", /*#__PURE__*/React.createElement("strong", null, "DOWN"), " Group 17, reactivity ", /*#__PURE__*/React.createElement("strong", null, "DECREASES"), ". Fluorine is more reactive than iodine."), /*#__PURE__*/React.createElement("li", null, "Most reactive metal: bottom-left (caesium, francium). Most reactive non-metal: top-right (fluorine)."), /*#__PURE__*/React.createElement("li", null, "Noble gases (Group 18): essentially unreactive.")), /*#__PURE__*/React.createElement(Callout, {
+  }, "Reactivity patterns"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "Going ", /*#__PURE__*/React.createElement("strong", null, "DOWN"), " Group 1, reactivity ", /*#__PURE__*/React.createElement("strong", null, "INCREASES"), ". Caesium is far more reactive than lithium."), /*#__PURE__*/React.createElement("li", null, "Going ", /*#__PURE__*/React.createElement("strong", null, "DOWN"), " Group 17, reactivity ", /*#__PURE__*/React.createElement("strong", null, "DECREASES"), ". Fluorine is more reactive than iodine."), /*#__PURE__*/React.createElement("li", null, "Most reactive metal: bottom-left (caesium; francium is too rare and radioactive to test properly). Most reactive non-metal: top-right (fluorine)."), /*#__PURE__*/React.createElement("li", null, "Noble gases (Group 18): essentially unreactive.")), /*#__PURE__*/React.createElement(Callout, {
     kind: "tip",
     title: "Try this"
-  }, "Click the \"Group 1\" filter above, then click an element on the table to see its details. Notice how the alkali metals run down the left column \u2014 and how they get further from helium (the small element in the top-right) as they get more reactive."), sel && /*#__PURE__*/React.createElement(ElementDetail, {
+  }, "Click the \"Group 1\" filter above, then click an element on the table to see its details. Notice how the alkali metals run down the left column, and how they get more reactive the further down the column they sit."), sel && /*#__PURE__*/React.createElement(ElementDetail, {
     z: sel
   }), /*#__PURE__*/React.createElement("div", {
     className: "activity"
@@ -148,24 +301,24 @@ function Lesson631(_ref) {
     className: "badge"
   }, "Quiz")), /*#__PURE__*/React.createElement(QuizMC, {
     question: "Sodium reacts violently with water. Based on periodic table patterns, would potassium (below sodium in Group 1) be more or less reactive?",
-    options: ["Less reactive (it's further from helium)", "More reactive (reactivity INCREASES down Group 1)", "About the same", "It doesn't react with water"],
+    options: ["Less reactive (it is a bigger atom)", "More reactive (reactivity INCREASES down Group 1)", "About the same", "It doesn't react with water"],
     correctIndex: 1,
     explain: "Going down Group 1, reactivity increases. Potassium reacts with water more vigorously than sodium \u2014 and caesium reacts almost explosively."
   }), /*#__PURE__*/React.createElement(QuizMC, {
     question: "Which group's elements are almost completely unreactive?",
     options: ["Group 1 (alkali metals)", "Group 2 (alkaline earths)", "Group 17 (halogens)", "Group 18 (noble gases)"],
     correctIndex: 3,
-    explain: "Noble gases have full outer shells \u2014 they don't need to gain or lose electrons, so they barely react."
+    explain: "Noble gases have full outer shells: they don't need to gain or lose electrons, so they barely react."
   })));
 }
 
 /* ------------------------------------------------------------
    Lesson 6.3.2 — Predicting properties
 ------------------------------------------------------------ */
-function Lesson632(_ref2) {
-  var udl = _ref2.udl;
+function Lesson632(_ref6) {
+  var udl = _ref6.udl;
   // Predict-before-peek with rubidium worked example
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", null, "Because the table is so well-organised, you can ", /*#__PURE__*/React.createElement("strong", null, "predict"), " what an element will be like just from its position \u2014 before you've ever seen it."), /*#__PURE__*/React.createElement("h3", null, "What the group tells you"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "Whether it's a metal or non-metal (left = metal, right = non-metal, zig-zag = metalloid)."), /*#__PURE__*/React.createElement("li", null, "How many electrons are in its outer shell."), /*#__PURE__*/React.createElement("li", null, "What charge its ions will form (Group 1 \u2192 +1, Group 2 \u2192 +2, Group 17 \u2192 \u22121)."), /*#__PURE__*/React.createElement("li", null, "How it'll react.")), /*#__PURE__*/React.createElement("h3", null, "What the period tells you"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "How many electron shells the atom has (Period 3 \u2192 3 shells)."), /*#__PURE__*/React.createElement("li", null, "Roughly how big the atom is (atoms get bigger going down).")), /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", null, "Because the table is so well-organised, you can ", /*#__PURE__*/React.createElement("strong", null, "predict"), " what an element will be like just from its position \u2014 before you've ever seen it."), /*#__PURE__*/React.createElement("h3", null, "What the group tells you"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "Whether it's a metal or non-metal (left = metal, right = non-metal, zig-zag = metalloid)."), /*#__PURE__*/React.createElement("li", null, "How many electrons are in its outer shell (Groups 1 and 2: the group number; Groups 13 to 18: the group number minus 10, except helium with 2)."), /*#__PURE__*/React.createElement("li", null, "What charge its ions will form (Group 1 \u2192 +1, Group 2 \u2192 +2, Group 17 \u2192 \u22121)."), /*#__PURE__*/React.createElement("li", null, "How it'll react.")), /*#__PURE__*/React.createElement("h3", null, "What the period tells you"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "How many electron shells the atom has (Period 3 \u2192 3 shells)."), /*#__PURE__*/React.createElement("li", null, "Roughly how big the atom is (atoms get bigger going down a group, because each period adds a shell).")), /*#__PURE__*/React.createElement("div", {
     className: "activity"
   }, /*#__PURE__*/React.createElement("div", {
     className: "activity-head"
@@ -178,7 +331,7 @@ function Lesson632(_ref2) {
   }, "Rubidium is in ", /*#__PURE__*/React.createElement("strong", null, "Group 1, Period 5"), ". Without looking, predict its properties \u2014 then peek."), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
-      gridTemplateColumns: "1fr 1fr",
+      gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
       gap: 10
     }
   }, /*#__PURE__*/React.createElement("div", {
@@ -380,7 +533,7 @@ function SymbolGame() {
   }, "New game")), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
-      gridTemplateColumns: "repeat(8, 1fr)",
+      gridTemplateColumns: "repeat(auto-fill, minmax(64px, 1fr))",
       gap: 8
     }
   }, cards.map(function (c, i) {
@@ -415,8 +568,8 @@ function SymbolGame() {
     title: "Game complete!"
   }, "You matched all ", cards.length / 2, " pairs in ", moves, " moves. ", moves <= cards.length / 2 + 4 ? "Phenomenal memory." : moves <= cards.length ? "Solid work." : "You'll get faster next time!"));
 }
-function Lesson633(_ref3) {
-  var udl = _ref3.udl;
+function Lesson633(_ref7) {
+  var udl = _ref7.udl;
   var latinNames = [["Sodium", "Na", "Natrium"], ["Potassium", "K", "Kalium"], ["Iron", "Fe", "Ferrum"], ["Copper", "Cu", "Cuprum"], ["Silver", "Ag", "Argentum"], ["Gold", "Au", "Aurum"], ["Mercury", "Hg", "Hydrargyrum"], ["Lead", "Pb", "Plumbum"], ["Tin", "Sn", "Stannum"], ["Antimony", "Sb", "Stibium"], ["Tungsten", "W", "Wolfram (German)"]];
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", null, "Every element has its own ", /*#__PURE__*/React.createElement("strong", null, "chemical symbol"), ". Chemists everywhere \u2014 Sydney, S\xE3o Paulo, Seoul \u2014 can read each other's formulas because the symbols are universal."), /*#__PURE__*/React.createElement("h3", null, "The 3 rules"), /*#__PURE__*/React.createElement("ol", {
     style: {
@@ -430,11 +583,11 @@ function Lesson633(_ref3) {
     className: "mono"
   }, "CO"), " means carbon + oxygen (carbon monoxide). ", /*#__PURE__*/React.createElement("span", {
     className: "mono"
-  }, "Co"), " means cobalt. Get the caps wrong and you've written a different chemical entirely."), /*#__PURE__*/React.createElement("h3", null, "Why some symbols look weird"), /*#__PURE__*/React.createElement("p", null, "Some symbols don't match the modern English name \u2014 they come from the element's old ", /*#__PURE__*/React.createElement("strong", null, "Latin name"), "."), /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "English name"), /*#__PURE__*/React.createElement("th", null, "Symbol"), /*#__PURE__*/React.createElement("th", null, "Latin origin"))), /*#__PURE__*/React.createElement("tbody", null, latinNames.map(function (_ref4, i) {
-    var _ref5 = _slicedToArray(_ref4, 3),
-      en = _ref5[0],
-      sym = _ref5[1],
-      lat = _ref5[2];
+  }, "Co"), " means cobalt. Get the caps wrong and you've written a different chemical entirely."), /*#__PURE__*/React.createElement("h3", null, "Why some symbols look weird"), /*#__PURE__*/React.createElement("p", null, "Some symbols don't match the modern English name \u2014 they come from the element's old ", /*#__PURE__*/React.createElement("strong", null, "Latin name"), "."), /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "English name"), /*#__PURE__*/React.createElement("th", null, "Symbol"), /*#__PURE__*/React.createElement("th", null, "Latin origin"))), /*#__PURE__*/React.createElement("tbody", null, latinNames.map(function (_ref8, i) {
+    var _ref9 = _slicedToArray(_ref8, 3),
+      en = _ref9[0],
+      sym = _ref9[1],
+      lat = _ref9[2];
     return /*#__PURE__*/React.createElement("tr", {
       key: i
     }, /*#__PURE__*/React.createElement("td", null, en), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("span", {
@@ -489,10 +642,10 @@ function FormulaDecoder() {
     setAnswer({});
     setChecked(false);
   };
-  var allRight = checked && Object.keys(answer).length === cur.parts.length && cur.parts.every(function (_ref6) {
-    var _ref7 = _slicedToArray(_ref6, 2),
-      s = _ref7[0],
-      n = _ref7[1];
+  var allRight = checked && Object.keys(answer).length === cur.parts.length && cur.parts.every(function (_ref0) {
+    var _ref1 = _slicedToArray(_ref0, 2),
+      s = _ref1[0],
+      n = _ref1[1];
     return answer[s] === n;
   });
 
@@ -572,10 +725,10 @@ function FormulaDecoder() {
       gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))",
       gap: 8
     }
-  }, Object.entries(answer).map(function (_ref8) {
-    var _ref9 = _slicedToArray(_ref8, 2),
-      sym = _ref9[0],
-      count = _ref9[1];
+  }, Object.entries(answer).map(function (_ref10) {
+    var _ref11 = _slicedToArray(_ref10, 2),
+      sym = _ref11[0],
+      count = _ref11[1];
     var el = getElementBySym(sym);
     return /*#__PURE__*/React.createElement("div", {
       key: sym,
@@ -659,10 +812,10 @@ function FormulaDecoder() {
       margin: "6px 0 0",
       paddingLeft: 20
     }
-  }, cur.parts.map(function (_ref0) {
-    var _ref1 = _slicedToArray(_ref0, 2),
-      s = _ref1[0],
-      n = _ref1[1];
+  }, cur.parts.map(function (_ref12) {
+    var _ref13 = _slicedToArray(_ref12, 2),
+      s = _ref13[0],
+      n = _ref13[1];
     var el = window.AppData.getElementBySym(s);
     return /*#__PURE__*/React.createElement("li", {
       key: s
@@ -698,8 +851,8 @@ function renderFormula(f) {
   }, cur));
   return out;
 }
-function Lesson634(_ref10) {
-  var udl = _ref10.udl;
+function Lesson634(_ref14) {
+  var udl = _ref14.udl;
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", null, "A ", /*#__PURE__*/React.createElement("strong", null, "chemical formula"), " packs a lot into a few characters. It tells you which elements are in a compound and exactly how many atoms of each."), /*#__PURE__*/React.createElement("h3", null, "How to read one"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "Each ", /*#__PURE__*/React.createElement("strong", null, "symbol"), " = one element."), /*#__PURE__*/React.createElement("li", null, "A small number (subscript) after a symbol = how many atoms of that element."), /*#__PURE__*/React.createElement("li", null, "No number = 1 atom.")), /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Formula"), /*#__PURE__*/React.createElement("th", null, "Elements"), /*#__PURE__*/React.createElement("th", null, "How many of each"))), /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", {
     className: "formula",
     style: {
@@ -814,12 +967,13 @@ function FlameTestSim() {
   }), mode === "guess" && /*#__PURE__*/React.createElement(Chip, null, score, " / ", shown, " correct")), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
-      gridTemplateColumns: "1fr 1fr",
+      gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
       gap: 16
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       aspectRatio: "3 / 4",
+      maxHeight: 420,
       background: "linear-gradient(180deg, oklch(0.15 0.02 250) 0%, oklch(0.10 0.01 250) 100%)",
       borderRadius: "var(--r)",
       position: "relative",
@@ -980,15 +1134,16 @@ function FlameTestSim() {
     }
   }, "Next sample"))))));
 }
-function Lesson635(_ref11) {
-  var udl = _ref11.udl;
+function Lesson635(_ref15) {
+  var udl = _ref15.udl;
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", null, "You've classified samples on appearance. But how do ", /*#__PURE__*/React.createElement("em", null, "real"), " chemists check if an unknown is a metal? They run multiple tests."), /*#__PURE__*/React.createElement("h3", null, "The five common tests"), /*#__PURE__*/React.createElement("ol", {
     style: {
       paddingLeft: 22
     }
   }, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "Conductivity:"), " battery + bulb + sample. Metals light the bulb. (Watch out \u2014 graphite does too!)"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "Malleability:"), " tap gently with a hammer. Metals flatten, non-metals shatter."), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "Reaction with acid:"), " reactive metals (like magnesium, zinc and iron) fizz in dilute hydrochloric acid, producing hydrogen gas. Non-metals don't."), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "Appearance:"), " metals shine when freshly polished. (Some non-metals like iodine are shiny too \u2014 not foolproof.)"), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "Flame test:"), " some metals colour a flame distinctively. This identifies ", /*#__PURE__*/React.createElement("em", null, "which"), " metal, not just whether it's a metal.")), /*#__PURE__*/React.createElement(CCImage, {
-    file: "Bratislava Novoro\u010Dn\xFD oh\u0148ostroj 2005 (3).jpg",
-    width: 720,
+    src: "assets/fireworks.jpg",
+    source: "illustration",
+    alt: "Hand-drawn night sky over a city with five firework bursts: red, yellow, green, blue-green and lilac.",
     caption: "Fireworks are flame tests on a giant scale \u2014 each colour comes from a different metal compound.",
     frame: true
   }), /*#__PURE__*/React.createElement("div", {
@@ -1004,7 +1159,7 @@ function Lesson635(_ref11) {
   }, "Drop a metal salt into a Bunsen flame and watch the colour. Try ", /*#__PURE__*/React.createElement("strong", null, "Explore mode"), " first to learn the colours, then switch to ", /*#__PURE__*/React.createElement("strong", null, "Guess mode"), "."), /*#__PURE__*/React.createElement(FlameTestSim, null)), /*#__PURE__*/React.createElement(Callout, {
     kind: "fact",
     title: "Where you've seen this"
-  }, "Fireworks! Red bursts use strontium or lithium. Green = barium or copper. Yellow = sodium. Lilac = potassium. Every colour you see in the sky is a flame test on a massive scale."), /*#__PURE__*/React.createElement("div", {
+  }, "Fireworks! Red bursts use strontium (or lithium). Green = barium. Yellow = sodium. Orange = calcium. Blue comes from copper compounds. Most firework colours work like a flame test on a massive scale."), /*#__PURE__*/React.createElement("div", {
     className: "activity"
   }, /*#__PURE__*/React.createElement("div", {
     className: "activity-head"
@@ -1026,9 +1181,9 @@ function Lesson635(_ref11) {
 /* ------------------------------------------------------------
    Lesson 6.3.6 — Modelling the first 18 elements
 ------------------------------------------------------------ */
-function Lesson636(_ref12) {
-  var udl = _ref12.udl;
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", null, "The most important pattern in chemistry: as you walk along the periodic table from element 1 to 18, you add ", /*#__PURE__*/React.createElement("strong", null, "one proton and one electron each step"), ". The shells fill up in a predictable way \u2014 and that pattern is the reason groups behave the same."), /*#__PURE__*/React.createElement("h3", null, "The rules, once more"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "Shell 1: max 2 electrons."), /*#__PURE__*/React.createElement("li", null, "Shell 2: max 8 electrons."), /*#__PURE__*/React.createElement("li", null, "Shell 3: max 8 electrons (for the first 20 elements)."), /*#__PURE__*/React.createElement("li", null, "Always fill ", /*#__PURE__*/React.createElement("strong", null, "inside-out"), ".")), /*#__PURE__*/React.createElement("div", {
+function Lesson636(_ref16) {
+  var udl = _ref16.udl;
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", null, "The most important pattern in chemistry: as you walk along the periodic table from element 1 to 18, you add ", /*#__PURE__*/React.createElement("strong", null, "one proton and one electron each step"), ". The shells fill up in a predictable way \u2014 and that pattern is the reason groups behave the same."), /*#__PURE__*/React.createElement("h3", null, "The rules, once more"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "Shell 1: max 2 electrons."), /*#__PURE__*/React.createElement("li", null, "Shell 2: max 8 electrons."), /*#__PURE__*/React.createElement("li", null, "Shell 3: holds 8 electrons before shell 4 starts (for the first 20 elements)."), /*#__PURE__*/React.createElement("li", null, "Always fill ", /*#__PURE__*/React.createElement("strong", null, "inside-out"), ".")), /*#__PURE__*/React.createElement("div", {
     className: "activity"
   }, /*#__PURE__*/React.createElement("div", {
     className: "activity-head"
@@ -1048,23 +1203,23 @@ function Lesson636(_ref12) {
   }, /*#__PURE__*/React.createElement("h4", null, "Quick check"), /*#__PURE__*/React.createElement("span", {
     className: "badge"
   }, "Quiz")), /*#__PURE__*/React.createElement(QuizMC, {
-    question: "An atom has the electron arrangement 2, 8, 7. Which existing element does it behave most like?",
+    question: "An atom has the electron arrangement 2, 8, 7. Which element is it?",
     options: ["Sodium (Na)", "Argon (Ar)", "Chlorine (Cl)", "Oxygen (O)"],
     correctIndex: 2,
-    explain: "It has 7 outer electrons \u2014 same as fluorine and chlorine. It's chlorine itself (Z = 17)."
+    explain: "2 + 8 + 7 = 17 electrons, so this IS chlorine (Z = 17). Its 7 outer electrons put it in Group 17 with fluorine."
   }), /*#__PURE__*/React.createElement(QuizMC, {
     question: "Argon has 8 electrons in its outer shell. Why is it so unreactive?",
     options: ["It's too heavy to react", "Its outer shell is full — it doesn't need to gain or lose electrons", "It only exists at high temperatures", "It's poisonous"],
     correctIndex: 1,
-    explain: "A full outer shell is energetically very stable. Argon (and the other noble gases) have no incentive to bond with anything."
+    explain: "A full outer shell is very stable. Argon (like the other noble gases) has no tendency to gain, lose or share electrons, so it almost never forms compounds."
   })));
 }
 
 /* ------------------------------------------------------------
    Lesson 6.3.7 — History of the periodic table
 ------------------------------------------------------------ */
-function Lesson637(_ref13) {
-  var udl = _ref13.udl;
+function Lesson637(_ref17) {
+  var udl = _ref17.udl;
   var steps = [{
     yr: 1817,
     who: "Döbereiner",
@@ -1098,7 +1253,7 @@ function Lesson637(_ref13) {
         fontSize: "0.78rem"
       }
     }, s.contrib));
-  })), /*#__PURE__*/React.createElement("h3", null, "Why Mendeleev's table worked when others failed"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "He arranged elements by atomic mass ", /*#__PURE__*/React.createElement("em", null, "and"), " chemical properties \u2014 not just mass."), /*#__PURE__*/React.createElement("li", null, "He left ", /*#__PURE__*/React.createElement("strong", null, "gaps"), " where no known element fitted, and ", /*#__PURE__*/React.createElement("strong", null, "predicted"), " what would eventually fill them."), /*#__PURE__*/React.createElement("li", null, "Within about 17 years, three of those predicted elements (gallium, scandium, germanium) had been discovered \u2014 their properties matched his predictions almost exactly."), /*#__PURE__*/React.createElement("li", null, "He sometimes swapped elements out of strict mass order if their behaviour demanded it \u2014 a bold call that later turned out to be right.")), /*#__PURE__*/React.createElement(Callout, {
+  })), /*#__PURE__*/React.createElement("h3", null, "Why Mendeleev's table worked when others failed"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "He arranged elements by atomic mass ", /*#__PURE__*/React.createElement("em", null, "and"), " chemical properties \u2014 not just mass."), /*#__PURE__*/React.createElement("li", null, "He left ", /*#__PURE__*/React.createElement("strong", null, "gaps"), " where no known element fitted, and ", /*#__PURE__*/React.createElement("strong", null, "predicted"), " what would eventually fill them."), /*#__PURE__*/React.createElement("li", null, "Within about 17 years, three of those predicted elements (gallium 1875, scandium 1879, germanium 1886) had been discovered, and their properties matched his predictions closely."), /*#__PURE__*/React.createElement("li", null, "He sometimes swapped elements out of strict mass order if their behaviour demanded it \u2014 a bold call that later turned out to be right.")), /*#__PURE__*/React.createElement(Callout, {
     kind: "fact",
     title: "The fix from Moseley (1913)"
   }, "Henry Moseley showed the real ordering principle is ", /*#__PURE__*/React.createElement("strong", null, "atomic number"), " (number of protons), not mass. Reorder by protons and every awkward swap Mendeleev made fixes itself. Moseley was killed at Gallipoli aged 27 \u2014 a huge loss to science."), /*#__PURE__*/React.createElement("p", null, "The modern table is still being added to \u2014 elements 113\u2013118 were officially named between 2012 and 2016, all made in atom-smashing labs."), /*#__PURE__*/React.createElement("div", {

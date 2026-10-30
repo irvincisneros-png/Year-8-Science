@@ -315,7 +315,7 @@ function HomeView({ navigate, progress, udl }) {
       </div>
 
       <h2 style={{ margin: "0 0 14px" }}>Side quests</h2>
-      <div className="quests-row" style={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
+      <div className="quests-row" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}>
         {SIDE_QUESTS.slice(0, 3).map(q => (
           <button key={q.id} className="quest-card" onClick={() => navigate({ kind: "sidequest", id: q.id })}>
             <div className="qicon">{q.icon}</div>
@@ -324,7 +324,7 @@ function HomeView({ navigate, progress, udl }) {
           </button>
         ))}
       </div>
-      <div className="quests-row" style={{ gridTemplateColumns: "repeat(2, 1fr)" }}>
+      <div className="quests-row" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}>
         {SIDE_QUESTS.slice(3).map(q => (
           <button key={q.id} className="quest-card" onClick={() => navigate({ kind: "sidequest", id: q.id })}>
             <div className="qicon">{q.icon}</div>

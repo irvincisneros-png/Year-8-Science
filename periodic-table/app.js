@@ -624,7 +624,7 @@ function HomeView(_ref) {
   }, "Side quests"), /*#__PURE__*/React.createElement("div", {
     className: "quests-row",
     style: {
-      gridTemplateColumns: "repeat(3, 1fr)"
+      gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))"
     }
   }, SIDE_QUESTS.slice(0, 3).map(function (q) {
     return /*#__PURE__*/React.createElement("button", {
@@ -644,7 +644,7 @@ function HomeView(_ref) {
   })), /*#__PURE__*/React.createElement("div", {
     className: "quests-row",
     style: {
-      gridTemplateColumns: "repeat(2, 1fr)"
+      gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))"
     }
   }, SIDE_QUESTS.slice(3).map(function (q) {
     return /*#__PURE__*/React.createElement("button", {

@@ -32,7 +32,7 @@ function Lesson621(_ref) {
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", null, "An ", /*#__PURE__*/React.createElement(Term, null, "atom"), " is the smallest particle of an element that ", /*#__PURE__*/React.createElement("em", null, "still has the properties of that element"), ". If you took a chunk of pure copper and kept cutting it in half \u2014 the smallest piece that would still behave like copper is a single copper atom."), /*#__PURE__*/React.createElement("p", null, "Cut any further and you get ", /*#__PURE__*/React.createElement("strong", null, "subatomic particles"), " (protons, neutrons, electrons). Those don't have the properties of copper on their own."), /*#__PURE__*/React.createElement("h3", null, "Atoms are absurdly small"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
-      gridTemplateColumns: "1fr 1fr",
+      gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
       gap: 14
     }
   }, /*#__PURE__*/React.createElement("div", {
@@ -101,7 +101,7 @@ function Lesson622(_ref2) {
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", null, "Atoms aren't really uncuttable after all. They're made of three kinds of ", /*#__PURE__*/React.createElement("strong", null, "subatomic particles"), ":"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
-      gridTemplateColumns: "repeat(3, 1fr)",
+      gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
       gap: 14,
       margin: "10px 0 18px"
     }
@@ -286,7 +286,7 @@ function Lesson623(_ref6) {
       fontSize: "0.85rem",
       marginTop: 6
     }
-  }, "Carbon (Z=6) \u2014 2 in the first shell, 4 in the second.")), /*#__PURE__*/React.createElement("h3", null, "Shell rules"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "1st shell:"), " up to ", /*#__PURE__*/React.createElement("strong", null, "2"), " electrons."), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "2nd shell:"), " up to ", /*#__PURE__*/React.createElement("strong", null, "8"), " electrons."), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "3rd shell:"), " up to ", /*#__PURE__*/React.createElement("strong", null, "8"), " electrons (for the first 20 elements)."), /*#__PURE__*/React.createElement("li", null, "Electrons fill ", /*#__PURE__*/React.createElement("em", null, "inside out"), ". Inner shell first, then the next.")), /*#__PURE__*/React.createElement(Callout, {
+  }, "Carbon (Z = 6): 6 protons and 6 neutrons in the nucleus; 2 electrons in the first shell, 4 in the second.")), /*#__PURE__*/React.createElement("h3", null, "Shell rules"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "1st shell:"), " up to ", /*#__PURE__*/React.createElement("strong", null, "2"), " electrons."), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "2nd shell:"), " up to ", /*#__PURE__*/React.createElement("strong", null, "8"), " electrons."), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "3rd shell:"), " holds ", /*#__PURE__*/React.createElement("strong", null, "8"), " electrons before the 4th shell starts filling (true for the first 20 elements)."), /*#__PURE__*/React.createElement("li", null, "Electrons fill ", /*#__PURE__*/React.createElement("em", null, "inside out"), ". Inner shell first, then the next.")), /*#__PURE__*/React.createElement(Callout, {
     kind: "fact",
     title: "A football stadium of nothing"
   }, "If an atom were the size of a football stadium, its nucleus would be the size of a ", /*#__PURE__*/React.createElement("strong", null, "pea"), " in the centre circle. The electrons would be tiny specks zipping around in the far seats. Almost everything around you \u2014 and everything ", /*#__PURE__*/React.createElement("em", null, "inside"), " you \u2014 is empty space."), /*#__PURE__*/React.createElement("p", {
@@ -308,7 +308,7 @@ function Lesson623(_ref6) {
     question: "If most of an atom is empty space, why does a metal feel solid?",
     options: ["It's not really solid — your hand passes through it", "Electrons in your hand repel the electrons in the metal", "The nucleus is much bigger than people think", "Gravity holds the atoms together"],
     correctIndex: 1,
-    explain: "The electrons in your hand and in the metal repel each other (like-charges repel). You're not actually touching the metal \u2014 you're feeling electrons push back."
+    explain: "The electrons in your hand and in the metal repel each other (like charges repel). What you feel as touching is that electrical push-back."
   })));
 }
 
@@ -495,7 +495,7 @@ function Lesson624(_ref14) {
   var cur = HISTORY.find(function (h) {
     return h.id === active;
   });
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", null, "Our picture of the atom has been redrawn five times in 200 years. Every time a scientist invented better tools, they saw something new \u2014 and had to update the model. ", /*#__PURE__*/React.createElement("strong", null, "This is how science actually works:"), " ideas get tested, improved, and sometimes replaced."), /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", null, "Our picture of the atom has been redrawn four times since Dalton's first model in 1803. Every time a scientist invented better tools, they saw something new \u2014 and had to update the model. ", /*#__PURE__*/React.createElement("strong", null, "This is how science actually works:"), " ideas get tested, improved, and sometimes replaced."), /*#__PURE__*/React.createElement("div", {
     className: "timeline"
   }, HISTORY.map(function (h) {
     return /*#__PURE__*/React.createElement("button", {
@@ -520,9 +520,10 @@ function Lesson624(_ref14) {
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
-      gridTemplateColumns: "auto 1fr 1.4fr",
+      gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
       gap: 18,
-      alignItems: "center"
+      alignItems: "center",
+      justifyItems: "center"
     }
   }, cur.photo ? /*#__PURE__*/React.createElement(CCAvatar, {
     file: cur.photo,
@@ -558,7 +559,7 @@ function Lesson624(_ref14) {
   }, cur.description), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
-      gridTemplateColumns: "1fr 1fr",
+      gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
       gap: 10,
       marginTop: 8,
       fontSize: "0.85rem"

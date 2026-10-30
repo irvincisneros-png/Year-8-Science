@@ -34,6 +34,7 @@ function CCImage(_ref) {
     alt = _ref.alt,
     caption = _ref.caption,
     credit = _ref.credit,
+    source = _ref.source,
     _ref$license = _ref.license,
     license = _ref$license === void 0 ? "CC-BY-SA / public domain" : _ref$license,
     _ref$style = _ref.style,
@@ -110,7 +111,7 @@ function CCImage(_ref) {
     style: {
       opacity: 0.5
     }
-  }, " \xB7 ", isLocal ? "from booklet" : "via Wikimedia Commons")));
+  }, " \xB7 ", source || (isLocal ? "from booklet" : "via Wikimedia Commons"))));
 }
 
 /* Circular/avatar version for inline cards */

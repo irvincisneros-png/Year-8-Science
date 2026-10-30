@@ -287,8 +287,8 @@ function AtomBuilder() {
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
-      flex: "2 1 460px",
-      minWidth: 360
+      flex: "2 1 300px",
+      minWidth: 0
     }
   }, /*#__PURE__*/React.createElement("div", {
     className: "atom-stage",
@@ -393,7 +393,7 @@ function AtomBuilder() {
   }, "\u2713 ", el.name, " complete"))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
-      gridTemplateColumns: "repeat(3, 1fr)",
+      gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
       gap: 10,
       marginTop: 10
     }
@@ -542,7 +542,7 @@ function AtomBuilder() {
   }, "Charge: ", overallCharge === 0 ? "0 (neutral)" : overallCharge > 0 ? "+".concat(overallCharge) : overallCharge))), /*#__PURE__*/React.createElement("div", {
     style: {
       flex: "1 1 240px",
-      minWidth: 240
+      minWidth: 0
     }
   }, /*#__PURE__*/React.createElement("div", {
     className: "card",

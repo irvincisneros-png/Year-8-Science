@@ -314,7 +314,7 @@ function ScientificInquiryQuiz() {
       </div>
       {chosen !== null && (
         <div>
-          <p style={{ fontWeight: "700", color: chosen === c.answer ? "var(--success)" : "var(--warn)", marginBottom: "0.5rem" }}>
+          <p style={{ fontWeight: "700", color: chosen === c.answer ? "var(--green-deep)" : "var(--red)", marginBottom: "0.5rem" }}>
             {chosen === c.answer ? "Correct!" : "Not quite."}
           </p>
           <p className="muted" style={{ marginBottom: "0.75rem" }}>{c.explain}</p>
@@ -488,19 +488,19 @@ function ScatterExplorer() {
         {/* axis labels */}
         <text x={pad.left + cW / 2} y={h - 4} textAnchor="middle" fontSize="11" fill="var(--ink-muted)">{ds.xlabel}</text>
         <text transform={`translate(12,${pad.top + cH / 2}) rotate(-90)`} textAnchor="middle" fontSize="11" fill="var(--ink-muted)">{ds.ylabel}</text>
-        {/* line of best fit */}
-        <line
+        {/* line of best fit (not drawn when there is no trend to model) */}
+        {key !== "none" && <line
           x1={xS(minX)} y1={yS(lobfY1)}
           x2={xS(maxX)} y2={yS(lobfY2)}
           stroke="var(--accent-deep)" strokeWidth="2" strokeDasharray="6 3" opacity="0.7"
-        />
+        />}
         {/* points */}
         {ds.pts.map(([x, y], i) => (
           <circle key={i} cx={xS(x)} cy={yS(y)} r="5" fill="var(--accent-soft)" stroke="var(--accent-deep)" strokeWidth="1.5" />
         ))}
         {/* legend */}
-        <line x1={pad.left + 10} x2={pad.left + 28} y1={pad.top + 8} y2={pad.top + 8} stroke="var(--accent-deep)" strokeWidth="2" strokeDasharray="5 2" />
-        <text x={pad.left + 33} y={pad.top + 13} fontSize="11" fill="var(--ink)">Line of best fit</text>
+        {key !== "none" && <line x1={pad.left + 10} x2={pad.left + 28} y1={pad.top + 8} y2={pad.top + 8} stroke="var(--accent-deep)" strokeWidth="2" strokeDasharray="5 2" />}
+        <text x={pad.left + (key !== "none" ? 33 : 10)} y={pad.top + 13} fontSize="11" fill="var(--ink)">{key !== "none" ? "Line of best fit" : "No line of best fit: there is no trend to model"}</text>
       </svg>
       <p style={{ marginTop: "0.75rem", marginBottom: 0 }}><strong>What this shows:</strong> {ds.desc}</p>
     </Interactive>
@@ -564,7 +564,7 @@ function AccuracyReliabilitySim() {
           {/* bullseye */}
           <circle cx="50" cy="50" r="3" fill="var(--accent-deep)" opacity="0.4" />
           {/* label: true value */}
-          <text x="53" y="49" fontSize="5" fill="var(--ink-muted)">true value</text>
+          <text x="50" y="98" textAnchor="middle" fontSize="5" fill="var(--ink-muted)">bullseye = true value</text>
           {/* dots */}
           {dots.map((d, i) => (
             <circle key={i} cx={d.x} cy={d.y} r="3.5" fill={cfg.color} opacity="0.85" />
@@ -645,7 +645,7 @@ function ModelBuilderWalkthrough() {
         ))}
       </div>
       <div style={{
-        background: "var(--surface-raised)",
+        background: "var(--bg-2)",
         borderLeft: `4px solid ${steps[step].color}`,
         borderRadius: "10px",
         padding: "1rem 1.25rem",
@@ -745,6 +745,32 @@ function HandSpanScatter() {
   );
 }
 
+/* Flow of steps as wrapping HTML chips (legible on phones and in dark mode;
+   soft accent fills stay light in both themes, so their text uses fixed dark ink). */
+function FlowSteps({ steps, label, highlightLast, loopNote }) {
+  return (
+    <div role="img" aria-label={label || steps.join(", then ")}>
+      <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: "0.4rem" }}>
+        {steps.map((s, i) => {
+          const strong = highlightLast && i === steps.length - 1;
+          return (
+            <React.Fragment key={s}>
+              {i > 0 && <span aria-hidden="true" style={{ color: "var(--accent-deep)", fontWeight: 700, fontSize: "1.2rem" }}>→</span>}
+              <span style={{
+                display: "inline-block", padding: "0.45rem 0.75rem", borderRadius: 10,
+                border: "1.5px solid var(--accent-deep)", fontWeight: 700, fontSize: "0.9rem",
+                background: strong ? "var(--accent-deep)" : "var(--accent-soft)",
+                color: strong ? "#fff" : "#1b1a17",
+              }}>{s}</span>
+            </React.Fragment>
+          );
+        })}
+      </div>
+      {loopNote && <p aria-hidden="true" style={{ textAlign: "center", margin: "0.5rem 0 0", fontSize: "0.9rem", color: "var(--ink-muted)" }}>↺ {loopNote}</p>}
+    </div>
+  );
+}
+
 /* ================================================================
    SECTION COMPONENTS
    ================================================================ */
@@ -816,16 +842,7 @@ function Section81({ progress, setProgress }) {
         </p>
         <Callout kind="fact" title="Data science in action">Australian epidemiologists used data science models during COVID-19 to predict hospital demand and guide vaccination rollout decisions. The models drew on statistics, computing, and medical knowledge together.</Callout>
         <Figure caption="The data science process: from question to communicated findings.">
-          <svg viewBox="0 0 580 60" width="100%" style={{ maxWidth: 580 }}>
-            {["Ask a question","Collect data","Clean data","Analyse patterns","Build model","Communicate"].map((s, i) => (
-              <g key={s} transform={`translate(${i * 96 + 4}, 8)`}>
-                <rect width="86" height="40" rx="8" fill="var(--accent-soft)" stroke="var(--accent-deep)" />
-                <text x="43" y="16" textAnchor="middle" fontSize="9.5" fontWeight="700" fill="var(--ink)">{s.split(" ").slice(0,2).join(" ")}</text>
-                <text x="43" y="28" textAnchor="middle" fontSize="9" fill="var(--ink-muted)">{s.split(" ").slice(2).join(" ")}</text>
-                {i < 5 && <text x="95" y="26" textAnchor="middle" fontSize="16" fill="var(--accent-deep)">›</text>}
-              </g>
-            ))}
-          </svg>
+          <FlowSteps steps={["Ask a question", "Collect data", "Clean data", "Analyse patterns", "Build a model", "Communicate"]} />
         </Figure>
         <QGroup title="Check yourself">
           <MCQ num={5}
@@ -849,7 +866,50 @@ function Section82({ progress, setProgress }) {
         <p className="lead">Scientists build simplified representations of complex phenomena to understand, predict, and communicate how the world works.</p>
       </div>
 
-      <Figure src="img/model.png" caption="A trend line models the pattern in scattered data and predicts what comes next." />
+      <Figure caption="A line of best fit models the trend in scattered data. Inside the measured range it is used to interpolate; extending it (dashed) predicts beyond the data, which is less certain.">
+          <svg role="img" aria-label="Scatter graph of height against hand span for 14 students. The points rise from left to right with some scatter. A straight solid line of best fit runs through the middle of the points from 16.5 to 23 centimetres, then continues as a dashed line to 26 centimetres, where it predicts a height of about 189 centimetres." viewBox="0 0 520 300" width="100%" style={{ maxWidth: 560 }}>
+            <text x="52" y="254" textAnchor="end" fontSize="14" fill="var(--ink-muted)">150</text>
+            <line x1="60" x2="490" y1="250" y2="250" stroke="var(--border)" strokeDasharray="3 3" />
+            <text x="52" y="205" textAnchor="end" fontSize="14" fill="var(--ink-muted)">160</text>
+            <line x1="60" x2="490" y1="201" y2="201" stroke="var(--border)" strokeDasharray="3 3" />
+            <text x="52" y="156" textAnchor="end" fontSize="14" fill="var(--ink-muted)">170</text>
+            <line x1="60" x2="490" y1="152" y2="152" stroke="var(--border)" strokeDasharray="3 3" />
+            <text x="52" y="107" textAnchor="end" fontSize="14" fill="var(--ink-muted)">180</text>
+            <line x1="60" x2="490" y1="103" y2="103" stroke="var(--border)" strokeDasharray="3 3" />
+            <text x="52" y="58" textAnchor="end" fontSize="14" fill="var(--ink-muted)">190</text>
+            <line x1="60" x2="490" y1="54" y2="54" stroke="var(--border)" strokeDasharray="3 3" />
+            <text x="60" y="268" textAnchor="middle" fontSize="14" fill="var(--ink-muted)">16</text>
+            <text x="146" y="268" textAnchor="middle" fontSize="14" fill="var(--ink-muted)">18</text>
+            <text x="232" y="268" textAnchor="middle" fontSize="14" fill="var(--ink-muted)">20</text>
+            <text x="318" y="268" textAnchor="middle" fontSize="14" fill="var(--ink-muted)">22</text>
+            <text x="404" y="268" textAnchor="middle" fontSize="14" fill="var(--ink-muted)">24</text>
+            <text x="490" y="268" textAnchor="middle" fontSize="14" fill="var(--ink-muted)">26</text>
+            <line x1="60" y1="20" x2="60" y2="250" stroke="var(--ink-muted)" strokeWidth="1.5" />
+            <line x1="60" y1="250" x2="495" y2="250" stroke="var(--ink-muted)" strokeWidth="1.5" />
+            <text x="275" y="292" textAnchor="middle" fontSize="15" fill="var(--ink)">Hand span (cm)</text>
+            <text transform="translate(16,135) rotate(-90)" textAnchor="middle" fontSize="15" fill="var(--ink)">Height (cm)</text>
+            <line x1="81.5" y1="232.7" x2="361" y2="114.4" stroke="var(--accent-deep)" strokeWidth="3" />
+            <line x1="361" y1="114.4" x2="490" y2="59.8" stroke="var(--accent-deep)" strokeWidth="3" strokeDasharray="8 6" />
+            <circle cx="81.5" cy="240.2" r="5" fill="var(--accent-soft)" stroke="var(--accent-deep)" strokeWidth="1.5" />
+            <circle cx="103.0" cy="215.8" r="5" fill="var(--accent-soft)" stroke="var(--accent-deep)" strokeWidth="1.5" />
+            <circle cx="124.5" cy="225.6" r="5" fill="var(--accent-soft)" stroke="var(--accent-deep)" strokeWidth="1.5" />
+            <circle cx="146.0" cy="201.1" r="5" fill="var(--accent-soft)" stroke="var(--accent-deep)" strokeWidth="1.5" />
+            <circle cx="167.5" cy="191.3" r="5" fill="var(--accent-soft)" stroke="var(--accent-deep)" strokeWidth="1.5" />
+            <circle cx="189.0" cy="181.6" r="5" fill="var(--accent-soft)" stroke="var(--accent-deep)" strokeWidth="1.5" />
+            <circle cx="210.5" cy="186.4" r="5" fill="var(--accent-soft)" stroke="var(--accent-deep)" strokeWidth="1.5" />
+            <circle cx="232.0" cy="162.0" r="5" fill="var(--accent-soft)" stroke="var(--accent-deep)" strokeWidth="1.5" />
+            <circle cx="253.5" cy="157.1" r="5" fill="var(--accent-soft)" stroke="var(--accent-deep)" strokeWidth="1.5" />
+            <circle cx="275.0" cy="147.3" r="5" fill="var(--accent-soft)" stroke="var(--accent-deep)" strokeWidth="1.5" />
+            <circle cx="296.5" cy="152.2" r="5" fill="var(--accent-soft)" stroke="var(--accent-deep)" strokeWidth="1.5" />
+            <circle cx="318.0" cy="127.8" r="5" fill="var(--accent-soft)" stroke="var(--accent-deep)" strokeWidth="1.5" />
+            <circle cx="339.5" cy="118.0" r="5" fill="var(--accent-soft)" stroke="var(--accent-deep)" strokeWidth="1.5" />
+            <circle cx="361.0" cy="122.9" r="5" fill="var(--accent-soft)" stroke="var(--accent-deep)" strokeWidth="1.5" />
+            <circle cx="447" cy="78" r="7" fill="none" stroke="#ef6b4b" strokeWidth="3" />
+            <text x="440" y="124" textAnchor="end" fontSize="14" fontWeight="700" fill="#ef6b4b">prediction</text>
+            <text x="80" y="40" fontSize="14" fill="var(--ink)">solid line = line of best fit (measured range)</text>
+            <text x="80" y="60" fontSize="14" fill="var(--ink)">dashed = extrapolation (less certain)</text>
+          </svg>
+        </Figure>
       <DotPoint id="8.2.1" title="Scientific inquiry compared with non-scientific approaches" progress={progress} setProgress={setProgress}>
         <p>
           <Term def="A systematic process for investigating natural phenomena that relies on evidence, reproducibility, and the willingness to revise conclusions when new data emerge.">Scientific inquiry</Term> depends on evidence. A scientific claim must be <Term def="Capable of being confirmed or refuted by gathering evidence through experiment or observation.">testable</Term>: it must be possible to design an investigation that could support or disprove it. Scientists conduct controlled experiments, measure variables carefully, and subject their findings to <Term def="The process by which other qualified scientists examine a study's methods, data, and conclusions before results are published.">peer review</Term>.
@@ -882,23 +942,9 @@ function Section82({ progress, setProgress }) {
         </p>
         <Callout kind="tip" title="All models are wrong, but some are useful">A model does not need to be perfect to be valuable. A weather forecast model may be wrong sometimes, but it still helps you decide whether to carry an umbrella. Usefulness, not perfection, is the standard.</Callout>
         <Figure caption="The model-building cycle: data feeds models, models generate predictions, predictions are tested against new data.">
-          <svg viewBox="0 0 500 100" width="100%" style={{ maxWidth: 500 }}>
-            {[
-              { label: "Collect data", x: 10, y: 30 },
-              { label: "Find patterns", x: 135, y: 30 },
-              { label: "Build model", x: 260, y: 30 },
-              { label: "Test predictions", x: 385, y: 30 },
-            ].map((s, i, arr) => (
-              <g key={s.label}>
-                <rect x={s.x} y={s.y} width="105" height="38" rx="8" fill="var(--accent-soft)" stroke="var(--accent-deep)" />
-                <text x={s.x + 52} y={s.y + 23} textAnchor="middle" fontSize="11" fontWeight="700" fill="var(--ink)">{s.label}</text>
-                {i < arr.length - 1 && <text x={s.x + 115} y={s.y + 25} textAnchor="middle" fontSize="18" fill="var(--accent-deep)">›</text>}
-              </g>
-            ))}
-            <defs><marker id="ds-cycle-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--accent-deep)" /></marker></defs>
-            <path d="M 437 70 Q 437 86 247 86 Q 62 86 62 72" fill="none" stroke="var(--accent-deep)" strokeWidth="1.5" markerEnd="url(#ds-cycle-arrow)" />
-            <text x="250" y="97" textAnchor="middle" fontSize="10" fill="var(--ink-muted)">Revise if predictions fail</text>
-          </svg>
+          <FlowSteps steps={["Collect data", "Find patterns", "Build model", "Test predictions"]}
+            label="Collect data, then find patterns, then build a model, then test its predictions; if the predictions fail, revise the model and go round again."
+            loopNote="Revise the model if its predictions fail, then go round again" />
         </Figure>
         <QGroup title="Check yourself">
           <MCQ num={3}
@@ -976,26 +1022,7 @@ function Section83({ progress, setProgress }) {
         </p>
         <Callout kind="fact" title="John Snow's spatial model">In 1854, doctor John Snow mapped cholera deaths in London onto a street map. The cluster of deaths around one water pump was instantly visible in the spatial model. He identified the contaminated pump as the source before germ theory was even established. This was data science in action, over 150 years ago.</Callout>
         <Figure caption="Multiple independent evidence types contributed to the plate tectonics model.">
-          <svg viewBox="0 0 580 70" width="100%" style={{ maxWidth: 580 }}>
-            {[
-              "Coastline shapes",
-              "Fossil distribution",
-              "Rock type and age",
-              "Seafloor spreading",
-              "Earthquake locations",
-              "Plate tectonics model",
-            ].map((s, i) => (
-              <g key={s} transform={`translate(${i * 95 + 5}, 14)`}>
-                <rect width="88" height="42" rx="8"
-                  fill={i === 5 ? "var(--accent-deep)" : "var(--accent-soft)"}
-                  stroke="var(--accent-deep)" />
-                <text x="44" y="17" textAnchor="middle" fontSize="9.5" fontWeight={i === 5 ? "800" : "700"}
-                  fill={i === 5 ? "#fff" : "var(--ink)"}>{s.split(" ").slice(0, 2).join(" ")}</text>
-                <text x="44" y="30" textAnchor="middle" fontSize="9" fill={i === 5 ? "#fff" : "var(--ink-muted)"}>{s.split(" ").slice(2).join(" ")}</text>
-                {i < 5 && <text x="96" y="28" textAnchor="middle" fontSize="16" fill="var(--accent-deep)">›</text>}
-              </g>
-            ))}
-          </svg>
+          <FlowSteps steps={["Coastline shapes", "Fossil distribution", "Rock type and age", "Sea-floor spreading", "Earthquake locations", "Plate tectonics model"]} highlightLast />
         </Figure>
         <QGroup title="Check yourself">
           <MCQ num={1}
@@ -1020,26 +1047,7 @@ function Section83({ progress, setProgress }) {
         </p>
         <Callout kind="key" title="Theory does not mean guess">When scientists say something is a theory, they mean it has survived enormous amounts of testing. Germ theory has been confirmed by countless experiments and has guided the development of antiseptics, vaccines and antibiotics that have saved many millions of lives.</Callout>
         <Figure caption="The pathway from initial observation to a workable scientific theory.">
-          <svg viewBox="0 0 580 60" width="100%" style={{ maxWidth: 580 }}>
-            {[
-              "Observation + data",
-              "Hypothesis",
-              "Preliminary model",
-              "Peer review",
-              "Independent testing",
-              "Scientific theory",
-            ].map((s, i) => (
-              <g key={s} transform={`translate(${i * 95 + 5}, 8)`}>
-                <rect width="88" height="42" rx="8"
-                  fill={i === 5 ? "var(--accent-deep)" : "var(--accent-soft)"}
-                  stroke="var(--accent-deep)" />
-                <text x="44" y="17" textAnchor="middle" fontSize="9.5" fontWeight={i === 5 ? "800" : "700"}
-                  fill={i === 5 ? "#fff" : "var(--ink)"}>{s.split(" ").slice(0, 2).join(" ")}</text>
-                <text x="44" y="30" textAnchor="middle" fontSize="9" fill={i === 5 ? "#fff" : "var(--ink-muted)"}>{s.split(" ").slice(2).join(" ")}</text>
-                {i < 5 && <text x="96" y="28" textAnchor="middle" fontSize="16" fill="var(--accent-deep)">›</text>}
-              </g>
-            ))}
-          </svg>
+          <FlowSteps steps={["Observation + data", "Hypothesis", "Preliminary model", "Peer review", "Independent testing", "Scientific theory"]} highlightLast />
         </Figure>
         <QGroup title="Check yourself">
           <MCQ num={3}
@@ -1079,19 +1087,18 @@ function Section84({ progress, setProgress }) {
           Independent variable: what you change. Dependent variable: what you measure. Controlled variables: everything else you keep the same to make the test fair.
         </Callout>
         <Figure caption="A well-structured scientific question identifies three variable types clearly.">
-          <svg viewBox="0 0 520 56" width="100%" style={{ maxWidth: 520 }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.6rem", justifyContent: "center" }}>
             {[
-              { label: "Independent variable", sub: "What you change", color: "var(--accent-deep)" },
+              { label: "Independent variable", sub: "What you change", color: "var(--accent)" },
               { label: "Dependent variable", sub: "What you measure", color: "#8b5cf6" },
               { label: "Controlled variables", sub: "What you keep the same", color: "#10b981" },
-            ].map((s, i) => (
-              <g key={s.label} transform={`translate(${i * 173 + 4}, 6)`}>
-                <rect width="164" height="44" rx="10" fill="var(--surface-raised)" stroke={s.color} strokeWidth="2" />
-                <text x="82" y="21" textAnchor="middle" fontSize="11" fontWeight="700" fill={s.color}>{s.label}</text>
-                <text x="82" y="35" textAnchor="middle" fontSize="10" fill="var(--ink-muted)">{s.sub}</text>
-              </g>
+            ].map(v => (
+              <div key={v.label} style={{ flex: "1 1 150px", maxWidth: 220, textAlign: "center", padding: "0.6rem 0.8rem", borderRadius: 10, border: "2px solid " + v.color, borderTopWidth: 6, background: "var(--card)" }}>
+                <div style={{ fontWeight: 700, color: "var(--ink)" }}>{v.label}</div>
+                <div style={{ fontSize: "0.88rem", color: "var(--ink-muted)" }}>{v.sub}</div>
+              </div>
             ))}
-          </svg>
+          </div>
         </Figure>
         <QGroup title="Check yourself">
           <MCQ num={1}
@@ -1206,7 +1213,7 @@ function Section85({ progress, setProgress }) {
             question="A student creates a scatter plot of hand span vs height for 5 students and all points fall exactly on the line. A classmate says the model is perfect. What is the most likely problem?"
             options={[
               "The model is indeed perfect.",
-              "With only 5 points, a line can be forced through all of them. Real measurements always show some variability, so zero scatter suggests the sample is too small or data was fabricated.",
+              "Real measurements always show some scatter around the trend, so five points sitting exactly on the line suggests the sample is far too small to reveal that variation, or the data was made up.",
               "The student used the wrong type of graph.",
               "The line of best fit should not pass through all points.",
             ]}

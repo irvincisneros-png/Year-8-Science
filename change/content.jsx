@@ -101,7 +101,7 @@ function HeatTransferSim() {
         })}
         <rect x="265" y="20" width="42" height="60" rx="4" fill="#86efac" />
         <text x="286" y="55" textAnchor="middle" fontSize="9" fill="#14532d">Earth</text>
-        <text x="155" y="15" textAnchor="middle" fontSize="9" fill="var(--muted)">vacuum of space</text>
+        <text x="155" y="15" textAnchor="middle" fontSize="9" fill="var(--ink-muted)">vacuum of space</text>
       </svg>
     );
   }
@@ -144,7 +144,7 @@ function EnergyStoreSim() {
       </div>
       <div style={{ display: "flex", gap: "1rem", alignItems: "flex-end" }}>
         <svg viewBox="0 0 80 140" width="80" style={{ flexShrink: 0 }}>
-          <line x1="40" y1="15" x2="40" y2="130" stroke="var(--muted)" strokeWidth="1" strokeDasharray="4 3" />
+          <line x1="40" y1="15" x2="40" y2="130" stroke="var(--ink-muted)" strokeWidth="1" strokeDasharray="4 3" />
           <rect x="5" y="120" width="70" height="12" rx="3" fill="var(--accent-soft)" />
           <circle cx="40" cy={ballY} r="10" fill="var(--accent-deep)" />
           <text x="52" y={ballY + 4} fontSize="9" fill="var(--ink)">{height}m</text>
@@ -160,6 +160,23 @@ function EnergyStoreSim() {
   );
 }
 
+/* Chip + arrow styles for the flow-style readouts (HTML, so they wrap on phones
+   and stay legible in dark mode: soft accent fills are always light, so text on
+   them uses a fixed dark ink). */
+const arrowStyle = { fontSize: "1.3rem", fontWeight: 700, color: "var(--accent-deep)", lineHeight: 1 };
+function chipStyle(strong) {
+  return {
+    display: "inline-block",
+    padding: "0.45rem 0.8rem",
+    borderRadius: 10,
+    fontWeight: 700,
+    fontSize: "0.92rem",
+    border: "1.5px solid var(--accent-deep)",
+    background: strong ? "var(--accent-deep)" : "var(--accent-soft)",
+    color: strong ? "#fff" : "#1b1a17",
+  };
+}
+
 /* Energy transformation chain builder */
 function EnergyChainSim() {
   const devices = [
@@ -173,7 +190,7 @@ function EnergyChainSim() {
   const [selected, setSelected] = useState("solar");
   const dev = devices.find(d => d.id === selected);
   return (
-    <Interactive title="Energy Transformation Spotter" subtitle="Pick a device and trace the energy change." takeaway="Every device converts energy from one form to another, and some energy is always lost as heat during every transformation.">
+    <Interactive title="Energy Transformation Spotter" subtitle="Pick a device and trace the energy change." takeaway="Every device converts energy from one form to another, and some energy is always wasted as heat that spreads into the surroundings.">
       <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "1rem" }}>
         {devices.map(d => (
           <button key={d.id}
@@ -184,18 +201,16 @@ function EnergyChainSim() {
         ))}
       </div>
       {dev && (
-        <svg viewBox="0 0 340 60" width="100%" style={{ maxWidth: 340 }}>
-          <rect x="5" y="10" width="100" height="40" rx="8" fill="var(--accent-soft)" stroke="var(--accent-deep)" />
-          <text x="55" y="34" textAnchor="middle" fontSize="11" fontWeight="700" fill="var(--ink)">{dev.from}</text>
-          <polygon points="115,30 135,20 135,40" fill="var(--accent-deep)" />
-          <rect x="140" y="10" width="100" height="40" rx="8" fill="var(--accent-deep)" />
-          <text x="190" y="26" textAnchor="middle" fontSize="10" fontWeight="700" fill="#fff">{dev.label}</text>
-          <polygon points="250,30 270,20 270,40" fill="var(--accent-deep)" />
-          <rect x="275" y="10" width="60" height="40" rx="8" fill="var(--accent-soft)" stroke="var(--accent-deep)" />
-          <text x="305" y="34" textAnchor="middle" fontSize="10" fontWeight="700" fill="var(--ink)">{dev.to}</text>
-        </svg>
+        <div role="img" aria-label={`${dev.from} energy goes into the ${dev.label}, which transforms it into ${dev.to} energy.`}
+          style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.5rem" }}>
+          <span style={chipStyle()}>{dev.from}</span>
+          <span aria-hidden="true" style={arrowStyle}>→</span>
+          <span style={chipStyle(true)}>{dev.label}</span>
+          <span aria-hidden="true" style={arrowStyle}>→</span>
+          <span style={chipStyle()}>{dev.to}</span>
+        </div>
       )}
-      <p className="muted" style={{ marginBottom: 0 }}>Some energy is always lost as heat during every transformation.</p>
+      <p className="muted" style={{ marginBottom: 0, marginTop: "0.75rem" }}>Some energy is always transferred to the surroundings as waste heat during every transformation.</p>
     </Interactive>
   );
 }
@@ -278,12 +293,31 @@ function Section71({ progress, setProgress }) {
       <DotPoint id="7.1.4" title="Representing energy transformations" progress={progress} setProgress={setProgress}>
         <p>Practical investigations help you observe energy transformations directly. One classic method is heating water with a Bunsen burner while recording temperature every minute. The rising temperature is direct evidence that chemical PE in the gas is transforming into thermal energy.</p>
         <p><Term def="A diagram where arrow width is proportional to the amount of energy, showing useful output and waste.">Sankey diagrams</Term> represent transformations visually. Wide arrows carry more energy; the useful output arrow is narrower than the input arrow because some energy always becomes waste heat. Energy-flow diagrams use labelled arrows to trace the pathway from source to output. Combining experimental data with these representations deepens your understanding of real systems.</p>
+        <Figure caption="Sankey diagram for an old-style incandescent light globe, drawn to scale: 100 J of electrical energy in = 5 J of light (useful) + 95 J of heat (wasted).">
+          <svg role="img" aria-label="Sankey diagram. A band 100 units wide labelled electrical energy in, 100 joules, splits into a very thin band going straight on labelled light, 5 joules, useful, and a wide band bending downwards labelled heat, 95 joules, wasted." viewBox="0 0 520 240" width="100%" style={{ maxWidth: 520 }}>
+            {/* input band: 100 J = 100 px tall */}
+            <rect x="20" y="40" width="190" height="100" fill="#4b7bc9" />
+            <text x="115" y="86" textAnchor="middle" fontSize="16" fontWeight="700" fill="#fff">Electrical</text>
+            <text x="115" y="104" textAnchor="middle" fontSize="16" fontWeight="700" fill="#fff">100 J in</text>
+            {/* useful output: light, 5 J = 5 px */}
+            <rect x="210" y="40" width="190" height="5" fill="#d99e1e" />
+            <polygon points="400,34 416,42.5 400,51" fill="#d99e1e" />
+            <text x="420" y="38" fontSize="16" fontWeight="700" fill="var(--ink)">Light: 5 J</text>
+            <text x="420" y="56" fontSize="14" fill="var(--ink-muted)">(useful)</text>
+            {/* wasted output: heat, 95 J = 95 px, bending down */}
+            <path d="M210,45 Q305,45 305,140 L305,200 L210,200 L210,140 Z" fill="#ef6b4b" />
+            <polygon points="198,200 317,200 257.5,232" fill="#ef6b4b" />
+            <text x="320" y="160" fontSize="16" fontWeight="700" fill="var(--ink)">Heat: 95 J</text>
+            <text x="320" y="178" fontSize="14" fill="var(--ink-muted)">(wasted, spreads</text>
+            <text x="320" y="195" fontSize="14" fill="var(--ink-muted)">into the room)</text>
+          </svg>
+        </Figure>
         <Callout kind="key" title="Reading a Sankey diagram">Input arrow width equals the sum of all output arrow widths, showing that total energy is always conserved even when some becomes waste.</Callout>
       </DotPoint>
 
       <DotPoint id="7.1.5" title="Open and closed systems" progress={progress} setProgress={setProgress}>
         <p>A <Term def="A defined collection of matter or components chosen for study.">system</Term> is any group of objects you decide to study together. <Term def="A system that exchanges both energy and matter with its surroundings.">Open systems</Term> exchange both energy and matter with their surroundings. A boiling saucepan without a lid is open because steam escapes and heat radiates away. <Term def="A system that exchanges energy but not matter with its surroundings.">Closed systems</Term> exchange energy but not matter. A sealed thermos flask keeps matter in but slowly loses thermal energy through its walls.</p>
-        <p>In an ideal system with no energy losses, energy cycles between stores without being lost. A swinging pendulum repeatedly exchanges gravitational PE (highest point) for KE (lowest point). In reality, friction and air resistance bleed energy away as heat, so the pendulum slows. Earth itself is nearly closed for matter but open for energy: solar radiation pours in and infrared radiation flows out.</p>
+        <p>In an ideal system with no energy losses, energy cycles between stores without being lost. A swinging pendulum repeatedly exchanges gravitational PE (highest point) for KE (lowest point). In reality, friction and air resistance bleed energy away as heat, so the pendulum slows. Earth itself is very nearly a closed system: almost no matter enters or leaves, but energy crosses the boundary freely, as solar radiation pours in and infrared radiation flows out.</p>
         <SystemClassifier />
       </DotPoint>
 
@@ -364,8 +398,8 @@ function ExoEndoSim() {
           <rect x="25" y="10" width="30" height="110" rx="4" fill="#e5e7eb" />
           <rect x="26" y={10 + barY} width="28" height={barH} fill={barColor} opacity="0.85" />
           <line x1="10" y1="70" x2="70" y2="70" stroke="#9ca3af" strokeWidth="1" />
-          <text x="40" y="126" textAnchor="middle" fontSize="9" fill="var(--muted)">temp</text>
-          <text x="8" y="73" textAnchor="end" fontSize="8" fill="var(--muted)">{startTemp}</text>
+          <text x="40" y="126" textAnchor="middle" fontSize="9" fill="var(--ink-muted)">temp</text>
+          <text x="22" y="73" textAnchor="end" fontSize="8" fill="var(--ink-muted)">{startTemp}</text>
         </svg>
         <div>
           <div className="stat-readout">
@@ -404,7 +438,7 @@ function WordEquationBuilder() {
       id: "rust",
       label: "Iron rusting",
       reactants: ["iron", "oxygen", "water"],
-      products: ["iron(III) oxide"],
+      products: ["hydrated iron(III) oxide (rust)"],
       observation: "Reddish-brown coating forms slowly",
     },
     {
@@ -412,7 +446,7 @@ function WordEquationBuilder() {
       label: "Photosynthesis",
       reactants: ["carbon dioxide", "water"],
       products: ["glucose", "oxygen"],
-      observation: "Requires light; green plants absorb CO2",
+      observation: "Requires light; green plants absorb CO₂ and release O₂",
     },
   ];
   const [selected, setSelected] = useState("mg");
@@ -430,32 +464,23 @@ function WordEquationBuilder() {
       </div>
       {rx && (
         <div>
-          <svg viewBox="0 0 380 60" width="100%" style={{ maxWidth: 380 }}>
+          <div role="img" aria-label={`Word equation: ${rx.reactants.join(" plus ")} produces ${rx.products.join(" plus ")}.`}
+            style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.45rem" }}>
             {rx.reactants.map((r, i) => (
-              <g key={r}>
-                <rect x={i * (180 / rx.reactants.length)} y="8" width={160 / rx.reactants.length} height="36" rx="6"
-                  fill="var(--accent-soft)" stroke="var(--accent-deep)" />
-                <text x={i * (180 / rx.reactants.length) + (160 / rx.reactants.length) / 2} y="31"
-                  textAnchor="middle" fontSize="10" fill="var(--ink)">{r}</text>
-                {i < rx.reactants.length - 1 &&
-                  <text x={i * (180 / rx.reactants.length) + 160 / rx.reactants.length + 5} y="31"
-                    fontSize="14" fontWeight="700" fill="var(--accent-deep)">+</text>}
-              </g>
+              <React.Fragment key={r}>
+                {i > 0 && <span aria-hidden="true" style={arrowStyle}>+</span>}
+                <span style={chipStyle()}>{r}</span>
+              </React.Fragment>
             ))}
-            <text x="188" y="31" fontSize="18" fill="var(--accent-deep)" fontWeight="700">→</text>
+            <span aria-hidden="true" style={arrowStyle}>→</span>
             {rx.products.map((p, i) => (
-              <g key={p}>
-                <rect x={200 + i * (170 / rx.products.length)} y="8" width={155 / rx.products.length} height="36" rx="6"
-                  fill="var(--accent-deep)" />
-                <text x={200 + i * (170 / rx.products.length) + (155 / rx.products.length) / 2} y="31"
-                  textAnchor="middle" fontSize="10" fill="#fff">{p}</text>
-                {i < rx.products.length - 1 &&
-                  <text x={200 + i * (170 / rx.products.length) + 155 / rx.products.length + 5} y="31"
-                    fontSize="14" fontWeight="700" fill="var(--accent-deep)">+</text>}
-              </g>
+              <React.Fragment key={p}>
+                {i > 0 && <span aria-hidden="true" style={arrowStyle}>+</span>}
+                <span style={chipStyle(true)}>{p}</span>
+              </React.Fragment>
             ))}
-          </svg>
-          <p style={{ marginTop: "0.5rem", marginBottom: 0 }}>
+          </div>
+          <p style={{ marginTop: "0.75rem", marginBottom: 0 }}>
             <strong>Observation:</strong> {rx.observation}
           </p>
         </div>
@@ -496,7 +521,7 @@ function Section72({ progress, setProgress }) {
 
       <DotPoint id="7.2.3" title="Energy changes in chemical reactions" progress={progress} setProgress={setProgress}>
         <p>All chemical reactions involve energy. When bonds in the reactants break, energy is absorbed. When new bonds form in the products, energy is released. If more energy is released than absorbed overall, the reaction is <Term def="A reaction that releases energy (heat) to the surroundings, causing the temperature to rise.">exothermic</Term>. Combustion, neutralisation, and rusting are all exothermic. Hand warmers and self-heating food cans use exothermic reactions to generate warmth.</p>
-        <p>If more energy is absorbed than released, the reaction is <Term def="A reaction that absorbs energy from the surroundings, causing the temperature to fall.">endothermic</Term>. Dissolving ammonium nitrate in water, photosynthesis, and some decomposition reactions are endothermic. Instant cold packs rely on endothermic reactions to pull heat away from a sore muscle, reducing swelling.</p>
+        <p>If more energy is absorbed than released, the reaction is <Term def="A reaction that absorbs energy from the surroundings, causing the temperature to fall.">endothermic</Term>. Dissolving ammonium nitrate in water, photosynthesis, and some decomposition reactions are endothermic. Instant cold packs rely on an endothermic process (dissolving ammonium nitrate) to pull heat away from a sore muscle, reducing swelling.</p>
         <ExoEndoSim />
         <QGroup title="Check yourself">
           <WrittenQ num={7} question="Compare the energy change in combustion with the energy change in photosynthesis. How are these two processes related?" model="Combustion is exothermic: chemical PE in the fuel (glucose, wood, petrol) is released as heat and light. Photosynthesis is endothermic: light energy from the Sun is absorbed and stored as chemical PE in glucose. Together they are essentially reverse reactions: photosynthesis builds the chemical stores that combustion releases." />
@@ -504,12 +529,12 @@ function Section72({ progress, setProgress }) {
       </DotPoint>
 
       <DotPoint id="7.2.4" title="Photosynthesis, respiration, and scientific reports" progress={progress} setProgress={setProgress}>
-        <p><Term def="The process by which plants convert light energy into chemical PE (glucose) using CO2 and water.">Photosynthesis</Term> is endothermic: carbon dioxide plus water produces glucose plus oxygen (requires light and chlorophyll). This happens in the <Term def="The organelle in plant cells where photosynthesis occurs.">chloroplasts</Term> of plant cells. <Term def="The process by which cells break down glucose to release energy, producing CO2 and water.">Cellular respiration</Term> is exothermic: glucose plus oxygen produces carbon dioxide plus water plus energy (ATP). This happens in the <Term def="The organelle in cells where aerobic respiration occurs.">mitochondria</Term> of most plant and animal cells.</p>
+        <p><Term def="The process by which plants convert light energy into chemical PE (glucose) using CO₂ and water.">Photosynthesis</Term> is endothermic: carbon dioxide plus water produces glucose plus oxygen (requires light and chlorophyll). This happens in the <Term def="The organelle in plant cells where photosynthesis occurs.">chloroplasts</Term> of plant cells. <Term def="The process by which cells break down glucose to release energy, producing CO₂ and water.">Cellular respiration</Term> is exothermic: glucose plus oxygen produces carbon dioxide plus water plus energy (ATP). This happens in the <Term def="The organelle in cells where aerobic respiration occurs.">mitochondria</Term> of most plant and animal cells.</p>
         <p>Together, these two processes form the backbone of the carbon and oxygen cycles. During daylight, plants photosynthesise faster than they respire, producing a net release of oxygen. At night, without light, plants only respire. When you document an investigation of these processes, you write a formal scientific report with sections in this order: Title, Aim, Hypothesis, Materials, Method, Results, Discussion, and Conclusion.</p>
-        <Callout kind="key" title="Complementary reactions">Photosynthesis: CO2 + water produces glucose + O2 (endothermic). Respiration: glucose + O2 produces CO2 + water + energy (exothermic). They are linked in a cycle.</Callout>
+        <Callout kind="key" title="Complementary reactions">Photosynthesis: CO₂ + water produces glucose + O₂ (endothermic). Respiration: glucose + O₂ produces CO₂ + water + energy (exothermic). They are linked in a cycle.</Callout>
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-          <FlipCard front="Photosynthesis" back="CO2 + water produces glucose + O2. Needs light. Chloroplasts. Endothermic." />
-          <FlipCard front="Respiration" back="Glucose + O2 produces CO2 + water + energy. Most cells. Mitochondria. Exothermic." />
+          <FlipCard front="Photosynthesis" back="CO₂ + water produces glucose + O₂. Needs light. Chloroplasts. Endothermic." />
+          <FlipCard front="Respiration" back="Glucose + O₂ produces CO₂ + water + energy. Most cells. Mitochondria. Exothermic." />
         </div>
       </DotPoint>
     </>
@@ -550,11 +575,11 @@ function PlateBoundarySim() {
         <rect x="170" y="60" width="130" height="30" rx="4" fill="#1e40af" />
         <text x="235" y="80" textAnchor="middle" fontSize="10" fontWeight="700" fill="#fff">Oceanic plate</text>
         <polygon points="165,65 135,95 155,95" fill="#b45309" />
-        <text x="148" y="112" textAnchor="middle" fontSize="9" fill="var(--muted)">subduction</text>
+        <text x="148" y="112" textAnchor="middle" fontSize="9" fill="var(--ink-muted)">subduction</text>
         <polygon points="80,56 95,36 110,56" fill="#ef4444" />
         <text x="95" y="30" textAnchor="middle" fontSize="9" fill="#ef4444">volcano</text>
-        <text x="150" y="55" textAnchor="middle" fontSize="9" fill="var(--muted)">trench</text>
-        <line x1="145" y1="58" x2="145" y2="64" stroke="var(--muted)" strokeWidth="1" />
+        <text x="150" y="55" textAnchor="middle" fontSize="9" fill="var(--ink-muted)">trench</text>
+        <line x1="145" y1="58" x2="145" y2="64" stroke="var(--ink-muted)" strokeWidth="1" />
       </svg>
     );
   }
@@ -569,8 +594,8 @@ function PlateBoundarySim() {
         <polygon points="130,70 148,50 148,70" fill="#ef4444" opacity="0.8" />
         <polygon points="170,70 152,50 152,70" fill="#ef4444" opacity="0.8" />
         <text x="150" y="42" textAnchor="middle" fontSize="9" fill="#ef4444">new crust</text>
-        <text x="95" y="85" fontSize="8" fill="#3b82f6">plates move apart</text>
-        <text x="175" y="85" fontSize="8" fill="#3b82f6">plates move apart</text>
+        <text x="60" y="88" textAnchor="middle" fontSize="10" fill="var(--ink-muted)">← moves away</text>
+        <text x="240" y="88" textAnchor="middle" fontSize="10" fill="var(--ink-muted)">moves away →</text>
       </svg>
     );
   }
@@ -582,9 +607,9 @@ function PlateBoundarySim() {
         <text x="150" y="44" textAnchor="middle" fontSize="9" fontWeight="700" fill="#fff">Plate A moving right</text>
         <rect x="10" y="55" width="270" height="20" rx="4" fill="#a855f7" />
         <text x="150" y="69" textAnchor="middle" fontSize="9" fontWeight="700" fill="#fff">Plate B moving left</text>
-        <polygon points="285,40 270,35 270,45" fill="#fef3c7" />
-        <polygon points="15,60 30,55 30,65" fill="#fef3c7" />
-        <text x="150" y="95" textAnchor="middle" fontSize="9" fill="var(--muted)">friction builds stress, then earthquake</text>
+        <polygon points="272,40 257,35 257,45" fill="#fff" />
+        <polygon points="18,65 33,60 33,70" fill="#fff" />
+        <text x="150" y="95" textAnchor="middle" fontSize="9" fill="var(--ink-muted)">friction builds stress, then earthquake</text>
       </svg>
     );
   }
@@ -678,7 +703,7 @@ function RockCycleSim() {
             <strong>{current.name}</strong>
           </div>
           <p style={{ marginBottom: "0.5rem" }}>{current.desc}</p>
-          <div style={{ fontSize: "0.8rem", color: "var(--muted)" }}>
+          <div style={{ fontSize: "0.8rem", color: "var(--ink-muted)" }}>
             Next: {current.next}
           </div>
           <button className="btn btn-accent" style={{ marginTop: "0.7rem" }}
@@ -708,9 +733,12 @@ function StratigraphySim() {
       <p className="muted" style={{ marginTop: 0 }}>Law of superposition: lower layers are older in undisturbed rock sequences.</p>
       {layers.map((l, i) => (
         <div key={i}
+          role="button" tabIndex={0} aria-expanded={revealed.includes(i)}
           onClick={() => toggle(i)}
+          onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(i); } }}
           style={{
             background: l.color,
+            color: i === layers.length - 1 ? "#fff" : "#1b1a17",
             padding: "0.5rem 0.8rem",
             marginBottom: 3,
             borderRadius: 6,
@@ -719,7 +747,7 @@ function StratigraphySim() {
           }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <strong style={{ fontSize: "0.85rem" }}>{l.label}</strong>
-            <span style={{ fontSize: "0.75rem", color: "#713f12" }}>{revealed.includes(i) ? "hide" : "tap to reveal"}</span>
+            <span style={{ fontSize: "0.75rem", color: i === layers.length - 1 ? "#fde68a" : "#713f12" }}>{revealed.includes(i) ? "hide" : "tap to reveal"}</span>
           </div>
           {revealed.includes(i) && (
             <div style={{ marginTop: "0.3rem", fontSize: "0.82rem" }}>
@@ -737,7 +765,7 @@ function MineralTester() {
   const minerals = [
     { name: "Quartz", hardness: 7, streak: "White", lustre: "Glassy (vitreous)", use: "Glassmaking, electronics" },
     { name: "Calcite", hardness: 3, streak: "White", lustre: "Vitreous to pearly", use: "Cement, chalk" },
-    { name: "Feldspar", hardness: 6, streak: "White", lustre: "Pearly", use: "Ceramics, glassware" },
+    { name: "Feldspar", hardness: 6, streak: "White", lustre: "Vitreous (glassy) to pearly", use: "Ceramics, glassware" },
     { name: "Mica", hardness: 2.5, streak: "White", lustre: "Pearly, silky", use: "Insulation, cosmetics" },
     { name: "Pyrite", hardness: 6.5, streak: "Greenish-black", lustre: "Metallic", use: "Sulfur production" },
   ];
@@ -768,6 +796,7 @@ function MineralTester() {
             {tools.map(t => (
               <div key={t.name} style={{
                 background: t.hardness < m.hardness ? "#dcfce7" : "#fee2e2",
+                color: "#1b1a17",
                 borderRadius: 8,
                 padding: "0.4rem 0.7rem",
                 fontSize: "0.82rem",
@@ -920,7 +949,7 @@ function ChainReactionPlanner() {
     <Interactive title="Chain-Reaction Machine Planner" subtitle="Design your own chain-reaction machine. Edit the stages and see the energy flow." takeaway="In a chain-reaction machine, energy is transferred and transformed at each stage, but some is always lost as heat and sound, so the more stages there are, the lower the overall efficiency.">
       <div>
         {stages.map((st, i) => (
-          <div key={i} style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.4rem" }}>
+          <div key={i} style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.5rem", marginBottom: "0.4rem" }}>
             <div style={{
               width: 12, height: 12, borderRadius: "50%",
               background: storeColors[st.store] || "#9ca3af",
@@ -931,7 +960,7 @@ function ChainReactionPlanner() {
               {storeOptions.map(o => <option key={o} value={o}>{o}</option>)}
             </select>
             <input aria-label={`Description of stage ${i + 1}`} value={st.desc} onChange={e => updateDesc(i, e.target.value)}
-              style={{ flex: 1, fontSize: "0.82rem", padding: "0.2rem 0.4rem", borderRadius: 6, border: "1px solid #d1d5db" }} />
+              style={{ flex: "1 1 140px", minWidth: 0, fontSize: "0.82rem", padding: "0.2rem 0.4rem", borderRadius: 6, border: "1px solid #d1d5db" }} />
             {stages.length > 2 && (
               <button onClick={() => removeStage(i)} aria-label={`Remove stage ${i + 1}`}
                 style={{ background: "none", border: "none", cursor: "pointer", fontSize: "1rem", color: "#9ca3af" }}>
@@ -939,7 +968,7 @@ function ChainReactionPlanner() {
               </button>
             )}
             {i < stages.length - 1 && (
-              <span style={{ fontSize: "1.1rem", color: "var(--accent-deep)" }}>→</span>
+              <span aria-hidden="true" style={{ fontSize: "1.1rem", color: "var(--accent-deep)" }}>↓</span>
             )}
           </div>
         ))}

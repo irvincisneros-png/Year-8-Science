@@ -46,7 +46,7 @@ function SideQuestEOTD() {
     className: "card",
     style: {
       display: "grid",
-      gridTemplateColumns: "180px 1fr",
+      gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
       gap: 20,
       padding: 24
     }
@@ -120,7 +120,7 @@ function SideQuestScientists() {
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", null, "Nine scientists who reshaped our understanding of the atom. Tap a card to flip it."), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
-      gridTemplateColumns: "repeat(3, 1fr)",
+      gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
       gap: 14
     }
   }, SCIENTISTS.map(function (s, i) {
@@ -506,7 +506,7 @@ function SideQuestAussie() {
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", null, "The atomic structure story has Australian threads woven through it \u2014 from the scientists to the mines."), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
-      gridTemplateColumns: "repeat(2, 1fr)",
+      gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
       gap: 12
     }
   }, items.map(function (it, i) {

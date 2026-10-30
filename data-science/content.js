@@ -654,7 +654,7 @@ function ScientificInquiryQuiz() {
   }, "Non-scientific")), chosen !== null && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {
     style: {
       fontWeight: "700",
-      color: chosen === c.answer ? "var(--success)" : "var(--warn)",
+      color: chosen === c.answer ? "var(--green-deep)" : "var(--red)",
       marginBottom: "0.5rem"
     }
   }, chosen === c.answer ? "Correct!" : "Not quite."), /*#__PURE__*/React.createElement("p", {
@@ -927,7 +927,7 @@ function ScatterExplorer() {
     textAnchor: "middle",
     fontSize: "11",
     fill: "var(--ink-muted)"
-  }, ds.ylabel), /*#__PURE__*/React.createElement("line", {
+  }, ds.ylabel), key !== "none" && /*#__PURE__*/React.createElement("line", {
     x1: xS(minX),
     y1: yS(lobfY1),
     x2: xS(maxX),
@@ -949,7 +949,7 @@ function ScatterExplorer() {
       stroke: "var(--accent-deep)",
       strokeWidth: "1.5"
     });
-  }), /*#__PURE__*/React.createElement("line", {
+  }), key !== "none" && /*#__PURE__*/React.createElement("line", {
     x1: pad.left + 10,
     x2: pad.left + 28,
     y1: pad.top + 8,
@@ -958,11 +958,11 @@ function ScatterExplorer() {
     strokeWidth: "2",
     strokeDasharray: "5 2"
   }), /*#__PURE__*/React.createElement("text", {
-    x: pad.left + 33,
+    x: pad.left + (key !== "none" ? 33 : 10),
     y: pad.top + 13,
     fontSize: "11",
     fill: "var(--ink)"
-  }, "Line of best fit")), /*#__PURE__*/React.createElement("p", {
+  }, key !== "none" ? "Line of best fit" : "No line of best fit: there is no trend to model")), /*#__PURE__*/React.createElement("p", {
     style: {
       marginTop: "0.75rem",
       marginBottom: 0
@@ -1082,11 +1082,12 @@ function AccuracyReliabilitySim() {
     fill: "var(--accent-deep)",
     opacity: "0.4"
   }), /*#__PURE__*/React.createElement("text", {
-    x: "53",
-    y: "49",
+    x: "50",
+    y: "98",
+    textAnchor: "middle",
     fontSize: "5",
     fill: "var(--ink-muted)"
-  }, "true value"), dots.map(function (d, i) {
+  }, "bullseye = true value"), dots.map(function (d, i) {
     return /*#__PURE__*/React.createElement("circle", {
       key: i,
       cx: d.x,
@@ -1187,7 +1188,7 @@ function ModelBuilderWalkthrough() {
     }, "Step ", i + 1);
   })), /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "var(--surface-raised)",
+      background: "var(--bg-2)",
       borderLeft: "4px solid ".concat(steps[step].color),
       borderRadius: "10px",
       padding: "1rem 1.25rem",
@@ -1411,13 +1412,65 @@ function HandSpanScatter() {
   }, "You are outside the measured range. This is extrapolation and carries higher uncertainty."));
 }
 
+/* Flow of steps as wrapping HTML chips (legible on phones and in dark mode;
+   soft accent fills stay light in both themes, so their text uses fixed dark ink). */
+function FlowSteps(_ref9) {
+  var steps = _ref9.steps,
+    label = _ref9.label,
+    highlightLast = _ref9.highlightLast,
+    loopNote = _ref9.loopNote;
+  return /*#__PURE__*/React.createElement("div", {
+    role: "img",
+    "aria-label": label || steps.join(", then ")
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexWrap: "wrap",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "0.4rem"
+    }
+  }, steps.map(function (s, i) {
+    var strong = highlightLast && i === steps.length - 1;
+    return /*#__PURE__*/React.createElement(React.Fragment, {
+      key: s
+    }, i > 0 && /*#__PURE__*/React.createElement("span", {
+      "aria-hidden": "true",
+      style: {
+        color: "var(--accent-deep)",
+        fontWeight: 700,
+        fontSize: "1.2rem"
+      }
+    }, "\u2192"), /*#__PURE__*/React.createElement("span", {
+      style: {
+        display: "inline-block",
+        padding: "0.45rem 0.75rem",
+        borderRadius: 10,
+        border: "1.5px solid var(--accent-deep)",
+        fontWeight: 700,
+        fontSize: "0.9rem",
+        background: strong ? "var(--accent-deep)" : "var(--accent-soft)",
+        color: strong ? "#fff" : "#1b1a17"
+      }
+    }, s));
+  })), loopNote && /*#__PURE__*/React.createElement("p", {
+    "aria-hidden": "true",
+    style: {
+      textAlign: "center",
+      margin: "0.5rem 0 0",
+      fontSize: "0.9rem",
+      color: "var(--ink-muted)"
+    }
+  }, "\u21BA ", loopNote));
+}
+
 /* ================================================================
    SECTION COMPONENTS
    ================================================================ */
 
-function Section81(_ref9) {
-  var progress = _ref9.progress,
-    setProgress = _ref9.setProgress;
+function Section81(_ref0) {
+  var progress = _ref0.progress,
+    setProgress = _ref0.setProgress;
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "topic-head"
   }, /*#__PURE__*/React.createElement("div", {
@@ -1500,43 +1553,9 @@ function Section81(_ref9) {
     title: "Data science in action"
   }, "Australian epidemiologists used data science models during COVID-19 to predict hospital demand and guide vaccination rollout decisions. The models drew on statistics, computing, and medical knowledge together."), /*#__PURE__*/React.createElement(Figure, {
     caption: "The data science process: from question to communicated findings."
-  }, /*#__PURE__*/React.createElement("svg", {
-    viewBox: "0 0 580 60",
-    width: "100%",
-    style: {
-      maxWidth: 580
-    }
-  }, ["Ask a question", "Collect data", "Clean data", "Analyse patterns", "Build model", "Communicate"].map(function (s, i) {
-    return /*#__PURE__*/React.createElement("g", {
-      key: s,
-      transform: "translate(".concat(i * 96 + 4, ", 8)")
-    }, /*#__PURE__*/React.createElement("rect", {
-      width: "86",
-      height: "40",
-      rx: "8",
-      fill: "var(--accent-soft)",
-      stroke: "var(--accent-deep)"
-    }), /*#__PURE__*/React.createElement("text", {
-      x: "43",
-      y: "16",
-      textAnchor: "middle",
-      fontSize: "9.5",
-      fontWeight: "700",
-      fill: "var(--ink)"
-    }, s.split(" ").slice(0, 2).join(" ")), /*#__PURE__*/React.createElement("text", {
-      x: "43",
-      y: "28",
-      textAnchor: "middle",
-      fontSize: "9",
-      fill: "var(--ink-muted)"
-    }, s.split(" ").slice(2).join(" ")), i < 5 && /*#__PURE__*/React.createElement("text", {
-      x: "95",
-      y: "26",
-      textAnchor: "middle",
-      fontSize: "16",
-      fill: "var(--accent-deep)"
-    }, "\u203A"));
-  }))), /*#__PURE__*/React.createElement(QGroup, {
+  }, /*#__PURE__*/React.createElement(FlowSteps, {
+    steps: ["Ask a question", "Collect data", "Clean data", "Analyse patterns", "Build a model", "Communicate"]
+  })), /*#__PURE__*/React.createElement(QGroup, {
     title: "Check yourself"
   }, /*#__PURE__*/React.createElement(MCQ, {
     num: 5,
@@ -1546,9 +1565,9 @@ function Section81(_ref9) {
     explain: "Data science draws on multiple fields. A data scientist investigating climate change needs atmospheric science, statistics, programming, and communication skills."
   }))));
 }
-function Section82(_ref0) {
-  var progress = _ref0.progress,
-    setProgress = _ref0.setProgress;
+function Section82(_ref1) {
+  var progress = _ref1.progress,
+    setProgress = _ref1.setProgress;
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "topic-head"
   }, /*#__PURE__*/React.createElement("div", {
@@ -1556,9 +1575,279 @@ function Section82(_ref0) {
   }, "8.2 Scientific Models"), /*#__PURE__*/React.createElement("h1", null, "What is a scientific model?"), /*#__PURE__*/React.createElement("p", {
     className: "lead"
   }, "Scientists build simplified representations of complex phenomena to understand, predict, and communicate how the world works.")), /*#__PURE__*/React.createElement(Figure, {
-    src: "img/model.png",
-    caption: "A trend line models the pattern in scattered data and predicts what comes next."
-  }), /*#__PURE__*/React.createElement(DotPoint, {
+    caption: "A line of best fit models the trend in scattered data. Inside the measured range it is used to interpolate; extending it (dashed) predicts beyond the data, which is less certain."
+  }, /*#__PURE__*/React.createElement("svg", {
+    role: "img",
+    "aria-label": "Scatter graph of height against hand span for 14 students. The points rise from left to right with some scatter. A straight solid line of best fit runs through the middle of the points from 16.5 to 23 centimetres, then continues as a dashed line to 26 centimetres, where it predicts a height of about 189 centimetres.",
+    viewBox: "0 0 520 300",
+    width: "100%",
+    style: {
+      maxWidth: 560
+    }
+  }, /*#__PURE__*/React.createElement("text", {
+    x: "52",
+    y: "254",
+    textAnchor: "end",
+    fontSize: "14",
+    fill: "var(--ink-muted)"
+  }, "150"), /*#__PURE__*/React.createElement("line", {
+    x1: "60",
+    x2: "490",
+    y1: "250",
+    y2: "250",
+    stroke: "var(--border)",
+    strokeDasharray: "3 3"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "52",
+    y: "205",
+    textAnchor: "end",
+    fontSize: "14",
+    fill: "var(--ink-muted)"
+  }, "160"), /*#__PURE__*/React.createElement("line", {
+    x1: "60",
+    x2: "490",
+    y1: "201",
+    y2: "201",
+    stroke: "var(--border)",
+    strokeDasharray: "3 3"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "52",
+    y: "156",
+    textAnchor: "end",
+    fontSize: "14",
+    fill: "var(--ink-muted)"
+  }, "170"), /*#__PURE__*/React.createElement("line", {
+    x1: "60",
+    x2: "490",
+    y1: "152",
+    y2: "152",
+    stroke: "var(--border)",
+    strokeDasharray: "3 3"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "52",
+    y: "107",
+    textAnchor: "end",
+    fontSize: "14",
+    fill: "var(--ink-muted)"
+  }, "180"), /*#__PURE__*/React.createElement("line", {
+    x1: "60",
+    x2: "490",
+    y1: "103",
+    y2: "103",
+    stroke: "var(--border)",
+    strokeDasharray: "3 3"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "52",
+    y: "58",
+    textAnchor: "end",
+    fontSize: "14",
+    fill: "var(--ink-muted)"
+  }, "190"), /*#__PURE__*/React.createElement("line", {
+    x1: "60",
+    x2: "490",
+    y1: "54",
+    y2: "54",
+    stroke: "var(--border)",
+    strokeDasharray: "3 3"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "60",
+    y: "268",
+    textAnchor: "middle",
+    fontSize: "14",
+    fill: "var(--ink-muted)"
+  }, "16"), /*#__PURE__*/React.createElement("text", {
+    x: "146",
+    y: "268",
+    textAnchor: "middle",
+    fontSize: "14",
+    fill: "var(--ink-muted)"
+  }, "18"), /*#__PURE__*/React.createElement("text", {
+    x: "232",
+    y: "268",
+    textAnchor: "middle",
+    fontSize: "14",
+    fill: "var(--ink-muted)"
+  }, "20"), /*#__PURE__*/React.createElement("text", {
+    x: "318",
+    y: "268",
+    textAnchor: "middle",
+    fontSize: "14",
+    fill: "var(--ink-muted)"
+  }, "22"), /*#__PURE__*/React.createElement("text", {
+    x: "404",
+    y: "268",
+    textAnchor: "middle",
+    fontSize: "14",
+    fill: "var(--ink-muted)"
+  }, "24"), /*#__PURE__*/React.createElement("text", {
+    x: "490",
+    y: "268",
+    textAnchor: "middle",
+    fontSize: "14",
+    fill: "var(--ink-muted)"
+  }, "26"), /*#__PURE__*/React.createElement("line", {
+    x1: "60",
+    y1: "20",
+    x2: "60",
+    y2: "250",
+    stroke: "var(--ink-muted)",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("line", {
+    x1: "60",
+    y1: "250",
+    x2: "495",
+    y2: "250",
+    stroke: "var(--ink-muted)",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "275",
+    y: "292",
+    textAnchor: "middle",
+    fontSize: "15",
+    fill: "var(--ink)"
+  }, "Hand span (cm)"), /*#__PURE__*/React.createElement("text", {
+    transform: "translate(16,135) rotate(-90)",
+    textAnchor: "middle",
+    fontSize: "15",
+    fill: "var(--ink)"
+  }, "Height (cm)"), /*#__PURE__*/React.createElement("line", {
+    x1: "81.5",
+    y1: "232.7",
+    x2: "361",
+    y2: "114.4",
+    stroke: "var(--accent-deep)",
+    strokeWidth: "3"
+  }), /*#__PURE__*/React.createElement("line", {
+    x1: "361",
+    y1: "114.4",
+    x2: "490",
+    y2: "59.8",
+    stroke: "var(--accent-deep)",
+    strokeWidth: "3",
+    strokeDasharray: "8 6"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "81.5",
+    cy: "240.2",
+    r: "5",
+    fill: "var(--accent-soft)",
+    stroke: "var(--accent-deep)",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "103.0",
+    cy: "215.8",
+    r: "5",
+    fill: "var(--accent-soft)",
+    stroke: "var(--accent-deep)",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "124.5",
+    cy: "225.6",
+    r: "5",
+    fill: "var(--accent-soft)",
+    stroke: "var(--accent-deep)",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "146.0",
+    cy: "201.1",
+    r: "5",
+    fill: "var(--accent-soft)",
+    stroke: "var(--accent-deep)",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "167.5",
+    cy: "191.3",
+    r: "5",
+    fill: "var(--accent-soft)",
+    stroke: "var(--accent-deep)",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "189.0",
+    cy: "181.6",
+    r: "5",
+    fill: "var(--accent-soft)",
+    stroke: "var(--accent-deep)",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "210.5",
+    cy: "186.4",
+    r: "5",
+    fill: "var(--accent-soft)",
+    stroke: "var(--accent-deep)",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "232.0",
+    cy: "162.0",
+    r: "5",
+    fill: "var(--accent-soft)",
+    stroke: "var(--accent-deep)",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "253.5",
+    cy: "157.1",
+    r: "5",
+    fill: "var(--accent-soft)",
+    stroke: "var(--accent-deep)",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "275.0",
+    cy: "147.3",
+    r: "5",
+    fill: "var(--accent-soft)",
+    stroke: "var(--accent-deep)",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "296.5",
+    cy: "152.2",
+    r: "5",
+    fill: "var(--accent-soft)",
+    stroke: "var(--accent-deep)",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "318.0",
+    cy: "127.8",
+    r: "5",
+    fill: "var(--accent-soft)",
+    stroke: "var(--accent-deep)",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "339.5",
+    cy: "118.0",
+    r: "5",
+    fill: "var(--accent-soft)",
+    stroke: "var(--accent-deep)",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "361.0",
+    cy: "122.9",
+    r: "5",
+    fill: "var(--accent-soft)",
+    stroke: "var(--accent-deep)",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "447",
+    cy: "78",
+    r: "7",
+    fill: "none",
+    stroke: "#ef6b4b",
+    strokeWidth: "3"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "440",
+    y: "124",
+    textAnchor: "end",
+    fontSize: "14",
+    fontWeight: "700",
+    fill: "#ef6b4b"
+  }, "prediction"), /*#__PURE__*/React.createElement("text", {
+    x: "80",
+    y: "40",
+    fontSize: "14",
+    fill: "var(--ink)"
+  }, "solid line = line of best fit (measured range)"), /*#__PURE__*/React.createElement("text", {
+    x: "80",
+    y: "60",
+    fontSize: "14",
+    fill: "var(--ink)"
+  }, "dashed = extrapolation (less certain)"))), /*#__PURE__*/React.createElement(DotPoint, {
     id: "8.2.1",
     title: "Scientific inquiry compared with non-scientific approaches",
     progress: progress,
@@ -1596,76 +1885,11 @@ function Section82(_ref0) {
     title: "All models are wrong, but some are useful"
   }, "A model does not need to be perfect to be valuable. A weather forecast model may be wrong sometimes, but it still helps you decide whether to carry an umbrella. Usefulness, not perfection, is the standard."), /*#__PURE__*/React.createElement(Figure, {
     caption: "The model-building cycle: data feeds models, models generate predictions, predictions are tested against new data."
-  }, /*#__PURE__*/React.createElement("svg", {
-    viewBox: "0 0 500 100",
-    width: "100%",
-    style: {
-      maxWidth: 500
-    }
-  }, [{
-    label: "Collect data",
-    x: 10,
-    y: 30
-  }, {
-    label: "Find patterns",
-    x: 135,
-    y: 30
-  }, {
-    label: "Build model",
-    x: 260,
-    y: 30
-  }, {
-    label: "Test predictions",
-    x: 385,
-    y: 30
-  }].map(function (s, i, arr) {
-    return /*#__PURE__*/React.createElement("g", {
-      key: s.label
-    }, /*#__PURE__*/React.createElement("rect", {
-      x: s.x,
-      y: s.y,
-      width: "105",
-      height: "38",
-      rx: "8",
-      fill: "var(--accent-soft)",
-      stroke: "var(--accent-deep)"
-    }), /*#__PURE__*/React.createElement("text", {
-      x: s.x + 52,
-      y: s.y + 23,
-      textAnchor: "middle",
-      fontSize: "11",
-      fontWeight: "700",
-      fill: "var(--ink)"
-    }, s.label), i < arr.length - 1 && /*#__PURE__*/React.createElement("text", {
-      x: s.x + 115,
-      y: s.y + 25,
-      textAnchor: "middle",
-      fontSize: "18",
-      fill: "var(--accent-deep)"
-    }, "\u203A"));
-  }), /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("marker", {
-    id: "ds-cycle-arrow",
-    markerWidth: "8",
-    markerHeight: "8",
-    refX: "6",
-    refY: "3",
-    orient: "auto"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M0,0 L6,3 L0,6 Z",
-    fill: "var(--accent-deep)"
-  }))), /*#__PURE__*/React.createElement("path", {
-    d: "M 437 70 Q 437 86 247 86 Q 62 86 62 72",
-    fill: "none",
-    stroke: "var(--accent-deep)",
-    strokeWidth: "1.5",
-    markerEnd: "url(#ds-cycle-arrow)"
-  }), /*#__PURE__*/React.createElement("text", {
-    x: "250",
-    y: "97",
-    textAnchor: "middle",
-    fontSize: "10",
-    fill: "var(--ink-muted)"
-  }, "Revise if predictions fail"))), /*#__PURE__*/React.createElement(QGroup, {
+  }, /*#__PURE__*/React.createElement(FlowSteps, {
+    steps: ["Collect data", "Find patterns", "Build model", "Test predictions"],
+    label: "Collect data, then find patterns, then build a model, then test its predictions; if the predictions fail, revise the model and go round again.",
+    loopNote: "Revise the model if its predictions fail, then go round again"
+  })), /*#__PURE__*/React.createElement(QGroup, {
     title: "Check yourself"
   }, /*#__PURE__*/React.createElement(MCQ, {
     num: 3,
@@ -1731,9 +1955,9 @@ function Section82(_ref0) {
     model: "A computer simulation allows scientists to change variables instantly and run hundreds of scenarios in seconds, safely and cheaply. Some real-world experiments would be impossible, unethical, or take decades to complete."
   }))));
 }
-function Section83(_ref1) {
-  var progress = _ref1.progress,
-    setProgress = _ref1.setProgress;
+function Section83(_ref10) {
+  var progress = _ref10.progress,
+    setProgress = _ref10.setProgress;
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "topic-head"
   }, /*#__PURE__*/React.createElement("div", {
@@ -1754,43 +1978,10 @@ function Section83(_ref1) {
     title: "John Snow's spatial model"
   }, "In 1854, doctor John Snow mapped cholera deaths in London onto a street map. The cluster of deaths around one water pump was instantly visible in the spatial model. He identified the contaminated pump as the source before germ theory was even established. This was data science in action, over 150 years ago."), /*#__PURE__*/React.createElement(Figure, {
     caption: "Multiple independent evidence types contributed to the plate tectonics model."
-  }, /*#__PURE__*/React.createElement("svg", {
-    viewBox: "0 0 580 70",
-    width: "100%",
-    style: {
-      maxWidth: 580
-    }
-  }, ["Coastline shapes", "Fossil distribution", "Rock type and age", "Seafloor spreading", "Earthquake locations", "Plate tectonics model"].map(function (s, i) {
-    return /*#__PURE__*/React.createElement("g", {
-      key: s,
-      transform: "translate(".concat(i * 95 + 5, ", 14)")
-    }, /*#__PURE__*/React.createElement("rect", {
-      width: "88",
-      height: "42",
-      rx: "8",
-      fill: i === 5 ? "var(--accent-deep)" : "var(--accent-soft)",
-      stroke: "var(--accent-deep)"
-    }), /*#__PURE__*/React.createElement("text", {
-      x: "44",
-      y: "17",
-      textAnchor: "middle",
-      fontSize: "9.5",
-      fontWeight: i === 5 ? "800" : "700",
-      fill: i === 5 ? "#fff" : "var(--ink)"
-    }, s.split(" ").slice(0, 2).join(" ")), /*#__PURE__*/React.createElement("text", {
-      x: "44",
-      y: "30",
-      textAnchor: "middle",
-      fontSize: "9",
-      fill: i === 5 ? "#fff" : "var(--ink-muted)"
-    }, s.split(" ").slice(2).join(" ")), i < 5 && /*#__PURE__*/React.createElement("text", {
-      x: "96",
-      y: "28",
-      textAnchor: "middle",
-      fontSize: "16",
-      fill: "var(--accent-deep)"
-    }, "\u203A"));
-  }))), /*#__PURE__*/React.createElement(QGroup, {
+  }, /*#__PURE__*/React.createElement(FlowSteps, {
+    steps: ["Coastline shapes", "Fossil distribution", "Rock type and age", "Sea-floor spreading", "Earthquake locations", "Plate tectonics model"],
+    highlightLast: true
+  })), /*#__PURE__*/React.createElement(QGroup, {
     title: "Check yourself"
   }, /*#__PURE__*/React.createElement(MCQ, {
     num: 1,
@@ -1814,43 +2005,10 @@ function Section83(_ref1) {
     title: "Theory does not mean guess"
   }, "When scientists say something is a theory, they mean it has survived enormous amounts of testing. Germ theory has been confirmed by countless experiments and has guided the development of antiseptics, vaccines and antibiotics that have saved many millions of lives."), /*#__PURE__*/React.createElement(Figure, {
     caption: "The pathway from initial observation to a workable scientific theory."
-  }, /*#__PURE__*/React.createElement("svg", {
-    viewBox: "0 0 580 60",
-    width: "100%",
-    style: {
-      maxWidth: 580
-    }
-  }, ["Observation + data", "Hypothesis", "Preliminary model", "Peer review", "Independent testing", "Scientific theory"].map(function (s, i) {
-    return /*#__PURE__*/React.createElement("g", {
-      key: s,
-      transform: "translate(".concat(i * 95 + 5, ", 8)")
-    }, /*#__PURE__*/React.createElement("rect", {
-      width: "88",
-      height: "42",
-      rx: "8",
-      fill: i === 5 ? "var(--accent-deep)" : "var(--accent-soft)",
-      stroke: "var(--accent-deep)"
-    }), /*#__PURE__*/React.createElement("text", {
-      x: "44",
-      y: "17",
-      textAnchor: "middle",
-      fontSize: "9.5",
-      fontWeight: i === 5 ? "800" : "700",
-      fill: i === 5 ? "#fff" : "var(--ink)"
-    }, s.split(" ").slice(0, 2).join(" ")), /*#__PURE__*/React.createElement("text", {
-      x: "44",
-      y: "30",
-      textAnchor: "middle",
-      fontSize: "9",
-      fill: i === 5 ? "#fff" : "var(--ink-muted)"
-    }, s.split(" ").slice(2).join(" ")), i < 5 && /*#__PURE__*/React.createElement("text", {
-      x: "96",
-      y: "28",
-      textAnchor: "middle",
-      fontSize: "16",
-      fill: "var(--accent-deep)"
-    }, "\u203A"));
-  }))), /*#__PURE__*/React.createElement(QGroup, {
+  }, /*#__PURE__*/React.createElement(FlowSteps, {
+    steps: ["Observation + data", "Hypothesis", "Preliminary model", "Peer review", "Independent testing", "Scientific theory"],
+    highlightLast: true
+  })), /*#__PURE__*/React.createElement(QGroup, {
     title: "Check yourself"
   }, /*#__PURE__*/React.createElement(MCQ, {
     num: 3,
@@ -1864,9 +2022,9 @@ function Section83(_ref1) {
     model: "1. The model must generate predictions that are confirmed by new, independent observations. 2. The model must be tested repeatedly by independent scientists in different conditions without being refuted. Both characteristics show that the model is robust and not just a result of one scientist's specific data or methods."
   }))));
 }
-function Section84(_ref10) {
-  var progress = _ref10.progress,
-    setProgress = _ref10.setProgress;
+function Section84(_ref11) {
+  var progress = _ref11.progress,
+    setProgress = _ref11.setProgress;
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "topic-head"
   }, /*#__PURE__*/React.createElement("div", {
@@ -1894,16 +2052,17 @@ function Section84(_ref10) {
     title: "Variables in a fair test"
   }, "Independent variable: what you change. Dependent variable: what you measure. Controlled variables: everything else you keep the same to make the test fair."), /*#__PURE__*/React.createElement(Figure, {
     caption: "A well-structured scientific question identifies three variable types clearly."
-  }, /*#__PURE__*/React.createElement("svg", {
-    viewBox: "0 0 520 56",
-    width: "100%",
+  }, /*#__PURE__*/React.createElement("div", {
     style: {
-      maxWidth: 520
+      display: "flex",
+      flexWrap: "wrap",
+      gap: "0.6rem",
+      justifyContent: "center"
     }
   }, [{
     label: "Independent variable",
     sub: "What you change",
-    color: "var(--accent-deep)"
+    color: "var(--accent)"
   }, {
     label: "Dependent variable",
     sub: "What you measure",
@@ -1912,31 +2071,30 @@ function Section84(_ref10) {
     label: "Controlled variables",
     sub: "What you keep the same",
     color: "#10b981"
-  }].map(function (s, i) {
-    return /*#__PURE__*/React.createElement("g", {
-      key: s.label,
-      transform: "translate(".concat(i * 173 + 4, ", 6)")
-    }, /*#__PURE__*/React.createElement("rect", {
-      width: "164",
-      height: "44",
-      rx: "10",
-      fill: "var(--surface-raised)",
-      stroke: s.color,
-      strokeWidth: "2"
-    }), /*#__PURE__*/React.createElement("text", {
-      x: "82",
-      y: "21",
-      textAnchor: "middle",
-      fontSize: "11",
-      fontWeight: "700",
-      fill: s.color
-    }, s.label), /*#__PURE__*/React.createElement("text", {
-      x: "82",
-      y: "35",
-      textAnchor: "middle",
-      fontSize: "10",
-      fill: "var(--ink-muted)"
-    }, s.sub));
+  }].map(function (v) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: v.label,
+      style: {
+        flex: "1 1 150px",
+        maxWidth: 220,
+        textAlign: "center",
+        padding: "0.6rem 0.8rem",
+        borderRadius: 10,
+        border: "2px solid " + v.color,
+        borderTopWidth: 6,
+        background: "var(--card)"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontWeight: 700,
+        color: "var(--ink)"
+      }
+    }, v.label), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: "0.88rem",
+        color: "var(--ink-muted)"
+      }
+    }, v.sub));
   }))), /*#__PURE__*/React.createElement(QGroup, {
     title: "Check yourself"
   }, /*#__PURE__*/React.createElement(MCQ, {
@@ -2031,9 +2189,9 @@ function Section84(_ref10) {
     model: "Ordered: 5, 5, 5, 6, 6, 8, 10. Mean = (5+8+6+5+10+6+5) / 7 = 45 / 7 = 6.43. Median = 4th value = 6. Mode = 5 (appears 3 times). Range = 10 - 5 = 5."
   }))));
 }
-function Section85(_ref11) {
-  var progress = _ref11.progress,
-    setProgress = _ref11.setProgress;
+function Section85(_ref12) {
+  var progress = _ref12.progress,
+    setProgress = _ref12.setProgress;
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "topic-head"
   }, /*#__PURE__*/React.createElement("div", {
@@ -2053,7 +2211,7 @@ function Section85(_ref11) {
   }, /*#__PURE__*/React.createElement(MCQ, {
     num: 1,
     question: "A student creates a scatter plot of hand span vs height for 5 students and all points fall exactly on the line. A classmate says the model is perfect. What is the most likely problem?",
-    options: ["The model is indeed perfect.", "With only 5 points, a line can be forced through all of them. Real measurements always show some variability, so zero scatter suggests the sample is too small or data was fabricated.", "The student used the wrong type of graph.", "The line of best fit should not pass through all points."],
+    options: ["The model is indeed perfect.", "Real measurements always show some scatter around the trend, so five points sitting exactly on the line suggests the sample is far too small to reveal that variation, or the data was made up.", "The student used the wrong type of graph.", "The line of best fit should not pass through all points."],
     correct: 1,
     explain: "In real investigations, random measurement error and natural variability always cause scatter around the line. A perfect fit to a very small dataset is more likely to reflect data problems than genuine scientific certainty."
   }), /*#__PURE__*/React.createElement(WrittenQ, {

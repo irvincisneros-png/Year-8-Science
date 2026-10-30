@@ -233,7 +233,7 @@ function HeatTransferSim() {
       y: "15",
       textAnchor: "middle",
       fontSize: "9",
-      fill: "var(--muted)"
+      fill: "var(--ink-muted)"
     }, "vacuum of space"));
   }
   return /*#__PURE__*/React.createElement(Interactive, {
@@ -323,7 +323,7 @@ function EnergyStoreSim() {
     y1: "15",
     x2: "40",
     y2: "130",
-    stroke: "var(--muted)",
+    stroke: "var(--ink-muted)",
     strokeWidth: "1",
     strokeDasharray: "4 3"
   }), /*#__PURE__*/React.createElement("rect", {
@@ -363,6 +363,28 @@ function EnergyStoreSim() {
       marginBottom: 0
     }
   }, "At the top: all PE, no KE. Just before impact: all KE, no PE. Total energy is conserved."));
+}
+
+/* Chip + arrow styles for the flow-style readouts (HTML, so they wrap on phones
+   and stay legible in dark mode: soft accent fills are always light, so text on
+   them uses a fixed dark ink). */
+var arrowStyle = {
+  fontSize: "1.3rem",
+  fontWeight: 700,
+  color: "var(--accent-deep)",
+  lineHeight: 1
+};
+function chipStyle(strong) {
+  return {
+    display: "inline-block",
+    padding: "0.45rem 0.8rem",
+    borderRadius: 10,
+    fontWeight: 700,
+    fontSize: "0.92rem",
+    border: "1.5px solid var(--accent-deep)",
+    background: strong ? "var(--accent-deep)" : "var(--accent-soft)",
+    color: strong ? "#fff" : "#1b1a17"
+  };
 }
 
 /* Energy transformation chain builder */
@@ -408,7 +430,7 @@ function EnergyChainSim() {
   return /*#__PURE__*/React.createElement(Interactive, {
     title: "Energy Transformation Spotter",
     subtitle: "Pick a device and trace the energy change.",
-    takeaway: "Every device converts energy from one form to another, and some energy is always lost as heat during every transformation."
+    takeaway: "Every device converts energy from one form to another, and some energy is always wasted as heat that spreads into the surroundings."
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
@@ -424,68 +446,34 @@ function EnergyChainSim() {
         return setSelected(d.id);
       }
     }, d.label);
-  })), dev && /*#__PURE__*/React.createElement("svg", {
-    viewBox: "0 0 340 60",
-    width: "100%",
+  })), dev && /*#__PURE__*/React.createElement("div", {
+    role: "img",
+    "aria-label": "".concat(dev.from, " energy goes into the ").concat(dev.label, ", which transforms it into ").concat(dev.to, " energy."),
     style: {
-      maxWidth: 340
+      display: "flex",
+      flexWrap: "wrap",
+      alignItems: "center",
+      gap: "0.5rem"
     }
-  }, /*#__PURE__*/React.createElement("rect", {
-    x: "5",
-    y: "10",
-    width: "100",
-    height: "40",
-    rx: "8",
-    fill: "var(--accent-soft)",
-    stroke: "var(--accent-deep)"
-  }), /*#__PURE__*/React.createElement("text", {
-    x: "55",
-    y: "34",
-    textAnchor: "middle",
-    fontSize: "11",
-    fontWeight: "700",
-    fill: "var(--ink)"
-  }, dev.from), /*#__PURE__*/React.createElement("polygon", {
-    points: "115,30 135,20 135,40",
-    fill: "var(--accent-deep)"
-  }), /*#__PURE__*/React.createElement("rect", {
-    x: "140",
-    y: "10",
-    width: "100",
-    height: "40",
-    rx: "8",
-    fill: "var(--accent-deep)"
-  }), /*#__PURE__*/React.createElement("text", {
-    x: "190",
-    y: "26",
-    textAnchor: "middle",
-    fontSize: "10",
-    fontWeight: "700",
-    fill: "#fff"
-  }, dev.label), /*#__PURE__*/React.createElement("polygon", {
-    points: "250,30 270,20 270,40",
-    fill: "var(--accent-deep)"
-  }), /*#__PURE__*/React.createElement("rect", {
-    x: "275",
-    y: "10",
-    width: "60",
-    height: "40",
-    rx: "8",
-    fill: "var(--accent-soft)",
-    stroke: "var(--accent-deep)"
-  }), /*#__PURE__*/React.createElement("text", {
-    x: "305",
-    y: "34",
-    textAnchor: "middle",
-    fontSize: "10",
-    fontWeight: "700",
-    fill: "var(--ink)"
+  }, /*#__PURE__*/React.createElement("span", {
+    style: chipStyle()
+  }, dev.from), /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true",
+    style: arrowStyle
+  }, "\u2192"), /*#__PURE__*/React.createElement("span", {
+    style: chipStyle(true)
+  }, dev.label), /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true",
+    style: arrowStyle
+  }, "\u2192"), /*#__PURE__*/React.createElement("span", {
+    style: chipStyle()
   }, dev.to)), /*#__PURE__*/React.createElement("p", {
     className: "muted",
     style: {
-      marginBottom: 0
+      marginBottom: 0,
+      marginTop: "0.75rem"
     }
-  }, "Some energy is always lost as heat during every transformation."));
+  }, "Some energy is always transferred to the surroundings as waste heat during every transformation."));
 }
 
 /* Open vs Closed system quiz */
@@ -616,7 +604,79 @@ function Section71(_ref) {
     setProgress: setProgress
   }, /*#__PURE__*/React.createElement("p", null, "Practical investigations help you observe energy transformations directly. One classic method is heating water with a Bunsen burner while recording temperature every minute. The rising temperature is direct evidence that chemical PE in the gas is transforming into thermal energy."), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement(Term, {
     def: "A diagram where arrow width is proportional to the amount of energy, showing useful output and waste."
-  }, "Sankey diagrams"), " represent transformations visually. Wide arrows carry more energy; the useful output arrow is narrower than the input arrow because some energy always becomes waste heat. Energy-flow diagrams use labelled arrows to trace the pathway from source to output. Combining experimental data with these representations deepens your understanding of real systems."), /*#__PURE__*/React.createElement(Callout, {
+  }, "Sankey diagrams"), " represent transformations visually. Wide arrows carry more energy; the useful output arrow is narrower than the input arrow because some energy always becomes waste heat. Energy-flow diagrams use labelled arrows to trace the pathway from source to output. Combining experimental data with these representations deepens your understanding of real systems."), /*#__PURE__*/React.createElement(Figure, {
+    caption: "Sankey diagram for an old-style incandescent light globe, drawn to scale: 100 J of electrical energy in = 5 J of light (useful) + 95 J of heat (wasted)."
+  }, /*#__PURE__*/React.createElement("svg", {
+    role: "img",
+    "aria-label": "Sankey diagram. A band 100 units wide labelled electrical energy in, 100 joules, splits into a very thin band going straight on labelled light, 5 joules, useful, and a wide band bending downwards labelled heat, 95 joules, wasted.",
+    viewBox: "0 0 520 240",
+    width: "100%",
+    style: {
+      maxWidth: 520
+    }
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: "20",
+    y: "40",
+    width: "190",
+    height: "100",
+    fill: "#4b7bc9"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "115",
+    y: "86",
+    textAnchor: "middle",
+    fontSize: "16",
+    fontWeight: "700",
+    fill: "#fff"
+  }, "Electrical"), /*#__PURE__*/React.createElement("text", {
+    x: "115",
+    y: "104",
+    textAnchor: "middle",
+    fontSize: "16",
+    fontWeight: "700",
+    fill: "#fff"
+  }, "100 J in"), /*#__PURE__*/React.createElement("rect", {
+    x: "210",
+    y: "40",
+    width: "190",
+    height: "5",
+    fill: "#d99e1e"
+  }), /*#__PURE__*/React.createElement("polygon", {
+    points: "400,34 416,42.5 400,51",
+    fill: "#d99e1e"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "420",
+    y: "38",
+    fontSize: "16",
+    fontWeight: "700",
+    fill: "var(--ink)"
+  }, "Light: 5 J"), /*#__PURE__*/React.createElement("text", {
+    x: "420",
+    y: "56",
+    fontSize: "14",
+    fill: "var(--ink-muted)"
+  }, "(useful)"), /*#__PURE__*/React.createElement("path", {
+    d: "M210,45 Q305,45 305,140 L305,200 L210,200 L210,140 Z",
+    fill: "#ef6b4b"
+  }), /*#__PURE__*/React.createElement("polygon", {
+    points: "198,200 317,200 257.5,232",
+    fill: "#ef6b4b"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "320",
+    y: "160",
+    fontSize: "16",
+    fontWeight: "700",
+    fill: "var(--ink)"
+  }, "Heat: 95 J"), /*#__PURE__*/React.createElement("text", {
+    x: "320",
+    y: "178",
+    fontSize: "14",
+    fill: "var(--ink-muted)"
+  }, "(wasted, spreads"), /*#__PURE__*/React.createElement("text", {
+    x: "320",
+    y: "195",
+    fontSize: "14",
+    fill: "var(--ink-muted)"
+  }, "into the room)"))), /*#__PURE__*/React.createElement(Callout, {
     kind: "key",
     title: "Reading a Sankey diagram"
   }, "Input arrow width equals the sum of all output arrow widths, showing that total energy is always conserved even when some becomes waste.")), /*#__PURE__*/React.createElement(DotPoint, {
@@ -630,7 +690,7 @@ function Section71(_ref) {
     def: "A system that exchanges both energy and matter with its surroundings."
   }, "Open systems"), " exchange both energy and matter with their surroundings. A boiling saucepan without a lid is open because steam escapes and heat radiates away. ", /*#__PURE__*/React.createElement(Term, {
     def: "A system that exchanges energy but not matter with its surroundings."
-  }, "Closed systems"), " exchange energy but not matter. A sealed thermos flask keeps matter in but slowly loses thermal energy through its walls."), /*#__PURE__*/React.createElement("p", null, "In an ideal system with no energy losses, energy cycles between stores without being lost. A swinging pendulum repeatedly exchanges gravitational PE (highest point) for KE (lowest point). In reality, friction and air resistance bleed energy away as heat, so the pendulum slows. Earth itself is nearly closed for matter but open for energy: solar radiation pours in and infrared radiation flows out."), /*#__PURE__*/React.createElement(SystemClassifier, null)), /*#__PURE__*/React.createElement(DotPoint, {
+  }, "Closed systems"), " exchange energy but not matter. A sealed thermos flask keeps matter in but slowly loses thermal energy through its walls."), /*#__PURE__*/React.createElement("p", null, "In an ideal system with no energy losses, energy cycles between stores without being lost. A swinging pendulum repeatedly exchanges gravitational PE (highest point) for KE (lowest point). In reality, friction and air resistance bleed energy away as heat, so the pendulum slows. Earth itself is very nearly a closed system: almost no matter enters or leaves, but energy crosses the boundary freely, as solar radiation pours in and infrared radiation flows out."), /*#__PURE__*/React.createElement(SystemClassifier, null)), /*#__PURE__*/React.createElement(DotPoint, {
     id: "7.1.6",
     title: "Law of conservation of energy",
     progress: progress,
@@ -812,13 +872,13 @@ function ExoEndoSim() {
     y: "126",
     textAnchor: "middle",
     fontSize: "9",
-    fill: "var(--muted)"
+    fill: "var(--ink-muted)"
   }, "temp"), /*#__PURE__*/React.createElement("text", {
-    x: "8",
+    x: "22",
     y: "73",
     textAnchor: "end",
     fontSize: "8",
-    fill: "var(--muted)"
+    fill: "var(--ink-muted)"
   }, startTemp)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: "stat-readout"
   }, /*#__PURE__*/React.createElement(Stat, {
@@ -851,14 +911,14 @@ function WordEquationBuilder() {
     id: "rust",
     label: "Iron rusting",
     reactants: ["iron", "oxygen", "water"],
-    products: ["iron(III) oxide"],
+    products: ["hydrated iron(III) oxide (rust)"],
     observation: "Reddish-brown coating forms slowly"
   }, {
     id: "photo",
     label: "Photosynthesis",
     reactants: ["carbon dioxide", "water"],
     products: ["glucose", "oxygen"],
-    observation: "Requires light; green plants absorb CO2"
+    observation: "Requires light; green plants absorb CO₂ and release O₂"
   }];
   var _useState11 = useState("mg"),
     _useState12 = _slicedToArray(_useState11, 2),
@@ -886,68 +946,39 @@ function WordEquationBuilder() {
         return setSelected(r.id);
       }
     }, r.label);
-  })), rx && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("svg", {
-    viewBox: "0 0 380 60",
-    width: "100%",
+  })), rx && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    role: "img",
+    "aria-label": "Word equation: ".concat(rx.reactants.join(" plus "), " produces ").concat(rx.products.join(" plus "), "."),
     style: {
-      maxWidth: 380
+      display: "flex",
+      flexWrap: "wrap",
+      alignItems: "center",
+      gap: "0.45rem"
     }
   }, rx.reactants.map(function (r, i) {
-    return /*#__PURE__*/React.createElement("g", {
+    return /*#__PURE__*/React.createElement(React.Fragment, {
       key: r
-    }, /*#__PURE__*/React.createElement("rect", {
-      x: i * (180 / rx.reactants.length),
-      y: "8",
-      width: 160 / rx.reactants.length,
-      height: "36",
-      rx: "6",
-      fill: "var(--accent-soft)",
-      stroke: "var(--accent-deep)"
-    }), /*#__PURE__*/React.createElement("text", {
-      x: i * (180 / rx.reactants.length) + 160 / rx.reactants.length / 2,
-      y: "31",
-      textAnchor: "middle",
-      fontSize: "10",
-      fill: "var(--ink)"
-    }, r), i < rx.reactants.length - 1 && /*#__PURE__*/React.createElement("text", {
-      x: i * (180 / rx.reactants.length) + 160 / rx.reactants.length + 5,
-      y: "31",
-      fontSize: "14",
-      fontWeight: "700",
-      fill: "var(--accent-deep)"
-    }, "+"));
-  }), /*#__PURE__*/React.createElement("text", {
-    x: "188",
-    y: "31",
-    fontSize: "18",
-    fill: "var(--accent-deep)",
-    fontWeight: "700"
+    }, i > 0 && /*#__PURE__*/React.createElement("span", {
+      "aria-hidden": "true",
+      style: arrowStyle
+    }, "+"), /*#__PURE__*/React.createElement("span", {
+      style: chipStyle()
+    }, r));
+  }), /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true",
+    style: arrowStyle
   }, "\u2192"), rx.products.map(function (p, i) {
-    return /*#__PURE__*/React.createElement("g", {
+    return /*#__PURE__*/React.createElement(React.Fragment, {
       key: p
-    }, /*#__PURE__*/React.createElement("rect", {
-      x: 200 + i * (170 / rx.products.length),
-      y: "8",
-      width: 155 / rx.products.length,
-      height: "36",
-      rx: "6",
-      fill: "var(--accent-deep)"
-    }), /*#__PURE__*/React.createElement("text", {
-      x: 200 + i * (170 / rx.products.length) + 155 / rx.products.length / 2,
-      y: "31",
-      textAnchor: "middle",
-      fontSize: "10",
-      fill: "#fff"
-    }, p), i < rx.products.length - 1 && /*#__PURE__*/React.createElement("text", {
-      x: 200 + i * (170 / rx.products.length) + 155 / rx.products.length + 5,
-      y: "31",
-      fontSize: "14",
-      fontWeight: "700",
-      fill: "var(--accent-deep)"
-    }, "+"));
+    }, i > 0 && /*#__PURE__*/React.createElement("span", {
+      "aria-hidden": "true",
+      style: arrowStyle
+    }, "+"), /*#__PURE__*/React.createElement("span", {
+      style: chipStyle(true)
+    }, p));
   })), /*#__PURE__*/React.createElement("p", {
     style: {
-      marginTop: "0.5rem",
+      marginTop: "0.75rem",
       marginBottom: 0
     }
   }, /*#__PURE__*/React.createElement("strong", null, "Observation:"), " ", rx.observation)));
@@ -1015,7 +1046,7 @@ function Section72(_ref2) {
     def: "A reaction that releases energy (heat) to the surroundings, causing the temperature to rise."
   }, "exothermic"), ". Combustion, neutralisation, and rusting are all exothermic. Hand warmers and self-heating food cans use exothermic reactions to generate warmth."), /*#__PURE__*/React.createElement("p", null, "If more energy is absorbed than released, the reaction is ", /*#__PURE__*/React.createElement(Term, {
     def: "A reaction that absorbs energy from the surroundings, causing the temperature to fall."
-  }, "endothermic"), ". Dissolving ammonium nitrate in water, photosynthesis, and some decomposition reactions are endothermic. Instant cold packs rely on endothermic reactions to pull heat away from a sore muscle, reducing swelling."), /*#__PURE__*/React.createElement(ExoEndoSim, null), /*#__PURE__*/React.createElement(QGroup, {
+  }, "endothermic"), ". Dissolving ammonium nitrate in water, photosynthesis, and some decomposition reactions are endothermic. Instant cold packs rely on an endothermic process (dissolving ammonium nitrate) to pull heat away from a sore muscle, reducing swelling."), /*#__PURE__*/React.createElement(ExoEndoSim, null), /*#__PURE__*/React.createElement(QGroup, {
     title: "Check yourself"
   }, /*#__PURE__*/React.createElement(WrittenQ, {
     num: 7,
@@ -1027,17 +1058,17 @@ function Section72(_ref2) {
     progress: progress,
     setProgress: setProgress
   }, /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement(Term, {
-    def: "The process by which plants convert light energy into chemical PE (glucose) using CO2 and water."
+    def: "The process by which plants convert light energy into chemical PE (glucose) using CO\u2082 and water."
   }, "Photosynthesis"), " is endothermic: carbon dioxide plus water produces glucose plus oxygen (requires light and chlorophyll). This happens in the ", /*#__PURE__*/React.createElement(Term, {
     def: "The organelle in plant cells where photosynthesis occurs."
   }, "chloroplasts"), " of plant cells. ", /*#__PURE__*/React.createElement(Term, {
-    def: "The process by which cells break down glucose to release energy, producing CO2 and water."
+    def: "The process by which cells break down glucose to release energy, producing CO\u2082 and water."
   }, "Cellular respiration"), " is exothermic: glucose plus oxygen produces carbon dioxide plus water plus energy (ATP). This happens in the ", /*#__PURE__*/React.createElement(Term, {
     def: "The organelle in cells where aerobic respiration occurs."
   }, "mitochondria"), " of most plant and animal cells."), /*#__PURE__*/React.createElement("p", null, "Together, these two processes form the backbone of the carbon and oxygen cycles. During daylight, plants photosynthesise faster than they respire, producing a net release of oxygen. At night, without light, plants only respire. When you document an investigation of these processes, you write a formal scientific report with sections in this order: Title, Aim, Hypothesis, Materials, Method, Results, Discussion, and Conclusion."), /*#__PURE__*/React.createElement(Callout, {
     kind: "key",
     title: "Complementary reactions"
-  }, "Photosynthesis: CO2 + water produces glucose + O2 (endothermic). Respiration: glucose + O2 produces CO2 + water + energy (exothermic). They are linked in a cycle."), /*#__PURE__*/React.createElement("div", {
+  }, "Photosynthesis: CO\u2082 + water produces glucose + O\u2082 (endothermic). Respiration: glucose + O\u2082 produces CO\u2082 + water + energy (exothermic). They are linked in a cycle."), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       gap: "1rem",
@@ -1045,10 +1076,10 @@ function Section72(_ref2) {
     }
   }, /*#__PURE__*/React.createElement(FlipCard, {
     front: "Photosynthesis",
-    back: "CO2 + water produces glucose + O2. Needs light. Chloroplasts. Endothermic."
+    back: "CO\u2082 + water produces glucose + O\u2082. Needs light. Chloroplasts. Endothermic."
   }), /*#__PURE__*/React.createElement(FlipCard, {
     front: "Respiration",
-    back: "Glucose + O2 produces CO2 + water + energy. Most cells. Mitochondria. Exothermic."
+    back: "Glucose + O\u2082 produces CO\u2082 + water + energy. Most cells. Mitochondria. Exothermic."
   }))));
 }
 
@@ -1123,7 +1154,7 @@ function PlateBoundarySim() {
       y: "112",
       textAnchor: "middle",
       fontSize: "9",
-      fill: "var(--muted)"
+      fill: "var(--ink-muted)"
     }, "subduction"), /*#__PURE__*/React.createElement("polygon", {
       points: "80,56 95,36 110,56",
       fill: "#ef4444"
@@ -1138,13 +1169,13 @@ function PlateBoundarySim() {
       y: "55",
       textAnchor: "middle",
       fontSize: "9",
-      fill: "var(--muted)"
+      fill: "var(--ink-muted)"
     }, "trench"), /*#__PURE__*/React.createElement("line", {
       x1: "145",
       y1: "58",
       x2: "145",
       y2: "64",
-      stroke: "var(--muted)",
+      stroke: "var(--ink-muted)",
       strokeWidth: "1"
     }));
   }
@@ -1198,16 +1229,18 @@ function PlateBoundarySim() {
       fontSize: "9",
       fill: "#ef4444"
     }, "new crust"), /*#__PURE__*/React.createElement("text", {
-      x: "95",
-      y: "85",
-      fontSize: "8",
-      fill: "#3b82f6"
-    }, "plates move apart"), /*#__PURE__*/React.createElement("text", {
-      x: "175",
-      y: "85",
-      fontSize: "8",
-      fill: "#3b82f6"
-    }, "plates move apart"));
+      x: "60",
+      y: "88",
+      textAnchor: "middle",
+      fontSize: "10",
+      fill: "var(--ink-muted)"
+    }, "\u2190 moves away"), /*#__PURE__*/React.createElement("text", {
+      x: "240",
+      y: "88",
+      textAnchor: "middle",
+      fontSize: "10",
+      fill: "var(--ink-muted)"
+    }, "moves away \u2192"));
   }
   function TransAnim() {
     return /*#__PURE__*/React.createElement("svg", {
@@ -1245,17 +1278,17 @@ function PlateBoundarySim() {
       fontWeight: "700",
       fill: "#fff"
     }, "Plate B moving left"), /*#__PURE__*/React.createElement("polygon", {
-      points: "285,40 270,35 270,45",
-      fill: "#fef3c7"
+      points: "272,40 257,35 257,45",
+      fill: "#fff"
     }), /*#__PURE__*/React.createElement("polygon", {
-      points: "15,60 30,55 30,65",
-      fill: "#fef3c7"
+      points: "18,65 33,60 33,70",
+      fill: "#fff"
     }), /*#__PURE__*/React.createElement("text", {
       x: "150",
       y: "95",
       textAnchor: "middle",
       fontSize: "9",
-      fill: "var(--muted)"
+      fill: "var(--ink-muted)"
     }, "friction builds stress, then earthquake"));
   }
   return /*#__PURE__*/React.createElement(Interactive, {
@@ -1455,7 +1488,7 @@ function RockCycleSim() {
   }, current.desc), /*#__PURE__*/React.createElement("div", {
     style: {
       fontSize: "0.8rem",
-      color: "var(--muted)"
+      color: "var(--ink-muted)"
     }
   }, "Next: ", current.next), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-accent",
@@ -1517,11 +1550,21 @@ function StratigraphySim() {
   }, "Law of superposition: lower layers are older in undisturbed rock sequences."), layers.map(function (l, i) {
     return /*#__PURE__*/React.createElement("div", {
       key: i,
+      role: "button",
+      tabIndex: 0,
+      "aria-expanded": revealed.includes(i),
       onClick: function onClick() {
         return toggle(i);
       },
+      onKeyDown: function onKeyDown(e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggle(i);
+        }
+      },
       style: {
         background: l.color,
+        color: i === layers.length - 1 ? "#fff" : "#1b1a17",
         padding: "0.5rem 0.8rem",
         marginBottom: 3,
         borderRadius: 6,
@@ -1541,7 +1584,7 @@ function StratigraphySim() {
     }, l.label), /*#__PURE__*/React.createElement("span", {
       style: {
         fontSize: "0.75rem",
-        color: "#713f12"
+        color: i === layers.length - 1 ? "#fde68a" : "#713f12"
       }
     }, revealed.includes(i) ? "hide" : "tap to reveal")), revealed.includes(i) && /*#__PURE__*/React.createElement("div", {
       style: {
@@ -1573,7 +1616,7 @@ function MineralTester() {
     name: "Feldspar",
     hardness: 6,
     streak: "White",
-    lustre: "Pearly",
+    lustre: "Vitreous (glassy) to pearly",
     use: "Ceramics, glassware"
   }, {
     name: "Mica",
@@ -1641,6 +1684,7 @@ function MineralTester() {
       key: t.name,
       style: {
         background: t.hardness < m.hardness ? "#dcfce7" : "#fee2e2",
+        color: "#1b1a17",
         borderRadius: 8,
         padding: "0.4rem 0.7rem",
         fontSize: "0.82rem"
@@ -1921,6 +1965,7 @@ function ChainReactionPlanner() {
       key: i,
       style: {
         display: "flex",
+        flexWrap: "wrap",
         alignItems: "center",
         gap: "0.5rem",
         marginBottom: "0.4rem"
@@ -1957,7 +2002,8 @@ function ChainReactionPlanner() {
         return updateDesc(i, e.target.value);
       },
       style: {
-        flex: 1,
+        flex: "1 1 140px",
+        minWidth: 0,
         fontSize: "0.82rem",
         padding: "0.2rem 0.4rem",
         borderRadius: 6,
@@ -1976,11 +2022,12 @@ function ChainReactionPlanner() {
         color: "#9ca3af"
       }
     }, "x"), i < stages.length - 1 && /*#__PURE__*/React.createElement("span", {
+      "aria-hidden": "true",
       style: {
         fontSize: "1.1rem",
         color: "var(--accent-deep)"
       }
-    }, "\u2192"));
+    }, "\u2193"));
   })), /*#__PURE__*/React.createElement("button", {
     className: "btn btn-ghost",
     onClick: addStage,

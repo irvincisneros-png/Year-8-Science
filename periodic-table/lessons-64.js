@@ -619,7 +619,7 @@ function MaterialsChooser() {
   }, "Next")), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
-      gridTemplateColumns: "200px 1fr",
+      gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
       gap: 16,
       marginBottom: 14
     }
@@ -661,7 +661,7 @@ function MaterialsChooser() {
   }, "What would you make it from?"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
-      gridTemplateColumns: "repeat(4, 1fr)",
+      gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))",
       gap: 10
     }
   }, cur.options.map(function (opt) {
@@ -720,7 +720,7 @@ function Lesson641(_ref) {
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", null, "Knowing what materials ", /*#__PURE__*/React.createElement("em", null, "can"), " do is half the picture. Real engineers also weigh: ", /*#__PURE__*/React.createElement("strong", null, "how much does it cost? How available is it? How easy is it to recycle?"), " A perfect material that's too rare won't be used. A cheap-and-cheerful one that's \"good enough\" often wins."), /*#__PURE__*/React.createElement("h3", null, "What goes into the decision"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
-      gridTemplateColumns: "repeat(3, 1fr)",
+      gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))",
       gap: 10
     }
   }, [{

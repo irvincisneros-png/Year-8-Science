@@ -76,6 +76,7 @@ function Lesson611(_ref) {
     }
   }, "Most of the time, elements turn up combined with other elements. But sometimes you can find a pure sample \u2014 and they look surprisingly different from each other."), /*#__PURE__*/React.createElement(CCImage, {
     src: "assets/pdf-img-p5.jpg",
+    alt: "Infographic: photos of iron, aluminium, copper, silver, gold and mercury with their uses, and photos showing five key properties of metals: lustrous, malleable, ductile, good conductors, generally strong.",
     caption: "Six familiar metals \u2014 iron, aluminium, copper, silver, gold, mercury \u2014 and the key properties they share.",
     frame: true,
     style: {
@@ -122,7 +123,7 @@ function Lesson611(_ref) {
     className: "row",
     style: {
       display: "grid",
-      gridTemplateColumns: "repeat(3, 1fr)",
+      gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
       gap: 12
     }
   }, /*#__PURE__*/React.createElement("div", {
@@ -387,21 +388,24 @@ function Lesson613(_ref3) {
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", null, "The reason copper wires aren't gold, and aeroplanes aren't iron, comes down to this: ", /*#__PURE__*/React.createElement("strong", null, "properties decide use."), " Designers and engineers pick a material based on what the job needs."), /*#__PURE__*/React.createElement("h3", null, "Elements at work"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
-      gridTemplateColumns: "repeat(3, 1fr)",
+      gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
       gap: 10,
       marginBottom: 12
     }
   }, /*#__PURE__*/React.createElement(CCImage, {
     src: "assets/pdf-img-p5.jpg",
+    alt: "Infographic: examples of metals (iron, aluminium, copper, silver, gold, mercury) and their key properties.",
     caption: "Metals \u2014 iron, aluminium, copper, silver, gold, mercury and their uses.",
     frame: true
   }), /*#__PURE__*/React.createElement(CCImage, {
     src: "assets/pdf-img-p6.jpg",
+    alt: "Infographic: examples of non-metals (carbon, sulfur, oxygen, nitrogen, chlorine, bromine) and their key properties: dull, brittle, poor conductors, many are gases, low density.",
     caption: "Non-metals \u2014 carbon, sulfur, oxygen, nitrogen, chlorine, bromine and their uses.",
     frame: true
   }), /*#__PURE__*/React.createElement(CCImage, {
     src: "assets/pdf-img-p7.jpg",
-    caption: "Metalloids \u2014 boron, silicon, germanium and their semiconductor uses.",
+    alt: "Infographic: examples of metalloids (boron, silicon, germanium, arsenic, antimony, tellurium) and their key properties.",
+    caption: "Metalloids \u2014 boron, silicon, germanium, arsenic, antimony, tellurium and their uses.",
     frame: true
   })), /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Material"), /*#__PURE__*/React.createElement("th", null, "Key properties"), /*#__PURE__*/React.createElement("th", null, "Common use"))), /*#__PURE__*/React.createElement("tbody", null, matches.map(function (m, i) {
     return /*#__PURE__*/React.createElement("tr", {

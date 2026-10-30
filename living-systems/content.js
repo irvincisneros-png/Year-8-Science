@@ -78,7 +78,7 @@ function LevelsBuilder() {
         return setSelected(lv.id === selected ? null : lv.id);
       },
       style: {
-        background: lv.id === selected ? lv.colour : "var(--surface-raised)",
+        background: lv.id === selected ? lv.colour : "var(--bg-2)",
         color: lv.id === selected ? "#fff" : "var(--ink)",
         border: "2px solid ".concat(lv.colour),
         borderRadius: 10,
@@ -91,7 +91,7 @@ function LevelsBuilder() {
     }, lv.label);
   })), selected && /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "var(--surface-raised)",
+      background: "var(--bg-2)",
       borderRadius: 12,
       padding: "14px 20px"
     }
@@ -183,14 +183,14 @@ function DigestionJourney() {
         return setStep(i);
       },
       style: {
-        background: i === step ? s.colour : "var(--surface-raised)",
+        background: i === step ? s.colour : "var(--bg-2)",
         border: "2px solid ".concat(s.colour),
         borderRadius: 8,
         padding: "6px 12px",
         fontWeight: i === step ? 700 : 400,
         cursor: "pointer",
         fontSize: 13,
-        color: "var(--ink)"
+        color: i === step ? "#1b1a17" : "var(--ink)"
       }
     }, s.icon, " ", s.name);
   })), /*#__PURE__*/React.createElement("div", {
@@ -292,150 +292,171 @@ function SystemSorter() {
 
 /* --- Blood Circulation Diagram --- */
 function CirculationSVG() {
+  /* Double circulation: lungs (left) - heart (centre) - body (right).
+     Red = oxygenated, blue = deoxygenated. Text sits on light fills, so it
+     uses fixed dark colours that stay legible in dark mode. */
+  var blue = "#2f62b5",
+    red = "#c4471c";
   return /*#__PURE__*/React.createElement(Figure, {
     caption: "Blood travels two circuits: the pulmonary circuit (heart to lungs and back) and the systemic circuit (heart to body and back)."
   }, /*#__PURE__*/React.createElement("svg", {
-    viewBox: "0 0 560 300",
+    role: "img",
+    "aria-label": "Double circulation diagram. The heart is in the centre. On the left, the pulmonary circuit: deoxygenated blood (blue) goes from the heart to the lungs, and oxygenated blood (red) returns from the lungs to the heart. On the right, the systemic circuit: oxygenated blood (red) goes from the heart to the body cells, and deoxygenated blood (blue) returns from the body to the heart.",
+    viewBox: "0 0 600 250",
     width: "100%",
     style: {
-      maxWidth: 560
+      maxWidth: 600
     }
-  }, /*#__PURE__*/React.createElement("rect", {
-    x: "220",
-    y: "110",
+  }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("marker", {
+    id: "circ-arr-blue",
+    markerWidth: "8",
+    markerHeight: "8",
+    refX: "6",
+    refY: "4",
+    orient: "auto"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M0,0 L8,4 L0,8 z",
+    fill: blue
+  })), /*#__PURE__*/React.createElement("marker", {
+    id: "circ-arr-red",
+    markerWidth: "8",
+    markerHeight: "8",
+    refX: "6",
+    refY: "4",
+    orient: "auto"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M0,0 L8,4 L0,8 z",
+    fill: red
+  }))), /*#__PURE__*/React.createElement("rect", {
+    x: "20",
+    y: "85",
     width: "120",
-    height: "80",
-    rx: "14",
-    fill: "#fca5a5",
-    stroke: "#ef4444",
-    strokeWidth: "2"
-  }), /*#__PURE__*/React.createElement("text", {
-    x: "280",
-    y: "148",
-    textAnchor: "middle",
-    fontSize: "13",
-    fontWeight: "700",
-    fill: "#7f1d1d"
-  }, "Heart"), /*#__PURE__*/React.createElement("text", {
-    x: "280",
-    y: "163",
-    textAnchor: "middle",
-    fontSize: "11",
-    fill: "#7f1d1d"
-  }, "4 chambers"), /*#__PURE__*/React.createElement("rect", {
-    x: "50",
-    y: "90",
-    width: "110",
-    height: "60",
+    height: "70",
     rx: "12",
-    fill: "#bfdbfe",
-    stroke: "#3b82f6",
+    fill: "#dbe7fb",
+    stroke: "#4b7bc9",
     strokeWidth: "2"
   }), /*#__PURE__*/React.createElement("text", {
-    x: "105",
-    y: "122",
+    x: "80",
+    y: "115",
     textAnchor: "middle",
-    fontSize: "13",
+    fontSize: "18",
     fontWeight: "700",
     fill: "#1e3a8a"
   }, "Lungs"), /*#__PURE__*/React.createElement("text", {
-    x: "105",
-    y: "137",
-    textAnchor: "middle",
-    fontSize: "10",
-    fill: "#1e3a8a"
-  }, "O\u2082 in, CO\u2082 out"), /*#__PURE__*/React.createElement("rect", {
-    x: "400",
-    y: "90",
-    width: "110",
-    height: "60",
-    rx: "12",
-    fill: "#bbf7d0",
-    stroke: "#22c55e",
-    strokeWidth: "2"
-  }), /*#__PURE__*/React.createElement("text", {
-    x: "455",
-    y: "122",
+    x: "80",
+    y: "135",
     textAnchor: "middle",
     fontSize: "13",
+    fill: "#1e3a8a"
+  }, "O\u2082 in, CO\u2082 out"), /*#__PURE__*/React.createElement("rect", {
+    x: "240",
+    y: "80",
+    width: "120",
+    height: "80",
+    rx: "14",
+    fill: "#fde2dc",
+    stroke: "#c4471c",
+    strokeWidth: "2"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "300",
+    y: "116",
+    textAnchor: "middle",
+    fontSize: "18",
+    fontWeight: "700",
+    fill: "#7f1d1d"
+  }, "Heart"), /*#__PURE__*/React.createElement("text", {
+    x: "300",
+    y: "136",
+    textAnchor: "middle",
+    fontSize: "13",
+    fill: "#7f1d1d"
+  }, "4 chambers"), /*#__PURE__*/React.createElement("rect", {
+    x: "460",
+    y: "85",
+    width: "120",
+    height: "70",
+    rx: "12",
+    fill: "#dff0e2",
+    stroke: "#3f8a4a",
+    strokeWidth: "2"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "520",
+    y: "115",
+    textAnchor: "middle",
+    fontSize: "17",
     fontWeight: "700",
     fill: "#14532d"
-  }, "Body Cells"), /*#__PURE__*/React.createElement("text", {
-    x: "455",
-    y: "137",
+  }, "Body cells"), /*#__PURE__*/React.createElement("text", {
+    x: "520",
+    y: "135",
     textAnchor: "middle",
-    fontSize: "10",
+    fontSize: "12",
     fill: "#14532d"
   }, "O\u2082 used, CO\u2082 made"), /*#__PURE__*/React.createElement("path", {
-    d: "M220 135 Q160 90 160 120",
+    d: "M250,95 C215,40 140,40 110,80",
     fill: "none",
-    stroke: "#3b82f6",
-    strokeWidth: "2.5",
-    markerEnd: "url(#arr)"
+    stroke: blue,
+    strokeWidth: "3.5",
+    markerEnd: "url(#circ-arr-blue)"
   }), /*#__PURE__*/React.createElement("text", {
-    x: "178",
-    y: "110",
+    x: "180",
+    y: "38",
     textAnchor: "middle",
-    fontSize: "10",
-    fill: "#3b82f6"
+    fontSize: "15",
+    fontWeight: "700",
+    fill: blue
   }, "deoxygenated"), /*#__PURE__*/React.createElement("path", {
-    d: "M160 150 Q160 180 220 165",
+    d: "M110,160 C140,205 215,205 250,148",
     fill: "none",
-    stroke: "#ef4444",
-    strokeWidth: "2.5",
-    markerEnd: "url(#arr)"
+    stroke: red,
+    strokeWidth: "3.5",
+    markerEnd: "url(#circ-arr-red)"
   }), /*#__PURE__*/React.createElement("text", {
-    x: "170",
-    y: "190",
+    x: "180",
+    y: "215",
     textAnchor: "middle",
-    fontSize: "10",
-    fill: "#ef4444"
+    fontSize: "15",
+    fontWeight: "700",
+    fill: red
   }, "oxygenated"), /*#__PURE__*/React.createElement("path", {
-    d: "M340 135 Q400 90 400 120",
+    d: "M350,95 C385,40 460,40 490,80",
     fill: "none",
-    stroke: "#ef4444",
-    strokeWidth: "2.5",
-    markerEnd: "url(#arr)"
+    stroke: red,
+    strokeWidth: "3.5",
+    markerEnd: "url(#circ-arr-red)"
   }), /*#__PURE__*/React.createElement("text", {
-    x: "388",
-    y: "108",
+    x: "420",
+    y: "38",
     textAnchor: "middle",
-    fontSize: "10",
-    fill: "#ef4444"
+    fontSize: "15",
+    fontWeight: "700",
+    fill: red
   }, "oxygenated"), /*#__PURE__*/React.createElement("path", {
-    d: "M400 150 Q400 180 340 165",
+    d: "M490,160 C460,205 385,205 350,148",
     fill: "none",
-    stroke: "#3b82f6",
-    strokeWidth: "2.5",
-    markerEnd: "url(#arr)"
+    stroke: blue,
+    strokeWidth: "3.5",
+    markerEnd: "url(#circ-arr-blue)"
   }), /*#__PURE__*/React.createElement("text", {
-    x: "390",
-    y: "190",
+    x: "420",
+    y: "215",
     textAnchor: "middle",
-    fontSize: "10",
-    fill: "#3b82f6"
-  }, "deoxygenated"), /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("marker", {
-    id: "arr",
-    markerWidth: "6",
-    markerHeight: "6",
-    refX: "5",
-    refY: "3",
-    orient: "auto"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M0,0 L0,6 L6,3 z",
-    fill: "#555"
-  }))), /*#__PURE__*/React.createElement("text", {
-    x: "105",
-    y: "175",
+    fontSize: "15",
+    fontWeight: "700",
+    fill: blue
+  }, "deoxygenated"), /*#__PURE__*/React.createElement("text", {
+    x: "130",
+    y: "243",
     textAnchor: "middle",
-    fontSize: "11",
-    fill: "var(--muted)"
+    fontSize: "14",
+    fill: "var(--ink-muted)"
   }, "Pulmonary circuit"), /*#__PURE__*/React.createElement("text", {
-    x: "455",
-    y: "175",
+    x: "470",
+    y: "243",
     textAnchor: "middle",
-    fontSize: "11",
-    fill: "var(--muted)"
+    fontSize: "14",
+    fill: "var(--ink-muted)"
   }, "Systemic circuit")));
 }
 
@@ -491,20 +512,20 @@ function CellExplorer() {
         return setActive(c.id);
       },
       style: {
-        background: c.id === active ? c.colour : "var(--surface-raised)",
+        background: c.id === active ? c.colour : "var(--bg-2)",
         border: "2px solid ".concat(c.colour),
         borderRadius: 10,
         padding: "8px 14px",
         fontWeight: c.id === active ? 700 : 400,
         cursor: "pointer",
         fontSize: 13,
-        color: "var(--ink)"
+        color: c.id === active ? "#1b1a17" : "var(--ink)"
       }
     }, c.name);
   })), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
-      gridTemplateColumns: "1fr 1fr",
+      gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
       gap: 12
     }
   }, /*#__PURE__*/React.createElement("div", {
@@ -519,7 +540,7 @@ function CellExplorer() {
       fontWeight: 700,
       margin: "0 0 6px",
       fontSize: 13,
-      color: "var(--muted)"
+      color: "var(--ink-muted)"
     }
   }, "STRUCTURAL FEATURE"), /*#__PURE__*/React.createElement("p", {
     style: {
@@ -528,6 +549,7 @@ function CellExplorer() {
   }, cell.feature)), /*#__PURE__*/React.createElement("div", {
     style: {
       background: "#f0fdf4",
+      color: "#1b1a17",
       border: "2px solid #86efac",
       borderRadius: 12,
       padding: "14px 16px"
@@ -537,7 +559,7 @@ function CellExplorer() {
       fontWeight: 700,
       margin: "0 0 6px",
       fontSize: 13,
-      color: "var(--muted)"
+      color: "#4b5563"
     }
   }, "FUNCTION ENABLED"), /*#__PURE__*/React.createElement("p", {
     style: {
@@ -618,7 +640,7 @@ function ExerciseSim() {
     return /*#__PURE__*/React.createElement("div", {
       key: s.label,
       style: {
-        background: "var(--surface-raised)",
+        background: "var(--bg-2)",
         borderRadius: 10,
         padding: "10px 14px"
       }
@@ -765,102 +787,254 @@ function Section51(_ref) {
     kind: "tip",
     title: "Annotation vs labelling"
   }, "A label just names the structure (for example, \"small intestine\"). An annotation also states its function (for example, \"small intestine: main site of nutrient absorption\"). Always prefer annotations in science."), /*#__PURE__*/React.createElement(Figure, {
-    caption: "Blood flow through the heart: the two circuits shown as a flow diagram."
+    caption: "Blood flow through the heart as a flow chart. Follow the arrows: right side of the heart to the lungs, back to the left side, out to the body, then back to the right atrium."
   }, /*#__PURE__*/React.createElement("svg", {
-    viewBox: "0 0 560 260",
+    role: "img",
+    "aria-label": "Flow chart of blood through the heart. Right atrium receives deoxygenated blood, then right ventricle pumps it to the lungs, where oxygen is absorbed and carbon dioxide released. Oxygenated blood goes to the left atrium, then the left ventricle pumps it to the body tissues. Deoxygenated blood returns through the veins to the right atrium.",
+    viewBox: "0 0 440 300",
     width: "100%",
     style: {
-      maxWidth: 560
+      maxWidth: 480
     }
-  }, [{
-    text: "Right atrium receives deoxygenated blood",
-    x: 30,
-    y: 20,
-    c: "#bfdbfe"
-  }, {
-    text: "Right ventricle pumps to lungs",
-    x: 30,
-    y: 80,
-    c: "#bfdbfe"
-  }, {
-    text: "Lungs: O₂ absorbed, CO₂ released",
-    x: 30,
-    y: 140,
-    c: "#c7d2fe"
-  }, {
-    text: "Left atrium receives oxygenated blood",
-    x: 290,
-    y: 140,
-    c: "#fca5a5"
-  }, {
-    text: "Left ventricle pumps to body",
-    x: 290,
-    y: 80,
-    c: "#fca5a5"
-  }, {
-    text: "O₂ and nutrients delivered to all body tissues",
-    x: 290,
-    y: 20,
-    c: "#fca5a5"
-  }].map(function (box, i) {
-    return /*#__PURE__*/React.createElement("g", {
-      key: i
-    }, /*#__PURE__*/React.createElement("rect", {
-      x: box.x,
-      y: box.y,
-      width: "230",
-      height: "46",
-      rx: "10",
-      fill: box.c,
-      stroke: "#94a3b8",
-      strokeWidth: "1.5"
-    }), /*#__PURE__*/React.createElement("text", {
-      x: box.x + 115,
-      y: box.y + 27,
-      textAnchor: "middle",
-      fontSize: "11.5",
-      fontWeight: "600",
-      fill: "#1e293b"
-    }, box.text));
-  }), [[30 + 115, 66, 30 + 115, 80], [30 + 115, 126, 30 + 115, 140], [260, 163, 290, 163]].map(function (a, i) {
-    return /*#__PURE__*/React.createElement("line", {
-      key: i,
-      x1: a[0],
-      y1: a[1],
-      x2: a[2],
-      y2: a[3],
-      stroke: "#64748b",
-      strokeWidth: "2",
-      markerEnd: "url(#arrowSmall)"
-    });
-  }), [[290 + 115, 80, 290 + 115, 66], [290 + 115, 140, 290 + 115, 126]].map(function (a, i) {
-    return /*#__PURE__*/React.createElement("line", {
-      key: "r" + i,
-      x1: a[0],
-      y1: a[1],
-      x2: a[2],
-      y2: a[3],
-      stroke: "#64748b",
-      strokeWidth: "2",
-      markerEnd: "url(#arrowSmall)"
-    });
-  }), /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("marker", {
-    id: "arrowSmall",
-    markerWidth: "5",
-    markerHeight: "5",
-    refX: "4",
-    refY: "2.5",
+  }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("marker", {
+    id: "hf-arr",
+    markerWidth: "8",
+    markerHeight: "8",
+    refX: "6",
+    refY: "4",
     orient: "auto"
   }, /*#__PURE__*/React.createElement("path", {
-    d: "M0,0 L0,5 L5,2.5 z",
+    d: "M0,0 L8,4 L0,8 z",
     fill: "#64748b"
-  }))), /*#__PURE__*/React.createElement("text", {
-    x: "280",
-    y: "215",
+  }))), /*#__PURE__*/React.createElement("rect", {
+    x: "20",
+    y: "20",
+    width: "170",
+    height: "64",
+    rx: "10",
+    fill: "#dbe7fb",
+    stroke: "#94a3b8",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "105",
+    y: "44",
     textAnchor: "middle",
-    fontSize: "12",
-    fill: "var(--muted)"
-  }, "Follow arrows for blood flow direction"))), /*#__PURE__*/React.createElement(QGroup, {
+    fontSize: "16",
+    fontWeight: "700",
+    fill: "#1e293b"
+  }, "Right atrium"), /*#__PURE__*/React.createElement("text", {
+    x: "105",
+    y: "62",
+    textAnchor: "middle",
+    fontSize: "13.5",
+    fill: "#334155"
+  }, "receives deoxygenated"), /*#__PURE__*/React.createElement("text", {
+    x: "105",
+    y: "77",
+    textAnchor: "middle",
+    fontSize: "13.5",
+    fill: "#334155"
+  }, "blood"), /*#__PURE__*/React.createElement("rect", {
+    x: "20",
+    y: "110",
+    width: "170",
+    height: "64",
+    rx: "10",
+    fill: "#dbe7fb",
+    stroke: "#94a3b8",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "105",
+    y: "134",
+    textAnchor: "middle",
+    fontSize: "16",
+    fontWeight: "700",
+    fill: "#1e293b"
+  }, "Right ventricle"), /*#__PURE__*/React.createElement("text", {
+    x: "105",
+    y: "152",
+    textAnchor: "middle",
+    fontSize: "13.5",
+    fill: "#334155"
+  }, "pumps blood"), /*#__PURE__*/React.createElement("text", {
+    x: "105",
+    y: "167",
+    textAnchor: "middle",
+    fontSize: "13.5",
+    fill: "#334155"
+  }, "to the lungs"), /*#__PURE__*/React.createElement("rect", {
+    x: "20",
+    y: "200",
+    width: "170",
+    height: "64",
+    rx: "10",
+    fill: "#e3e4fb",
+    stroke: "#94a3b8",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "105",
+    y: "224",
+    textAnchor: "middle",
+    fontSize: "16",
+    fontWeight: "700",
+    fill: "#1e293b"
+  }, "Lungs"), /*#__PURE__*/React.createElement("text", {
+    x: "105",
+    y: "242",
+    textAnchor: "middle",
+    fontSize: "13.5",
+    fill: "#334155"
+  }, "O\u2082 absorbed,"), /*#__PURE__*/React.createElement("text", {
+    x: "105",
+    y: "257",
+    textAnchor: "middle",
+    fontSize: "13.5",
+    fill: "#334155"
+  }, "CO\u2082 released"), /*#__PURE__*/React.createElement("rect", {
+    x: "250",
+    y: "200",
+    width: "170",
+    height: "64",
+    rx: "10",
+    fill: "#fde2dc",
+    stroke: "#94a3b8",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "335",
+    y: "224",
+    textAnchor: "middle",
+    fontSize: "16",
+    fontWeight: "700",
+    fill: "#1e293b"
+  }, "Left atrium"), /*#__PURE__*/React.createElement("text", {
+    x: "335",
+    y: "242",
+    textAnchor: "middle",
+    fontSize: "13.5",
+    fill: "#334155"
+  }, "receives oxygenated"), /*#__PURE__*/React.createElement("text", {
+    x: "335",
+    y: "257",
+    textAnchor: "middle",
+    fontSize: "13.5",
+    fill: "#334155"
+  }, "blood"), /*#__PURE__*/React.createElement("rect", {
+    x: "250",
+    y: "110",
+    width: "170",
+    height: "64",
+    rx: "10",
+    fill: "#fde2dc",
+    stroke: "#94a3b8",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "335",
+    y: "134",
+    textAnchor: "middle",
+    fontSize: "16",
+    fontWeight: "700",
+    fill: "#1e293b"
+  }, "Left ventricle"), /*#__PURE__*/React.createElement("text", {
+    x: "335",
+    y: "152",
+    textAnchor: "middle",
+    fontSize: "13.5",
+    fill: "#334155"
+  }, "pumps blood"), /*#__PURE__*/React.createElement("text", {
+    x: "335",
+    y: "167",
+    textAnchor: "middle",
+    fontSize: "13.5",
+    fill: "#334155"
+  }, "to the body"), /*#__PURE__*/React.createElement("rect", {
+    x: "250",
+    y: "20",
+    width: "170",
+    height: "64",
+    rx: "10",
+    fill: "#fde2dc",
+    stroke: "#94a3b8",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "335",
+    y: "44",
+    textAnchor: "middle",
+    fontSize: "16",
+    fontWeight: "700",
+    fill: "#1e293b"
+  }, "Body tissues"), /*#__PURE__*/React.createElement("text", {
+    x: "335",
+    y: "62",
+    textAnchor: "middle",
+    fontSize: "13.5",
+    fill: "#334155"
+  }, "receive O\u2082"), /*#__PURE__*/React.createElement("text", {
+    x: "335",
+    y: "77",
+    textAnchor: "middle",
+    fontSize: "13.5",
+    fill: "#334155"
+  }, "and nutrients"), /*#__PURE__*/React.createElement("line", {
+    x1: "105",
+    y1: "84",
+    x2: "105",
+    y2: "106",
+    stroke: "#64748b",
+    strokeWidth: "2.5",
+    markerEnd: "url(#hf-arr)"
+  }), /*#__PURE__*/React.createElement("line", {
+    x1: "105",
+    y1: "174",
+    x2: "105",
+    y2: "196",
+    stroke: "#64748b",
+    strokeWidth: "2.5",
+    markerEnd: "url(#hf-arr)"
+  }), /*#__PURE__*/React.createElement("line", {
+    x1: "190",
+    y1: "232",
+    x2: "246",
+    y2: "232",
+    stroke: "#64748b",
+    strokeWidth: "2.5",
+    markerEnd: "url(#hf-arr)"
+  }), /*#__PURE__*/React.createElement("line", {
+    x1: "335",
+    y1: "200",
+    x2: "335",
+    y2: "178",
+    stroke: "#64748b",
+    strokeWidth: "2.5",
+    markerEnd: "url(#hf-arr)"
+  }), /*#__PURE__*/React.createElement("line", {
+    x1: "335",
+    y1: "110",
+    x2: "335",
+    y2: "88",
+    stroke: "#64748b",
+    strokeWidth: "2.5",
+    markerEnd: "url(#hf-arr)"
+  }), /*#__PURE__*/React.createElement("line", {
+    x1: "250",
+    y1: "52",
+    x2: "194",
+    y2: "52",
+    stroke: "#64748b",
+    strokeWidth: "2.5",
+    markerEnd: "url(#hf-arr)"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "220",
+    y: "42",
+    textAnchor: "middle",
+    fontSize: "13",
+    fill: "var(--ink-muted)"
+  }, "veins"), /*#__PURE__*/React.createElement("text", {
+    x: "220",
+    y: "292",
+    textAnchor: "middle",
+    fontSize: "13",
+    fill: "var(--ink-muted)"
+  }, "Blue = deoxygenated \xB7 Red = oxygenated"))), /*#__PURE__*/React.createElement(QGroup, {
     title: "Check yourself"
   }, /*#__PURE__*/React.createElement(MCQ, {
     num: 5,
@@ -992,7 +1166,7 @@ function TranspirationSim() {
     label: "Rate description"
   })), /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "var(--surface-raised)",
+      background: "var(--bg-2)",
       borderRadius: 10,
       padding: "10px 14px",
       marginTop: 10
@@ -1187,107 +1361,402 @@ function Section52(_ref2) {
   }, "When preparing leaf sections with a razor blade, always cut away from your fingers and keep the blade flat on the bench when not in use. Wear safety goggles. Report any cuts immediately to your teacher."), /*#__PURE__*/React.createElement(Figure, {
     caption: "A cross-section of a leaf showing the main tissue layers from upper to lower epidermis."
   }, /*#__PURE__*/React.createElement("svg", {
-    viewBox: "0 0 560 220",
+    role: "img",
+    "aria-label": "Labelled leaf cross-section. 1 upper epidermis of flat, transparent cells with a waxy cuticle; 2 palisade mesophyll of tall cells packed with chloroplasts; 3 a vein of xylem and phloem; 4 spongy mesophyll of loosely packed cells with air spaces; 5 lower epidermis; 6 a stoma, an opening between two guard cells.",
+    viewBox: "0 0 430 245",
     width: "100%",
     style: {
-      maxWidth: 560
+      maxWidth: 520
     }
   }, /*#__PURE__*/React.createElement("rect", {
     x: "20",
-    y: "20",
-    width: "520",
-    height: "28",
-    rx: "4",
-    fill: "#fde68a",
-    stroke: "#d97706",
-    strokeWidth: "1.5"
-  }), /*#__PURE__*/React.createElement("text", {
-    x: "30",
-    y: "39",
-    fontSize: "12",
-    fontWeight: "600",
-    fill: "#92400e"
-  }, "Upper epidermis (flat, transparent cells)"), [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(function (i) {
-    return /*#__PURE__*/React.createElement("rect", {
-      key: "p" + i,
-      x: 20 + i * 44,
-      y: "48",
-      width: "36",
-      height: "50",
-      rx: "5",
-      fill: "#86efac",
-      stroke: "#16a34a",
-      strokeWidth: "1"
-    });
-  }), /*#__PURE__*/React.createElement("text", {
-    x: "300",
-    y: "78",
-    textAnchor: "middle",
-    fontSize: "12",
-    fontWeight: "600",
-    fill: "#14532d"
-  }, "Palisade mesophyll (chloroplast-rich)"), [0, 1, 2, 3].map(function (i) {
-    return /*#__PURE__*/React.createElement("ellipse", {
-      key: "s" + i,
-      cx: 80 + i * 130,
-      cy: "130",
-      rx: "45",
-      ry: "20",
-      fill: "#bbf7d0",
-      stroke: "#22c55e",
-      strokeWidth: "1"
-    });
-  }), /*#__PURE__*/React.createElement("text", {
-    x: "300",
-    y: "160",
-    textAnchor: "middle",
-    fontSize: "12",
-    fontWeight: "600",
-    fill: "#14532d"
-  }, "Spongy mesophyll (air spaces)"), /*#__PURE__*/React.createElement("rect", {
+    y: "22",
+    width: "360",
+    height: "5",
+    rx: "2",
+    fill: "#d99e1e"
+  }), /*#__PURE__*/React.createElement("rect", {
     x: "20",
-    y: "170",
-    width: "520",
-    height: "24",
-    rx: "4",
-    fill: "#fde68a",
+    y: "27",
+    width: "360",
+    height: "22",
+    rx: "3",
+    fill: "#fef3c7",
     stroke: "#d97706",
     strokeWidth: "1.5"
-  }), /*#__PURE__*/React.createElement("text", {
-    x: "30",
-    y: "186",
-    fontSize: "12",
-    fontWeight: "600",
-    fill: "#92400e"
-  }, "Lower epidermis (stomata on this surface)"), /*#__PURE__*/React.createElement("ellipse", {
-    cx: "450",
-    cy: "182",
-    rx: "12",
-    ry: "5",
-    fill: "#7f1d1d"
-  }), /*#__PURE__*/React.createElement("text", {
-    x: "450",
-    y: "208",
-    textAnchor: "middle",
-    fontSize: "10",
-    fill: "var(--muted)"
-  }, "Stoma"), /*#__PURE__*/React.createElement("rect", {
-    x: "250",
-    y: "100",
-    width: "60",
-    height: "28",
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "24",
+    y: "52",
+    width: "30",
+    height: "58",
     rx: "6",
-    fill: "#bfdbfe",
-    stroke: "#3b82f6",
+    fill: "#86efac",
+    stroke: "#16a34a",
+    strokeWidth: "1"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "60",
+    y: "52",
+    width: "30",
+    height: "58",
+    rx: "6",
+    fill: "#86efac",
+    stroke: "#16a34a",
+    strokeWidth: "1"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "96",
+    y: "52",
+    width: "30",
+    height: "58",
+    rx: "6",
+    fill: "#86efac",
+    stroke: "#16a34a",
+    strokeWidth: "1"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "132",
+    y: "52",
+    width: "30",
+    height: "58",
+    rx: "6",
+    fill: "#86efac",
+    stroke: "#16a34a",
+    strokeWidth: "1"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "168",
+    y: "52",
+    width: "30",
+    height: "58",
+    rx: "6",
+    fill: "#86efac",
+    stroke: "#16a34a",
+    strokeWidth: "1"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "204",
+    y: "52",
+    width: "30",
+    height: "58",
+    rx: "6",
+    fill: "#86efac",
+    stroke: "#16a34a",
+    strokeWidth: "1"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "240",
+    y: "52",
+    width: "30",
+    height: "58",
+    rx: "6",
+    fill: "#86efac",
+    stroke: "#16a34a",
+    strokeWidth: "1"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "276",
+    y: "52",
+    width: "30",
+    height: "58",
+    rx: "6",
+    fill: "#86efac",
+    stroke: "#16a34a",
+    strokeWidth: "1"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "312",
+    y: "52",
+    width: "30",
+    height: "58",
+    rx: "6",
+    fill: "#86efac",
+    stroke: "#16a34a",
+    strokeWidth: "1"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "348",
+    y: "52",
+    width: "30",
+    height: "58",
+    rx: "6",
+    fill: "#86efac",
+    stroke: "#16a34a",
+    strokeWidth: "1"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "39",
+    cy: "64",
+    r: "3.5",
+    fill: "#15803d"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "75",
+    cy: "78",
+    r: "3.5",
+    fill: "#15803d"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "111",
+    cy: "92",
+    r: "3.5",
+    fill: "#15803d"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "147",
+    cy: "64",
+    r: "3.5",
+    fill: "#15803d"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "183",
+    cy: "78",
+    r: "3.5",
+    fill: "#15803d"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "219",
+    cy: "92",
+    r: "3.5",
+    fill: "#15803d"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "255",
+    cy: "64",
+    r: "3.5",
+    fill: "#15803d"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "291",
+    cy: "78",
+    r: "3.5",
+    fill: "#15803d"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "327",
+    cy: "92",
+    r: "3.5",
+    fill: "#15803d"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "363",
+    cy: "64",
+    r: "3.5",
+    fill: "#15803d"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "20",
+    y: "114",
+    width: "360",
+    height: "62",
+    fill: "#f0fdf4"
+  }), /*#__PURE__*/React.createElement("ellipse", {
+    cx: "50",
+    cy: "138",
+    rx: "24",
+    ry: "14",
+    fill: "#bbf7d0",
+    stroke: "#22c55e",
+    strokeWidth: "1"
+  }), /*#__PURE__*/React.createElement("ellipse", {
+    cx: "110",
+    cy: "128",
+    rx: "24",
+    ry: "14",
+    fill: "#bbf7d0",
+    stroke: "#22c55e",
+    strokeWidth: "1"
+  }), /*#__PURE__*/React.createElement("ellipse", {
+    cx: "170",
+    cy: "145",
+    rx: "24",
+    ry: "14",
+    fill: "#bbf7d0",
+    stroke: "#22c55e",
+    strokeWidth: "1"
+  }), /*#__PURE__*/React.createElement("ellipse", {
+    cx: "232",
+    cy: "130",
+    rx: "24",
+    ry: "14",
+    fill: "#bbf7d0",
+    stroke: "#22c55e",
+    strokeWidth: "1"
+  }), /*#__PURE__*/React.createElement("ellipse", {
+    cx: "300",
+    cy: "140",
+    rx: "24",
+    ry: "14",
+    fill: "#bbf7d0",
+    stroke: "#22c55e",
+    strokeWidth: "1"
+  }), /*#__PURE__*/React.createElement("ellipse", {
+    cx: "350",
+    cy: "126",
+    rx: "24",
+    ry: "14",
+    fill: "#bbf7d0",
+    stroke: "#22c55e",
+    strokeWidth: "1"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "268",
+    cy: "136",
+    r: "20",
+    fill: "#e2e8f0",
+    stroke: "#64748b",
     strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "268",
+    cy: "129",
+    r: "8",
+    fill: "#93c5fd",
+    stroke: "#2563eb",
+    strokeWidth: "1"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "268",
+    cy: "146",
+    r: "6",
+    fill: "#fdba74",
+    stroke: "#c2410c",
+    strokeWidth: "1"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "20",
+    y: "178",
+    width: "236",
+    height: "20",
+    rx: "3",
+    fill: "#fef3c7",
+    stroke: "#d97706",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "296",
+    y: "178",
+    width: "84",
+    height: "20",
+    rx: "3",
+    fill: "#fef3c7",
+    stroke: "#d97706",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("ellipse", {
+    cx: "263",
+    cy: "188",
+    rx: "9",
+    ry: "11",
+    fill: "#4ade80",
+    stroke: "#15803d",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("ellipse", {
+    cx: "289",
+    cy: "188",
+    rx: "9",
+    ry: "11",
+    fill: "#4ade80",
+    stroke: "#15803d",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("line", {
+    x1: "380",
+    y1: "36",
+    x2: "410",
+    y2: "36",
+    stroke: "var(--ink-muted)",
+    strokeWidth: "1.2"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "410",
+    cy: "36",
+    r: "12",
+    fill: "var(--accent-deep)"
   }), /*#__PURE__*/React.createElement("text", {
-    x: "280",
-    y: "118",
+    x: "410",
+    y: "41",
     textAnchor: "middle",
-    fontSize: "10",
+    fontSize: "14",
     fontWeight: "700",
-    fill: "#1e3a8a"
-  }, "Vein"))), /*#__PURE__*/React.createElement(PlantCellIdentifier, null), /*#__PURE__*/React.createElement(QGroup, {
+    fill: "#fff"
+  }, "1"), /*#__PURE__*/React.createElement("line", {
+    x1: "380",
+    y1: "81",
+    x2: "410",
+    y2: "81",
+    stroke: "var(--ink-muted)",
+    strokeWidth: "1.2"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "410",
+    cy: "81",
+    r: "12",
+    fill: "var(--accent-deep)"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "410",
+    y: "86",
+    textAnchor: "middle",
+    fontSize: "14",
+    fontWeight: "700",
+    fill: "#fff"
+  }, "2"), /*#__PURE__*/React.createElement("line", {
+    x1: "288",
+    y1: "134",
+    x2: "410",
+    y2: "118",
+    stroke: "var(--ink-muted)",
+    strokeWidth: "1.2"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "410",
+    cy: "118",
+    r: "12",
+    fill: "var(--accent-deep)"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "410",
+    y: "123",
+    textAnchor: "middle",
+    fontSize: "14",
+    fontWeight: "700",
+    fill: "#fff"
+  }, "3"), /*#__PURE__*/React.createElement("line", {
+    x1: "372",
+    y1: "150",
+    x2: "410",
+    y2: "150",
+    stroke: "var(--ink-muted)",
+    strokeWidth: "1.2"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "410",
+    cy: "150",
+    r: "12",
+    fill: "var(--accent-deep)"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "410",
+    y: "155",
+    textAnchor: "middle",
+    fontSize: "14",
+    fontWeight: "700",
+    fill: "#fff"
+  }, "4"), /*#__PURE__*/React.createElement("line", {
+    x1: "380",
+    y1: "188",
+    x2: "410",
+    y2: "188",
+    stroke: "var(--ink-muted)",
+    strokeWidth: "1.2"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "410",
+    cy: "188",
+    r: "12",
+    fill: "var(--accent-deep)"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "410",
+    y: "193",
+    textAnchor: "middle",
+    fontSize: "14",
+    fontWeight: "700",
+    fill: "#fff"
+  }, "5"), /*#__PURE__*/React.createElement("line", {
+    x1: "276",
+    y1: "198",
+    x2: "330",
+    y2: "226",
+    stroke: "var(--ink-muted)",
+    strokeWidth: "1.2"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "330",
+    cy: "226",
+    r: "12",
+    fill: "var(--accent-deep)"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: "330",
+    y: "231",
+    textAnchor: "middle",
+    fontSize: "14",
+    fontWeight: "700",
+    fill: "#fff"
+  }, "6")), /*#__PURE__*/React.createElement("ol", {
+    style: {
+      textAlign: "left",
+      maxWidth: 520,
+      margin: "0.6rem auto 0",
+      paddingLeft: "1.6rem",
+      fontSize: "0.92rem",
+      lineHeight: 1.45
+    }
+  }, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "Upper epidermis"), ": flat, transparent cells under a waxy cuticle."), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "Palisade mesophyll"), ": tall cells packed with chloroplasts."), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "Vein"), ": xylem (blue, carries water in) and phloem (orange, carries sugars out)."), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "Spongy mesophyll"), ": loosely packed cells with air spaces."), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "Lower epidermis"), ": has most of the stomata."), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("strong", null, "Stoma and guard cells"), ": a pore that lets gases in and out."))), /*#__PURE__*/React.createElement(PlantCellIdentifier, null), /*#__PURE__*/React.createElement(QGroup, {
     title: "Check yourself"
   }, /*#__PURE__*/React.createElement(MCQ, {
     num: 11,
@@ -1426,6 +1895,7 @@ function FoodWebSim() {
       key: ll,
       style: {
         background: levelColours[i],
+        color: "#1e293b",
         borderRadius: 8,
         padding: "4px 10px",
         fontSize: 12,
@@ -1433,7 +1903,9 @@ function FoodWebSim() {
       }
     }, ll);
   })), /*#__PURE__*/React.createElement("svg", {
-    viewBox: "0 0 530 280",
+    role: "img",
+    "aria-label": "Food web. Grass is eaten by grasshoppers, rabbits and mice. Grasshoppers are eaten by lizards and kookaburras. Mice are eaten by kookaburras and eagles. Rabbits and lizards are eaten by eagles.",
+    viewBox: "0 0 530 260",
     width: "100%",
     style: {
       maxWidth: 530
@@ -1442,12 +1914,17 @@ function FoodWebSim() {
     var a = getOrg(link[0]);
     var b = getOrg(link[1]);
     var faded = removed && link[0] !== removed && link[1] !== removed;
+    // trim each end to the edge of its 92 x 36 box so the arrowhead shows
+    var dx = b.x - a.x,
+      dy = b.y - a.y;
+    var edge = Math.min(dx ? 46 / Math.abs(dx) : Infinity, dy ? 18 / Math.abs(dy) : Infinity);
+    var pad = 4 / Math.hypot(dx, dy);
     return /*#__PURE__*/React.createElement("line", {
       key: link[0] + link[1],
-      x1: a.x,
-      y1: a.y,
-      x2: b.x,
-      y2: b.y,
+      x1: a.x + dx * (edge + pad),
+      y1: a.y + dy * (edge + pad),
+      x2: b.x - dx * (edge + pad),
+      y2: b.y - dy * (edge + pad),
       stroke: faded ? "#e2e8f0" : "#64748b",
       strokeWidth: faded ? 1 : 2,
       markerEnd: "url(#fwArr)"
@@ -1463,8 +1940,17 @@ function FoodWebSim() {
       style: {
         cursor: "pointer"
       },
+      role: "button",
+      tabIndex: 0,
+      "aria-label": "".concat(org.label, ": tap to see what happens if it is removed"),
       onClick: function onClick() {
         return setRemoved(removed === org.id ? null : org.id);
+      },
+      onKeyDown: function onKeyDown(e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          setRemoved(removed === org.id ? null : org.id);
+        }
       }
     }, /*#__PURE__*/React.createElement("rect", {
       width: "92",
@@ -1484,17 +1970,18 @@ function FoodWebSim() {
     }, org.label));
   }), /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("marker", {
     id: "fwArr",
-    markerWidth: "5",
-    markerHeight: "5",
-    refX: "4",
-    refY: "2.5",
+    markerWidth: "6",
+    markerHeight: "6",
+    refX: "5",
+    refY: "3",
     orient: "auto"
   }, /*#__PURE__*/React.createElement("path", {
-    d: "M0,0 L0,5 L5,2.5 z",
+    d: "M0,0 L0,6 L6,3 z",
     fill: "#64748b"
   })))), removed && /*#__PURE__*/React.createElement("div", {
     style: {
       background: "#fef2f2",
+      color: "#1b1a17",
       border: "2px solid #fca5a5",
       borderRadius: 12,
       padding: "12px 16px",
@@ -1513,7 +2000,29 @@ function FoodWebSim() {
     style: {
       margin: "4px 0 0"
     }
-  }, removed === "grass" ? "All consumers lose their food source. The entire food web collapses." : removed === "eagle" ? "Prey such as rabbits, mice and lizards may increase in number with less predation." : "Predators that depended on this organism lose a food source and may decline.")));
+  }, function () {
+    if (removed === "grass") return "All consumers lose their food source. The entire food web collapses.";
+    var name = function name(id) {
+      return id === "grass" ? "grass" : id === "mouse" ? "mice" : getOrg(id).label.toLowerCase() + "s";
+    };
+    var prey = links.filter(function (l) {
+      return l[1] === removed;
+    }).map(function (l) {
+      return name(l[0]);
+    });
+    var preds = links.filter(function (l) {
+      return l[0] === removed;
+    }).map(function (l) {
+      return name(l[1]);
+    });
+    var list = function list(a) {
+      return a.length > 1 ? a.slice(0, -1).join(", ") + " and " + a[a.length - 1] : a[0];
+    };
+    var parts = [];
+    if (prey.length) parts.push("".concat(list(prey).charAt(0).toUpperCase() + list(prey).slice(1), " will be eaten less, so may increase."));
+    if (preds.length) parts.push("".concat(list(preds).charAt(0).toUpperCase() + list(preds).slice(1), " lose a food source and may decline, or eat more of their other prey."));
+    return parts.join(" ");
+  }())));
 }
 
 /* --- Energy pyramid visualiser --- */
@@ -1585,7 +2094,7 @@ function EnergyPyramid() {
       y: y + 24,
       textAnchor: "start",
       fontSize: "11",
-      fill: "var(--muted)"
+      fill: "var(--ink-muted)"
     }, values[i].toLocaleString(), " kJ"));
   })), /*#__PURE__*/React.createElement("div", {
     className: "stat-readout"
@@ -1612,7 +2121,8 @@ function Section53(_ref3) {
     className: "lead"
   }, "An ecosystem is every living thing in an area, plus the non-living environment, all interacting as one system.")), /*#__PURE__*/React.createElement(Figure, {
     src: "img/ecosystem.png",
-    caption: "Energy flows from the Sun through producers and consumers in a food web."
+    caption: "A simple food chain: energy flows from the Sun to plants, then to a wallaby, a fox and a dingo. A food web links many chains like this one.",
+    alt: "Sun shining on bush plants; arrows run from the plants to a wallaby, from the wallaby to a fox, and from the fox to a dingo."
   }), /*#__PURE__*/React.createElement(DotPoint, {
     id: "5.3.1",
     title: "Identify the components that make up an ecosystem",
@@ -1737,7 +2247,7 @@ function Section53(_ref3) {
     def: "The maximum number of individuals an environment can support, given available food, water, space, and other resources."
   }, "carrying capacity"), " when resources become limiting."), /*#__PURE__*/React.createElement("p", null, "One of the most dramatic causes of population change is the introduction of an ", /*#__PURE__*/React.createElement(Term, {
     def: "A species brought (deliberately or accidentally) to a new area where it did not previously exist, often with severe impacts on native species."
-  }, "introduced or invasive species"), ". In its native range, a species is controlled by predators, competitors, and diseases. In a new environment these controls may be absent, so its population can grow explosively, harming native species through predation, competition, or disease."), /*#__PURE__*/React.createElement("p", null, "Australia has one of the world's worst records of extinction caused by introduced species. Since European settlement in 1788, about 34 mammal species have gone extinct, more than any other comparable country. Key introduced species include the European rabbit (overgrazes vegetation), the cane toad (toxic to native predators), the European red fox (predates small native mammals), and the feral cat (cats kill an estimated two billion animals per year, mostly native species)."), /*#__PURE__*/React.createElement(Callout, {
+  }, "introduced or invasive species"), ". In its native range, a species is controlled by predators, competitors, and diseases. In a new environment these controls may be absent, so its population can grow explosively, harming native species through predation, competition, or disease."), /*#__PURE__*/React.createElement("p", null, "Australia has one of the world's worst records of extinction caused by introduced species. Since European settlement in 1788, about 34 mammal species have gone extinct, more than any other comparable country. Key introduced species include the European rabbit (overgrazes vegetation), the cane toad (toxic to native predators), the European red fox (predates small native mammals), and the feral cat (cats kill an estimated two billion native mammals, reptiles, birds and frogs each year)."), /*#__PURE__*/React.createElement(Callout, {
     kind: "warn",
     title: "Australia and invasive species"
   }, "Australia's wildlife evolved in isolation for about 45 million years with no placental predators like cats and foxes (the dingo arrived only about 4000 years ago). Native animals had no evolved defences against cats and foxes when they arrived. Combined with large-scale land clearing, this has made Australia's extinction crisis one of the most severe in the world."), /*#__PURE__*/React.createElement(Figure, {
@@ -1787,14 +2297,14 @@ function Section53(_ref3) {
       x: 95 + barW,
       y: y + 18,
       fontSize: "11",
-      fill: "var(--muted)"
+      fill: "var(--ink-muted)"
     }, d.value, "M/yr"));
   }), /*#__PURE__*/React.createElement("text", {
     x: "250",
     y: "182",
     textAnchor: "middle",
     fontSize: "11",
-    fill: "var(--muted)"
+    fill: "var(--ink-muted)"
   }, "Estimated kills per year (millions)"))), /*#__PURE__*/React.createElement(QGroup, {
     title: "Check yourself"
   }, /*#__PURE__*/React.createElement(WrittenQ, {
@@ -1923,7 +2433,7 @@ function ConservationSim() {
         return setActive(st.id);
       },
       style: {
-        background: st.id === active ? "var(--accent-deep)" : "var(--surface-raised)",
+        background: st.id === active ? "var(--accent-deep)" : "var(--bg-2)",
         color: st.id === active ? "#fff" : "var(--ink)",
         border: "2px solid var(--accent-deep)",
         borderRadius: 10,
@@ -1935,7 +2445,7 @@ function ConservationSim() {
     }, st.label);
   })), /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "var(--surface-raised)",
+      background: "var(--bg-2)",
       borderRadius: 14,
       padding: "16px 20px"
     }
@@ -1990,7 +2500,7 @@ function IUCNCards() {
     back: "Population is stable. No immediate threat. Example: common brushtail possum."
   }, {
     front: "Vulnerable",
-    back: "Population declining. Faces risk in the medium term. Example: koala (eastern populations)."
+    back: "Population declining. Faces risk in the medium term. Example: koala (IUCN global listing; in Australia the Queensland, NSW and ACT populations are now listed as Endangered)."
   }, {
     front: "Endangered",
     back: "Population significantly reduced. High risk of extinction. Example: Tasmanian devil."
@@ -2070,7 +2580,7 @@ function Section54(_ref4) {
   }), /*#__PURE__*/React.createElement(WrittenQ, {
     num: 19,
     question: "Explain why protecting habitat alone is not enough to save the eastern barred bandicoot. In your answer, refer to the main threatening factors for this species.",
-    model: "The eastern barred bandicoot became extinct on mainland Australia primarily because of fox and cat predation. Even where habitat remained, cats and foxes could hunt bandicoots freely within it. Habitat protection without predator control does not remove the main lethal threat. Recovery of the species on the mainland has only been achieved inside predator-free fenced sanctuaries. This shows that addressing the root threatening process (predation) is essential, not just preserving habitat."
+    model: "The mainland eastern barred bandicoot became extinct in the wild mainly because of fox (and cat) predation, on top of habitat loss. Even where habitat remained, foxes and cats could hunt bandicoots freely within it, so habitat protection without predator control does not remove the main lethal threat. The species only recovered once captive-bred animals were released into fox-free places: predator-proof fenced sanctuaries and fox-free islands such as Phillip Island and French Island. This shows that addressing the root threatening process (predation) is essential, not just preserving habitat."
   }))));
 }
 

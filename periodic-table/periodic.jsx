@@ -189,7 +189,7 @@ function AtomBuilder() {
     <div>
       <div style={{ display: "flex", gap: 14, alignItems: "flex-start", flexWrap: "wrap" }}>
         {/* Stage */}
-        <div style={{ flex: "2 1 460px", minWidth: 360 }}>
+        <div style={{ flex: "2 1 300px", minWidth: 0 }}>
           <div className="atom-stage" style={{ aspectRatio: `${W} / ${H}` }}>
             <svg viewBox={`0 0 ${W} ${H}`} style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}>
               {/* Shell rings (always show possible shells based on Z) */}
@@ -233,7 +233,7 @@ function AtomBuilder() {
           </div>
 
           {/* Controls — add particles */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10, marginTop: 10 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: 10, marginTop: 10 }}>
             <div className="card" style={{ padding: 12, borderColor: "var(--c-red)" }}>
               <div style={{ fontSize: "0.8rem", color: "var(--ink-muted)" }}>Protons <span style={{ float: "right", fontWeight: 600, color: "var(--ink)" }}>{protonsPlaced} / {targetProtons}</span></div>
               <div style={{ display: "flex", gap: 6, marginTop: 8 }}>
@@ -268,7 +268,7 @@ function AtomBuilder() {
         </div>
 
         {/* Side panel — element picker + info */}
-        <div style={{ flex: "1 1 240px", minWidth: 240 }}>
+        <div style={{ flex: "1 1 240px", minWidth: 0 }}>
           <div className="card" style={{ marginBottom: 10 }}>
             <h4 style={{ margin: 0 }}>Pick an element</h4>
             <p style={{ fontSize: "0.8rem", color: "var(--ink-muted)", margin: "4px 0 8px" }}>Hydrogen → Argon (Z = 1 to 18)</p>

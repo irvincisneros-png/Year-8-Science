@@ -26,7 +26,7 @@ function SideQuestEOTD() {
   return (
     <>
       <p>Every day, meet a different element. Come back tomorrow for a new one.</p>
-      <div className="card" style={{ display: "grid", gridTemplateColumns: "180px 1fr", gap: 20, padding: 24 }}>
+      <div className="card" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 20, padding: 24 }}>
         <div className={`big-card pt-cell ${el.category}`} style={{ aspectRatio: 1, padding: 14 }}>
           <span className="num">{el.z}</span>
           <span className="sym" style={{ fontSize: "3.6rem", fontFamily: "var(--font-display)" }}>{el.sym}</span>
@@ -64,7 +64,7 @@ function SideQuestScientists() {
   return (
     <>
       <p>Nine scientists who reshaped our understanding of the atom. Tap a card to flip it.</p>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 14 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 14 }}>
         {SCIENTISTS.map((s, i) => {
           const isFlipped = !!flipped[s.name];
           return (
@@ -326,7 +326,7 @@ function SideQuestAussie() {
   return (
     <>
       <p>The atomic structure story has Australian threads woven through it — from the scientists to the mines.</p>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 12 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 12 }}>
         {items.map((it, i) => (
           <div key={i} className="card">
             <h4>{it.title}</h4>

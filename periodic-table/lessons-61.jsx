@@ -32,7 +32,7 @@ function Lesson611({ udl }) {
 
       <h3>What pure elements look like</h3>
       <p style={{ fontSize: "0.92rem", color: "var(--ink-2)" }}>Most of the time, elements turn up combined with other elements. But sometimes you can find a pure sample — and they look surprisingly different from each other.</p>
-      <CCImage src="assets/pdf-img-p5.jpg" caption="Six familiar metals — iron, aluminium, copper, silver, gold, mercury — and the key properties they share." frame style={{ margin: "10px 0 18px" }} />
+      <CCImage src="assets/pdf-img-p5.jpg" alt="Infographic: photos of iron, aluminium, copper, silver, gold and mercury with their uses, and photos showing five key properties of metals: lustrous, malleable, ductile, good conductors, generally strong." caption="Six familiar metals — iron, aluminium, copper, silver, gold, mercury — and the key properties they share." frame style={{ margin: "10px 0 18px" }} />
 
       <h3>Some you'd recognise</h3>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 10, margin: "10px 0 18px" }}>
@@ -48,7 +48,7 @@ function Lesson611({ udl }) {
       </div>
 
       <h3>Elements vs <Term>compound</Term>s vs <Term>mixture</Term>s</h3>
-      <div className="row" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
+      <div className="row" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 12 }}>
         <div className="card">
           <Chip variant="info">Element</Chip>
           <h4 style={{ margin: "8px 0 4px" }}>One kind of atom</h4>
@@ -228,10 +228,10 @@ function Lesson613({ udl }) {
       <p>The reason copper wires aren't gold, and aeroplanes aren't iron, comes down to this: <strong>properties decide use.</strong> Designers and engineers pick a material based on what the job needs.</p>
 
       <h3>Elements at work</h3>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10, marginBottom: 12 }}>
-        <CCImage src="assets/pdf-img-p5.jpg" caption="Metals — iron, aluminium, copper, silver, gold, mercury and their uses." frame />
-        <CCImage src="assets/pdf-img-p6.jpg" caption="Non-metals — carbon, sulfur, oxygen, nitrogen, chlorine, bromine and their uses." frame />
-        <CCImage src="assets/pdf-img-p7.jpg" caption="Metalloids — boron, silicon, germanium and their semiconductor uses." frame />
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10, marginBottom: 12 }}>
+        <CCImage src="assets/pdf-img-p5.jpg" alt="Infographic: examples of metals (iron, aluminium, copper, silver, gold, mercury) and their key properties." caption="Metals — iron, aluminium, copper, silver, gold, mercury and their uses." frame />
+        <CCImage src="assets/pdf-img-p6.jpg" alt="Infographic: examples of non-metals (carbon, sulfur, oxygen, nitrogen, chlorine, bromine) and their key properties: dull, brittle, poor conductors, many are gases, low density." caption="Non-metals — carbon, sulfur, oxygen, nitrogen, chlorine, bromine and their uses." frame />
+        <CCImage src="assets/pdf-img-p7.jpg" alt="Infographic: examples of metalloids (boron, silicon, germanium, arsenic, antimony, tellurium) and their key properties." caption="Metalloids — boron, silicon, germanium, arsenic, antimony, tellurium and their uses." frame />
       </div>
       <table>
         <thead><tr><th>Material</th><th>Key properties</th><th>Common use</th></tr></thead>
